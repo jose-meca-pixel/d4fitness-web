@@ -61,18 +61,47 @@ function chips(){const c=$('#chips');c.innerHTML='';const add=(t,fn)=>{const b=d
  FACETAS.forEach(f=>(S.sel[f.k]||new Set()).forEach(v=>add(lbl(f.k,v),()=>{S.sel[f.k].delete(v);render()})));
  if(c.children.length){const b=document.createElement('button');b.type='button';b.className='limpiar';b.textContent='Limpiar todo';b.onclick=limpiar;c.appendChild(b)}}
 function limpiar(){S.sel={};S.q='';$('#q').value='';if(S.cat)location.hash='#c=';else render()}
+const PASILLOS=['crown-packs','geles','barritas','isotonico','creatina','recuperacion','proteinas-y-aminoacidos','potenciadores-de-rendimiento','salud','accesorios','hidratacion-y-energia'];
+function pasilloDe(g){const cols=new Set(g.flatMap(p=>p.colecciones||[]));for(const id of PASILLOS)if(cols.has(id))return id;return 'otros'}
+function makeCard(g){const p0=g[0],todos=G[p0.producto];const d=document.createElement('article');d.className='card';d.dataset.producto=p0.producto;
+ d.innerHTML='<button type="button" class="abrir"><img loading="lazy" alt="" width="300" height="300"><span class="cat"></span><h3></h3></button><p class="pvp"></p><small class="est"></small><button type="button" class="ver">Ver opciones</button>';
+ const im=d.querySelector('img');im.src=p0.thumb||p0.img||'';im.alt=p0.alt||p0.nombre;if(!p0.thumb&&!p0.img)im.replaceWith(Object.assign(document.createElement('div'),{className:'sinfoto',textContent:'Imagen no disponible'}));
+ d.querySelector('.cat').textContent=NOM[pasilloDe(g)]||'';
+ d.querySelector('h3').textContent=nombreBase(todos);
+ d.querySelector('.est').textContent=g.length+(g.length===1?' opción':' opciones');
+ const cs=g.map(x=>x.pvp_cent).filter(c=>Number.isInteger(c)&&c>0);const e=d.querySelector('.pvp');
+ if(cs.length){const mn=Math.min(...cs);e.append((new Set(cs).size>1||cs.length<g.length?'Desde ':'')+eur(mn));const s=document.createElement('small');s.textContent=' IVA incluido';e.appendChild(s)}
+ else{e.textContent='Precio por definir';e.classList.add('pdef')}
+ const ab=()=>ficha(p0.producto,g[0].id);d.querySelector('.abrir').onclick=ab;d.querySelector('.ver').onclick=ab;return d}
+function verFase(id){S.sel.fase=new Set([id]);render()}
 function render(){const L=Object.values(G).map(g=>g.filter(p=>pasa(p))).filter(g=>g.length);const o=S.orden;
- L.sort((a,b)=>{if(o==='nombre')return a[0].nombre.localeCompare(b[0].nombre,'es');if(o==='nombre-d')return b[0].nombre.localeCompare(a[0].nombre,'es');return 0});
- $('#titulo').textContent=S.cat?NOM[S.cat]:'Todos los productos';$('#migas').innerHTML='<a href="#c=">Tienda</a>'+(S.cat?' › <span></span>':'');if(S.cat)$('#migas span').textContent=NOM[S.cat];
+ const tienda=!S.cat&&!S.q&&o==='destacados'&&!FACETAS.some(f=>S.sel[f.k]&&S.sel[f.k].size);
+ document.body.classList.toggle('vista-tienda',tienda);
+ document.querySelectorAll('.portada').forEach(n=>n.remove());
+ if(!tienda)L.sort((a,b)=>{if(o==='nombre')return a[0].nombre.localeCompare(b[0].nombre,'es');if(o==='nombre-d')return b[0].nombre.localeCompare(a[0].nombre,'es');return nombreBase(a).localeCompare(nombreBase(b),'es')});
+ const faseSolo=S.sel.fase&&S.sel.fase.size===1&&!S.q&&!S.cat&&!FACETAS.some(f=>f.k!=='fase'&&S.sel[f.k]&&S.sel[f.k].size)?[...S.sel.fase][0]:'';
+ $('#titulo').textContent=S.cat?(NOM[S.cat]||'Tienda'):(tienda?'La tienda':(faseSolo?(NOM[faseSolo]||'Resultados'):'Resultados'));
+ $('#migas').innerHTML='<a href="#c=">Tienda</a>'+(S.cat?' › <span></span>':'');if(S.cat)$('#migas span').textContent=NOM[S.cat];
  $('#cuenta').textContent=L.length+(L.length===1?' producto':' productos')+' · '+L.reduce((s,g)=>s+g.length,0)+' variantes';
- const grid=$('#grid');grid.innerHTML='';if(!L.length)grid.innerHTML='<p class="vacio">No hay productos con estos filtros. <button type="button" onclick="limpiar()">Limpiar filtros</button></p>';
- L.forEach(g=>{const p0=g[0],todos=G[p0.producto];const d=document.createElement('article');d.className='card';d.dataset.producto=p0.producto;
-  d.innerHTML='<button type="button" class="abrir"><img loading="lazy" alt="" width="300" height="300"><span class="cat"></span><h3></h3></button><p class="pvp"></p><small class="est"></small><small class="etq">Consulta siempre la etiqueta del producto</small><button type="button" class="ver">Ver ficha</button>';
-  const im=d.querySelector('img');im.src=p0.thumb||p0.img||'';im.alt=p0.alt||p0.nombre;if(!p0.thumb&&!p0.img)im.replaceWith(Object.assign(document.createElement('div'),{className:'sinfoto',textContent:'Imagen no disponible'}));
-  d.querySelector('.cat').textContent=(p0.colecciones||[]).filter(c=>grupoDe(c)&&grupoDe(c).id==='categoria').map(c=>NOM[c]).join(' · ');
-  d.querySelector('h3').textContent=nombreBase(todos);
-  d.querySelector('.est').textContent=g.length+(g.length===1?' variante':' variantes')+'';{const cs=g.map(x=>x.pvp_cent).filter(c=>Number.isInteger(c)&&c>0);const e=d.querySelector('.pvp');if(cs.length){const mn=Math.min(...cs);e.innerHTML='';e.append((new Set(cs).size>1||cs.length<g.length?'Desde ':'')+eur(mn));const s=document.createElement('small');s.textContent=' IVA incluido';e.appendChild(s)}else{e.textContent='Precio por definir';e.classList.add('pdef')}}
-  const ab=()=>ficha(p0.producto,g[0].id);d.querySelector('.abrir').onclick=ab;d.querySelector('.ver').onclick=ab;grid.appendChild(d)});
+ const grid=$('#grid');grid.innerHTML='';grid.classList.toggle('por-pasillos',tienda);
+ if(!L.length){grid.innerHTML='<p class="vacio">No hay productos con estos filtros. <button type="button" onclick="limpiar()">Limpiar filtros</button></p>';pintaFacetas();chips();return}
+ if(!tienda){L.forEach(g=>grid.appendChild(makeCard(g)));pintaFacetas();chips();return}
+ const buckets=new Map();L.forEach(g=>{const id=pasilloDe(g);if(!buckets.has(id))buckets.set(id,[]);buckets.get(id).push(g)});
+ const top=document.createElement('div');top.className='portada';
+ const promesa=document.createElement('p');promesa.className='promesa';promesa.textContent='IVA incluido · Envío gratis · Pedido por WhatsApp · Pago al confirmar';
+ const nav=document.createElement('nav');nav.className='baldosas';nav.setAttribute('aria-label','Pasillos');
+ PASILLOS.forEach(id=>{const items=buckets.get(id);if(!items||!items.length)return;const a=document.createElement('a');a.className='baldosa';a.href='#c='+id;
+  const strong=document.createElement('strong');strong.textContent=NOM[id]||id;const small=document.createElement('small');small.textContent=items.length+(items.length===1?' producto':' productos');a.append(strong,small);nav.appendChild(a)});
+ const mom=document.createElement('div');mom.className='momentos';const lab=document.createElement('p');lab.id='momentos-tit';lab.textContent='Por momento';mom.appendChild(lab);
+ ((TX.grupos.find(g=>g.id==='fase')||{}).items||[]).forEach(f=>{const b=document.createElement('button');b.type='button';b.textContent=f.nombre;b.setAttribute('aria-describedby','momentos-tit');b.onclick=()=>verFase(f.id);mom.appendChild(b)});
+ top.append(promesa,nav,mom);$('#migas').before(top);
+ PASILLOS.concat('otros').forEach(id=>{const items=buckets.get(id);if(!items||!items.length)return;items.sort((a,b)=>nombreBase(a).localeCompare(nombreBase(b),'es'));
+  const sec=document.createElement('section');sec.className='pasillo';sec.id='pasillo-'+id;
+  const head=document.createElement('div');head.className='pasillo-h';
+  const h=document.createElement('h3');h.textContent=NOM[id]||'Otros';
+  const a=document.createElement('a');a.href='#c='+id;a.textContent='Ver pasillo';
+  head.append(h,a);const box=document.createElement('div');box.className='pasillo-grid';
+  items.slice(0,4).forEach(g=>box.appendChild(makeCard(g)));sec.append(head,box);grid.appendChild(sec)});
  pintaFacetas();chips()}
 function nombreBase(g){if(g.length===1)return g[0].nombre;const w=g.map(p=>p.nombre.split(' '));let i=0;while(w.every(x=>x[i]&&x[i]===w[0][i]))i++;const b=w[0].slice(0,i).join(' ').replace(/[\s+\-–·]+$/,'');return b.length>=4?b:g[0].nombre}
 function ficha(prod,id){const g=G[prod];let p=byId[id]||g[0];const m=$('#ficha');m.hidden=false;document.body.classList.add('modal-abierto');

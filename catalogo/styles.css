@@ -132,4 +132,28 @@ body{background:#0E0E10!important}
 .btn-wa,#f-consulta,.wafloat{background:#26221F!important;color:#fff!important;border:1px solid #3D3834}
 .ok{color:var(--ink2)}
 
-.marcas-t{font-size:.8em;text-transform:uppercase;letter-spacing:.08em;color:#667;margin:10px 0 4px}.marcas{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.marcas::-webkit-scrollbar{display:none}.marcas button{flex:0 0 auto;min-height:40px;padding:8px 16px;border-radius:8px;border:2px solid #1f3864;background:#fff;color:#1f3864;font:inherit;font-weight:700;font-size:.9em;cursor:pointer}.marcas button.on{background:#E52528;border-color:#E52528;color:#fff}.marcas button:focus-visible{outline:3px solid #E52528;outline-offset:2px}
+.marcas-t{font-size:.8em;text-transform:uppercase;letter-spacing:.08em;color:#A8A29E;margin:10px 0 4px}.marcas{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.marcas::-webkit-scrollbar{display:none}.marcas button{flex:0 0 auto;min-height:40px;padding:8px 16px;border-radius:8px;border:1px solid #3D3834;background:#1A1A1C;color:#F4F1ED;font-family:"Barlow Condensed",Inter,sans-serif;font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer}.marcas button.on{background:#E52528;border-color:#E52528;color:#fff}.marcas button:focus-visible{outline:3px solid #E52528;outline-offset:2px}
+
+/* Tienda por pasillos */
+.hero{display:none}
+body.vista-tienda .rapida{display:none}
+#grid.por-pasillos{display:flex!important;flex-direction:column;gap:36px}
+.pasillo-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid #2C2C30}
+.pasillo-h h3{margin:0;font-size:34px;letter-spacing:.03em;text-transform:uppercase}
+.pasillo-h a{color:#F4F1ED;font-size:14px;font-weight:600;text-decoration:none}
+.pasillo-h a:hover{color:#fff}
+.pasillo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.aviso-etq{display:block}
+.portada{display:flex;flex-direction:column;gap:18px;margin:0 0 22px}
+.promesa{margin:0;padding:12px 16px;background:#1A1A1C;border:1px solid #2C2C30;border-radius:10px;color:#F4F1ED;font-size:14px}
+.baldosas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.baldosa{display:flex;flex-direction:column;justify-content:space-between;gap:8px;min-height:92px;padding:16px;background:#1A1A1C;border:1px solid #2C2C30;border-radius:12px;color:#F4F1ED;text-decoration:none}
+.baldosa:hover{border-color:#E52528;color:#fff}
+.baldosa strong{font-family:"Barlow Condensed",Inter,sans-serif;font-size:22px;font-weight:600;letter-spacing:.03em;line-height:1.05;text-transform:uppercase}
+.baldosa small{color:#A8A29E;font-size:13px}
+.momentos{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.momentos p{margin:0 8px 0 0;font-family:"Barlow Condensed",Inter,sans-serif;font-size:20px;letter-spacing:.04em;text-transform:uppercase}
+.momentos button{background:#1A1A1C;color:#F4F1ED;border:1px solid #3D3834;border-radius:999px;padding:8px 16px}
+.momentos button:hover{background:#E52528;border-color:#E52528}
+@media (max-width:1199px){.pasillo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.baldosas{grid-template-columns:repeat(3,minmax(0,1fr))}.pasillo-grid .card:nth-child(n+4){display:none}}
+@media (max-width:700px){.pasillo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pasillo-h h3{font-size:26px}.baldosas{grid-template-columns:repeat(2,minmax(0,1fr))}.baldosa{min-height:76px;padding:12px}.baldosa strong{font-size:18px}.pasillo-grid .card:nth-child(n+3){display:none}}
