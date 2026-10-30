@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=1cc6dacc-e7e2-40f4-95c3-0fc9f0f2b232
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soporte · D4 FITNESS</title>
+  <meta name="description" content="D4 Fitness: motor determinista de entreno + nutrición + recovery. Coach IA, invitaciones Premium y soporte oficial. Android (APK) · iOS en App Store." />
+  <meta name="theme-color" content="#E52528" />
+  <meta name="robots" content="index,follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="D4 Fitness — Tu plan de hoy, calculado" />
+  <meta property="og:description" content="Recovery, entreno y comida conectados. Motor científico + Coach IA. Sin improvisar." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://d4fitness.com/soporte.html" />
+  <meta property="og:image" content="https://d4fitness.com/assets/D4_FITNESS_transparente.png" />
+  <meta property="og:image:width" content="835" />
+  <meta property="og:image:height" content="835" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="D4 Fitness" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="D4 Fitness — Soporte y app oficial" />
+  <meta name="twitter:description" content="Android (APK) e iOS. Instagram @d4fitness.oficial. Soporte: d4fitness.support@gmail.com" />
+  <meta name="twitter:image" content="https://d4fitness.com/assets/D4_FITNESS_transparente.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MobileApplication",
+    "name": "D4 Fitness",
+    "description": "App de fitness con motor determinista (entreno, nutrición, recovery) y coach IA. Los números los calcula el motor; la IA solo conversa.",
+    "url": "https://d4fitness.com/",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Android, iOS",
+    "softwareVersion": "1.0.3",
+    "offers": [
+      { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "name": "Plan Gratuito" },
+      { "@type": "Offer", "price": "9.99", "priceCurrency": "EUR", "name": "Plan Premium", "billingIncrement": "P1M" }
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "D4 Fitness",
+      "email": "d4fitness.support@gmail.com",
+      "url": "https://d4fitness.com/",
+      "sameAs": [
+        "https://www.instagram.com/d4fitness.oficial/"
+      ]
+    },
+    "downloadUrl": "https://apps.apple.com/es/app/d4-fitness/id6818841609"
+  }
+  </script>
+
+  <link rel="icon" href="./assets/D4_FITNESS_transparente.png" />
+
+  <style>
+    :root {
+      --bg:       #08080A;
+      --card:     #1A1A20;
+      --surface2: #222228;
+      --border:   #44444C;
+      --line:     #2A2A30;
+      --text:     #F2F2F2;
+      --muted:    #9a9aa3;
+      --faint:    #6b6b75;
+      --accent:   #E52528;
+      --ai:       #b79cff;
+      --gradient: linear-gradient(135deg, #E52528 0%, #888888 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 5%;
+      background: rgba(8,8,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      gap: 12px; flex-wrap: wrap;
+    }
+    .nav-links { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #fff;
+      padding: 8px 18px; border-radius: 100px;
+      font-weight: 700; font-size: 13px;
+      text-decoration: none; transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    .hero {
+      min-height: 88vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 5% 72px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(229,37,40,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(229,37,40,0.1); border: 1px solid rgba(229,37,40,0.4);
+      color: var(--accent); padding: 6px 14px; border-radius: 100px;
+      font-size: 12px; font-weight: 600; margin-bottom: 22px;
+    }
+    .hero-badge::before { content: "●"; font-size: 8px; }
+    h1 {
+      font-size: clamp(32px, 6.5vw, 64px);
+      font-weight: 800; letter-spacing: -1.5px; line-height: 1.08;
+      margin-bottom: 20px; max-width: 820px;
+    }
+    h1 em { font-style: normal; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 19px); color: var(--muted);
+      max-width: 560px; margin: 0 auto 36px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #fff;
+      padding: 14px 26px; border-radius: 100px;
+      font-weight: 700; font-size: 15px; text-decoration: none;
+      transition: transform 0.15s, opacity 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.92; }
+    .btn-secondary {
+      display: flex; align-items: center; gap: 10px;
+      border: 1px solid var(--border); color: var(--text);
+      background: var(--card);
+      padding: 14px 26px; border-radius: 100px;
+      font-weight: 600; font-size: 15px; text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .btn-ai {
+      border-color: rgba(183,156,255,0.45);
+      color: var(--ai);
+    }
+    .btn-ai:hover { border-color: var(--ai); }
+    .hero-meta {
+      margin-top: 40px; color: var(--faint); font-size: 13px;
+      display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: center;
+    }
+    .hero-meta strong { color: var(--muted); font-weight: 600; }
+
+    .stats {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      padding: 32px 5%; gap: 8px;
+    }
+    .stat { flex: 1; min-width: 140px; text-align: center; padding: 12px 16px; }
+    .stat-number { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: var(--accent); }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    section { padding: 88px 5%; }
+    .section-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -1px; line-height: 1.12; margin-bottom: 14px; }
+    .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin-bottom: 48px; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(229,37,40,0.45); transform: translateY(-3px); }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(229,37,40,0.1); border: 1px solid rgba(229,37,40,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 14px;
+    }
+    .feature-icon.ai {
+      background: rgba(183,156,255,0.12); border-color: rgba(183,156,255,0.35);
+    }
+    .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+    .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 900px; }
+    .info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 24px;
+    }
+    .info-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+    .info-card p, .info-card li { font-size: 13px; color: var(--muted); line-height: 1.55; }
+    .info-card ul { padding-left: 18px; margin-top: 8px; }
+    .info-card li { margin-bottom: 6px; }
+    .pill {
+      display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.6px;
+      padding: 3px 8px; border-radius: 6px; border: 1px solid var(--line);
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .pill.live { color: #22c55e; border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.1); }
+    .pill.soon { color: var(--faint); }
+    .pill.ai { color: var(--ai); border-color: rgba(183,156,255,0.4); background: rgba(183,156,255,0.1); }
+
+    .steps { display: flex; flex-direction: column; gap: 0; max-width: 640px; }
+    .step { display: flex; gap: 20px; padding-bottom: 32px; }
+    .step:last-child { padding-bottom: 0; }
+    .step-line { display: flex; flex-direction: column; align-items: center; }
+    .step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--gradient); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 14px; flex-shrink: 0;
+    }
+    .step-connector { width: 2px; flex: 1; margin-top: 8px; background: linear-gradient(to bottom, rgba(229,37,40,0.45), transparent); }
+    .step-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: var(--muted); }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; max-width: 720px; }
+    .plan { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 28px; }
+    .plan.featured {
+      border-color: var(--accent);
+      background: linear-gradient(160deg, rgba(229,37,40,0.1) 0%, var(--card) 100%);
+      position: relative;
+    }
+    .plan-badge {
+      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+      background: var(--gradient); color: #fff;
+      padding: 4px 14px; border-radius: 100px; font-size: 11px; font-weight: 700;
+    }
+    .plan-name { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .plan-price { font-size: 40px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 4px; }
+    .plan-price span { font-size: 16px; font-weight: 400; color: var(--muted); }
+    .plan-desc { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .plan-features li { font-size: 13px; display: flex; gap: 8px; align-items: flex-start; color: var(--muted); }
+    .plan-features li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .plan-btn {
+      display: block; text-align: center; padding: 12px; border-radius: 100px;
+      font-weight: 700; font-size: 14px; text-decoration: none; transition: opacity 0.2s;
+    }
+    .plan-btn.primary { background: var(--accent); color: #fff; }
+    .plan-btn.outline { border: 1px solid var(--border); color: var(--text); }
+    .plan-btn:hover { opacity: 0.88; }
+
+    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; max-width: 900px; }
+    .social-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 20px; text-decoration: none; color: inherit;
+      transition: border-color 0.2s, transform 0.15s;
+      display: block;
+    }
+    .social-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .social-card.disabled { opacity: 0.65; pointer-events: none; }
+    .social-name { font-size: 15px; font-weight: 800; margin: 8px 0 4px; }
+    .social-handle { font-size: 13px; color: var(--ai); font-weight: 600; }
+    .social-desc { font-size: 12px; color: var(--muted); margin-top: 8px; line-height: 1.45; }
+
+    .support-box {
+      max-width: 720px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 28px;
+    }
+    .support-box a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .support-box a:hover { text-decoration: underline; }
+    .support-row {
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 14px;
+    }
+    .support-row:last-child { border-bottom: none; }
+    .support-row span { color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 40px 5%; display: flex;
+      justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    footer .logo {
+      font-size: 17px; font-weight: 800;
+      background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    footer nav { display: flex; gap: 18px; flex-wrap: wrap; background: transparent; border: none; position: static; padding: 0; }
+    footer a { color: var(--muted); text-decoration: none; font-size: 13px; }
+    footer a:hover { color: var(--text); }
+    .footer-copy {
+      width: 100%; text-align: center; color: var(--faint); font-size: 12px;
+      padding-top: 20px; border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 600px) {
+      .stats { flex-direction: column; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/nav.css"></head>
+<body>
+<nav class="d4nav" aria-label="D4 FITNESS"><div class="in"><a class="lg" href="/"><img src="/assets/D4_FITNESS_transparente.png" alt="D4 FITNESS" width="120" height="40"></a><ul><li><a href="/soporte.html" aria-current="page">Soporte</a></li><li><a href="/catalogo/">Catálogo</a></li><li><a href="/descargas.html">Descargas</a></li></ul></div></nav>
+
+<nav>
+  <a href="#" style="display:flex;align-items:center;">
+    <img src="./assets/D4_FITNESS_transparente.png" alt="D4 Fitness" height="34"
+         style="height:34px;width:auto;mix-blend-mode:screen;" />
+  </a>
+  <div class="nav-links">
+    <a href="#app">App</a>
+    <a href="#features">Funciones</a>
+    <a href="#invite">Invitaciones</a>
+    <a href="#community">Redes</a>
+    <a href="#pricing">Precios</a>
+    <a href="#support">Soporte</a>
+  </div>
+  <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" class="nav-cta" target="_blank" rel="noopener">App Store</a>
+</nav>
+
+<section class="hero" id="top">
+  <img src="./assets/D4_FITNESS_transparente.png" alt="D4 Fitness"
+       style="height:110px;width:auto;margin-bottom:22px;mix-blend-mode:screen;filter:drop-shadow(0 0 36px rgba(229,37,40,0.45));" />
+  <div class="hero-badge">Android (APK) · iOS en App Store · runtime 1.0.3</div>
+  <h1>El plan correcto para <em>hoy</em> — recovery, entreno y comida.</h1>
+  <p class="hero-sub">
+    D4 no es una biblioteca de vídeos genéricos. Un motor determinista calcula tu día;
+    el Coach IA solo conversa. Sitio oficial de soporte, descargas y comunidad.
+  </p>
+  <div class="hero-actions">
+    <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" class="btn-primary" target="_blank" rel="noopener">Descargar en App Store</a>
+    <a href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk" class="btn-secondary" rel="noopener">Descargar APK (Android)</a>
+    <a href="https://www.instagram.com/d4fitness.oficial/" class="btn-secondary" target="_blank" rel="noopener">
+      Instagram @d4fitness.oficial
+    </a>
+    <a href="#support" class="btn-secondary btn-ai">Soporte y ayuda</a>
+  </div>
+  <div class="hero-meta">
+    <span><strong>Paquete:</strong> com.d4fitness.app</span>
+    <span><strong>Soporte:</strong> d4fitness.support@gmail.com</span>
+  </div>
+</section>
+
+<div class="stats" id="app">
+  <div class="stat"><div class="stat-number">Android</div><div class="stat-label">APK directa (GitHub)</div></div>
+  <div class="stat"><div class="stat-number">iOS</div><div class="stat-label">Disponible en App Store</div></div>
+  <div class="stat"><div class="stat-number">1.0.3</div><div class="stat-label">Versión runtime (OTA 29/10/2026)</div></div>
+  <div class="stat"><div class="stat-number">OTA</div><div class="stat-label">Actualizaciones automáticas</div></div>
+</div>
+
+<section id="features">
+  <p class="section-tag">La app</p>
+  <h2>Qué incluye D4 Fitness hoy</h2>
+  <p class="section-sub">Diseño Carbon v4 (NÚCLEO + IMPULSO). El motor calcula; la IA no inventa cifras.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">💓</div>
+      <div class="feature-title">Hoy · Recovery hero</div>
+      <div class="feature-desc">Puntuación de recuperación, sueño y ánimo, hidratación y la cadena del día (entreno + comida) ya pensada por el motor.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏋️</div>
+      <div class="feature-title">Entreno adaptativo</div>
+      <div class="feature-desc">Plan semanal, sesión en vivo, variantes por ejercicio, modo Express y progresión. El motor decide la carga del día.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🍽️</div>
+      <div class="feature-title">Dieta A/B/C/D</div>
+      <div class="feature-desc">4 rutas por comida con macros equivalentes, comida manual, «¿Qué tienes?» exprés y «No tengo tiempo» (alternativas Premium).</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon ai">✦</div>
+      <div class="feature-title">Coach IA (Premium)</div>
+      <div class="feature-desc">Chat con Gemini. Contexto de tu plan, recovery y objetivo. Explica; no inventa calorías ni series.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon ai">📷</div>
+      <div class="feature-title">Análisis de fotos</div>
+      <div class="feature-desc">Fotos de progreso con análisis visual (Premium) para orientar puntos fuertes/débiles — el plan lo sigue calculando el motor.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">Check-in semanal</div>
+      <div class="feature-desc">Peso, adherencia y recálculo de calorías. Calendario de check-ins y seguimiento de progreso en Yo.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛒</div>
+      <div class="feature-title">Compra inteligente</div>
+      <div class="feature-desc">Lista de la compra a partir de tu plan del día. Suplementación con nota profesional y disclaimer.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Privacidad RGPD</div>
+      <div class="feature-desc">Datos de salud cifrados AES-256. Firebase Auth + Supabase. Soporte y admin solo en cuentas oficiales.</div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <p class="section-tag">Cómo empezar</p>
+  <h2>Del registro al plan en minutos</h2>
+  <p class="section-sub">Sin formularios eternos. Solo lo que el motor necesita.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-line"><div class="step-num">1</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Descarga la app</div>
+        <div class="step-desc">iOS en App Store; Android mediante APK (enlace GitHub). Si tienes un código de amigo (formato <strong>D4NOMBRE</strong>), introdúcelo al registrarte.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-num">2</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Cribado + valoración</div>
+        <div class="step-desc">Seguridad, objetivo, equipo y frecuencia. El motor calcula TDEE, macros y split de entreno.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-num">3</div><div class="step-connector"></div></div>
+      <div class="step-content">
+        <div class="step-title">Tu día en Hoy / Dieta / Entreno</div>
+        <div class="step-desc">Recovery por la mañana, comidas del día y sesión lista. El Coach IA (Premium) te acompaña sin inventar números.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-num">4</div></div>
+      <div class="step-content">
+        <div class="step-title">Invita y adapta cada semana</div>
+        <div class="step-desc">Check-in semanal recalibra el plan. Invita a amigos y suma meses Premium gratis.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="invite">
+  <p class="section-tag">Invitaciones</p>
+  <h2>Comparte D4 y gana Premium</h2>
+  <p class="section-sub">En la app: Yo → Comunidad → Invitar un amigo.</p>
+  <div class="two-col">
+    <div class="info-card">
+      <span class="pill live">ACTIVO</span>
+      <h3>Código personal: D4 + tu nombre</h3>
+      <p>Ejemplo: si tu usuario es Jose → <strong style="color:var(--ai)">D4JOSE</strong> (solo letras y números, mayúsculas).</p>
+      <ul>
+        <li>Quien <strong>entrega</strong> el código: +1 mes Premium por cada canje</li>
+        <li>Quien <strong>recibe</strong> el código: +1 mes Premium al canjear</li>
+        <li>No puedes canjear tu propio código</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <span class="pill ai">CÓMO CANJEAR</span>
+      <h3>Dónde introducir el código</h3>
+      <ul>
+        <li>Al <strong>registrarte</strong> (campo opcional «Código de invitación»)</li>
+        <li>En app: <strong>Yo → Comunidad → Canjear</strong></li>
+        <li>En el paywall: «¿Tienes un código de acceso?»</li>
+      </ul>
+      <p style="margin-top:14px">Códigos de creadores/promos también se canjean igual. Soporte de creadores: DM Instagram o email oficial.</p>
+    </div>
+  </div>
+</section>
+
+<section id="community">
+  <p class="section-tag">Redes sociales</p>
+  <h2>Comunidad oficial D4</h2>
+  <p class="section-sub">Solo canales verificados.</p>
+  <div class="social-grid">
+    <a class="social-card" href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">
+      <span class="pill live">OFICIAL</span>
+      <div class="social-name">Instagram</div>
+      <div class="social-handle">@d4fitness.oficial</div>
+      <div class="social-desc">Tips, capturas reales de la app, retos y novedades de producto. Canal principal de marca.</div>
+    </a>
+    <a class="social-card" href="mailto:d4fitness.support@gmail.com">
+      <span class="pill live">SOPORTE</span>
+      <div class="social-name">Email</div>
+      <div class="social-handle">d4fitness.support@gmail.com</div>
+      <div class="social-desc">Incidencias, privacidad RGPD, borrado de cuenta y programa de creadores.</div>
+    </a>
+    <a class="social-card" href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener">
+      <span class="pill live">iOS</span>
+      <div class="social-name">App Store</div>
+      <div class="social-handle">D4 FITNESS: Gym y Dieta</div>
+      <div class="social-desc">Descarga para iPhone.</div>
+    </a>
+    <a class="social-card" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk" rel="noopener">
+      <span class="pill live">ANDROID</span>
+      <div class="social-name">Android</div>
+      <div class="social-handle">com.d4fitness.app</div>
+      <div class="social-desc">Descargar APK · v1.0.3 (build 248) · ~122 MB</div>
+    </a>
+  </div>
+</section>
+
+<section id="pricing">
+  <p class="section-tag">Precios</p>
+  <h2>Empieza gratis.<br>Sube cuando quieras.</h2>
+  <p class="section-sub">Sin compromiso. Cancela en la tienda. Códigos de invitación suman meses Premium.</p>
+  <div class="pricing-grid">
+    <div class="plan">
+      <div class="plan-name">Gratis</div>
+      <div class="plan-price">0€ <span>/mes</span></div>
+      <div class="plan-desc">Lo esencial para arrancar</div>
+      <ul class="plan-features">
+        <li>Valoración y plan del motor</li>
+        <li>Pantalla Hoy + recovery básico</li>
+        <li>Dieta del día (rutas A/B/C/D)</li>
+        <li>Entreno diario / sesión</li>
+        <li>Check-in semanal</li>
+        <li>Invitaciones</li>
+      </ul>
+      <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" class="plan-btn outline" target="_blank" rel="noopener">Descargar gratis</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-badge">Más popular</div>
+      <div class="plan-name">Premium</div>
+      
+      <div class="plan-desc">Para quienes van en serio</div>
+      <ul class="plan-features">
+        <li>Todo lo del plan gratuito</li>
+        <li>Coach IA conversacional</li>
+        <li>«No tengo tiempo» · equivalencias</li>
+        <li>Análisis de fotos de progreso</li>
+        <li>Lista de la compra inteligente</li>
+        <li>Tracker GPS de cardio</li>
+        <li>Recovery avanzado</li>
+      </ul>
+      <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" class="plan-btn primary" target="_blank" rel="noopener">Empezar</a>
+    </div>
+  </div>
+</section>
+
+<section id="support">
+  <p class="section-tag">Soporte</p>
+  <h2>Centro de ayuda oficial</h2>
+  <p class="section-sub">Esta es la web de soporte enlazada desde Yo → Plataforma → Web / soporte.</p>
+  <div class="support-box">
+    <div class="support-row">
+      <span>Email de soporte</span>
+      <a href="mailto:d4fitness.support@gmail.com">d4fitness.support@gmail.com</a>
+    </div>
+    <div class="support-row">
+      <span>Instagram oficial</span>
+      <a href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">@d4fitness.oficial</a>
+    </div>
+    <div class="support-row">
+      <span>Privacidad</span>
+      <a href='/privacy.html'>Política de privacidad</a>
+    </div>
+    <div class="support-row">
+      <span>App Android</span>
+      <a href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk" rel="noopener">Descargar APK (Android)</a>
+    </div>
+    <div class="support-row">
+      <span>iOS</span>
+      <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener">App Store · D4 FITNESS</a>
+    </div>
+    <div class="support-row">
+      <span>Borrado de cuenta / RGPD</span>
+      <a href="mailto:d4fitness.support@gmail.com?subject=RGPD%20-%20D4%20Fitness">Solicitar por email</a>
+    </div>
+    <div class="support-row">
+      <span>Última actualización web</span>
+      <strong style="color:var(--muted);font-size:13px;">29 de octubre de 2026 · versión runtime 1.0.3</strong>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">D4 Fitness</span>
+  <nav>
+    <a href='/privacy.html'>Privacidad</a>
+    <a href="mailto:d4fitness.support@gmail.com">Contacto</a>
+    <a href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener">App Store</a>
+  </nav>
+  <p class="footer-copy">
+    © 2026 D4 Fitness · d4fitnesssupport.netlify.app · No somos un servicio médico.
+    Instagram oficial: @d4fitness.oficial.
+  </p>
+</footer>
+
+</body>
+</html>

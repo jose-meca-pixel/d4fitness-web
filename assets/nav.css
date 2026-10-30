@@ -1,0 +1,8 @@
+.d4nav{position:relative;z-index:2000;background:#0A0A0C;border-bottom:2px solid #E52528;font:600 15px/1 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.d4nav .in{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 16px;flex-wrap:wrap}
+.d4nav .lg img{height:40px;width:auto;display:block}
+.d4nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.d4nav ul a{display:block;padding:10px 14px;border-radius:8px;color:#F2F2F2;text-decoration:none}
+.d4nav ul a:hover,.d4nav ul a:focus{background:#1c1c20}
+.d4nav ul a[aria-current=page]{background:#E52528;color:#fff}
+@media(max-width:480px){.d4nav .in{justify-content:center}.d4nav ul a{padding:9px 10px;font-size:14px}.d4nav .lg img{height:34px}}
