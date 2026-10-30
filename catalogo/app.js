@@ -135,16 +135,25 @@ function pintaCesta(){const L=$('#lineas');L.innerHTML='';let n=0;Object.entries
  const i=r.querySelector('input');i.value=q;i.onchange=()=>{cesta[id]=parseInt(i.value)||0;guardar()};r.querySelector('.papelera').onclick=()=>{delete cesta[id];guardar()};L.appendChild(r)});
  $('#ncesta').textContent=n;const C=cuentaCesta();const T=$('#totales');T.innerHTML='';if(!n){T.textContent='La cesta está vacía.';return}
  const t=document.createElement('p');t.className='total';t.textContent='TOTAL (IVA incluido): '+eur(C.total)+(C.pend?' + líneas pendientes de confirmar por WhatsApp':'');
- const e=document.createElement('p');e.className='nota';e.textContent='Envío gratis. El pedido se confirma por WhatsApp.';T.append(t,e)}
-function resumen(){const C=cuentaCesta();return 'Pedido D4FITNESSHOP (catálogo)\n'+C.lineas.map(l=>{const p=l.p;return `- ${l.q} x ${p.nombre} ${p.formato||''} ${p.sabor||''} [Ref. ${p.sku}] · ${l.pu===null?'Precio por definir':eur(l.pu)+'/ud = '+eur(l.sub)}`}).join('\n')+
- `\nTOTAL (IVA incluido): ${eur(C.total)}${C.pend?' + líneas pendientes de confirmar por WhatsApp':''}\n${txtEnvio(C)}`+
+ const e=document.createElement('p');e.className='nota';e.textContent='Envío gratis. El pedido se confirma por WhatsApp.';
+ const D=dtoApp(C);if(D){t.textContent='Total: '+eur(C.total);const d=document.createElement('p');d.className='dto';d.textContent='Descuento usuario D4 ('+D.pctTxt+' %): -'+eur(D.cent);
+  const f=document.createElement('p');f.className='total';f.style.fontWeight='700';const b=document.createElement('strong');b.textContent='Total con descuento (IVA incluido): '+eur(C.total-D.cent);f.appendChild(b);
+  T.append(t,d,f,e)}else T.append(t,e)}
+/* Descuento app (15 %): solo si el servidor confirmó el token (panel_hook.js -> window.__d4appOK/__d4appPct). El importe definitivo lo calcula el servidor en crear_pedido. */
+function dtoApp(C){const pct=Number(window.__d4appPct);if(!window.__d4appOK||!(pct>0)||!C.total)return null;return{pct,pctTxt:pct.toLocaleString('es-ES'),cent:Math.round(C.total*pct/100)}}
+/* srv: {descuento,total} en euros devueltos por el servidor (crear_pedido); null = sin descuento; undefined = usar la verificación del token */
+function resumen(srv){const C=cuentaCesta();let D=null;if(srv&&srv.pct!==undefined)D=srv;else if(srv===undefined){const x=dtoApp(C);if(x)D={pct:x.pct,descuento:x.cent/100,total:(C.total-x.cent)/100}}
+ const e2=n=>eur(Math.round(Number(n)*100));const P2=C.pend?' + líneas pendientes de confirmar por WhatsApp':'';
+ const tot=D?`\nTotal: ${eur(C.total)}\nDescuento usuario D4 (${Number(D.pct).toLocaleString('es-ES')} %): -${e2(D.descuento)}\nTotal con descuento (IVA incluido): ${e2(D.total)}${P2}`:`\nTOTAL (IVA incluido): ${eur(C.total)}${P2}`;
+ return 'Pedido D4FITNESSHOP (catálogo)\n'+C.lineas.map(l=>{const p=l.p;return `- ${l.q} x ${p.nombre} ${p.formato||''} ${p.sabor||''} [Ref. ${p.sku}] · ${l.pu===null?'Precio por definir':eur(l.pu)+'/ud = '+eur(l.sub)}`}).join('\n')+
+ `${tot}\n${txtEnvio(C)}`+
  [['Nombre',$('#nombre').value],['Teléfono',$('#tel').value],['Dirección',$('#dir').value]].filter(x=>x[1]&&x[1].trim()).map(x=>'\n'+x[0]+': '+x[1].trim()).join('')+`\nPago por Bizum o transferencia (te paso los datos por WhatsApp).\n¿Me confirmas el pedido?`+origenTxt()}
 $('#fpedido').addEventListener('submit',e=>{e.preventDefault();const via=e.submitter&&e.submitter.dataset.via;const err=[];
  if(!Object.keys(cesta).length)err.push('La cesta está vacía.');
  if(!$('#tel').checkValidity())err.push('Teléfono no válido.');if(!$('#acepto').checked)err.push('Debes aceptar la política de privacidad.');
  $('#err').textContent=err.join(' ');if(err.length)return;const txt=resumen();window.__ultimoPedido=txt;
  if(WA.includes('A RELLENAR')){$('#err').textContent='Pedido no disponible todavía: falta configurar el teléfono de WhatsApp de pedidos (config.js). Tu cesta se conserva.';return}
- if(CFG.guardarPedidosEnPanel&&window.D4Panel){D4Panel.enviar(cuentaCesta(),txt,WAURL);visita('pedido_wa');return}
+ if(CFG.guardarPedidosEnPanel&&window.D4Panel){D4Panel.enviar(cuentaCesta(),txt,WAURL,resumen);visita('pedido_wa');return}
  const url=WAURL(txt);window.__ultimoEnlace=url;visita('pedido_wa');if(!window.__TEST)window.open(url,'_blank','noopener')});
 $('#vercesta').onclick=()=>{$('#cesta').hidden=false;$('#cesta h2').setAttribute('tabindex','-1');$('#cesta h2').focus()};$('#cerrar').onclick=()=>{$('#cesta').hidden=true};$('#vaciar').onclick=()=>{cesta={};guardar()};
 $('#f-cerrar').onclick=cierraFicha;$('#ficha').addEventListener('click',e=>{if(e.target.id==='ficha')cierraFicha()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){cierraFicha();$('#cesta').hidden=true;document.body.classList.remove('filtros-abiertos')}});
