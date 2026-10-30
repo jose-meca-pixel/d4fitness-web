@@ -64,15 +64,13 @@ function limpiar(){S.sel={};S.q='';$('#q').value='';if(S.cat)location.hash='#c='
 const PASILLOS=['crown-packs','geles','barritas','isotonico','creatina','recuperacion','proteinas-y-aminoacidos','potenciadores-de-rendimiento','salud','accesorios','hidratacion-y-energia'];
 function pasilloDe(g){const cols=new Set(g.flatMap(p=>p.colecciones||[]));for(const id of PASILLOS)if(cols.has(id))return id;return 'otros'}
 function makeCard(g){const p0=g[0],todos=G[p0.producto];const d=document.createElement('article');d.className='card';d.dataset.producto=p0.producto;
- d.innerHTML='<button type="button" class="abrir"><img loading="lazy" alt="" width="300" height="300"><span class="cat"></span><h3></h3></button><p class="pvp"></p><small class="est"></small><button type="button" class="ver">Ver opciones</button>';
+ d.innerHTML='<img loading="lazy" alt="" width="300" height="300"><h3></h3><p class="pvp"></p><button type="button" class="ver">Ver opciones</button>';
  const im=d.querySelector('img');im.src=p0.thumb||p0.img||'';im.alt=p0.alt||p0.nombre;if(!p0.thumb&&!p0.img)im.replaceWith(Object.assign(document.createElement('div'),{className:'sinfoto',textContent:'Imagen no disponible'}));
- d.querySelector('.cat').textContent=NOM[pasilloDe(g)]||'';
  d.querySelector('h3').textContent=nombreBase(todos);
- d.querySelector('.est').textContent=g.length+(g.length===1?' opción':' opciones');
  const cs=g.map(x=>x.pvp_cent).filter(c=>Number.isInteger(c)&&c>0);const e=d.querySelector('.pvp');
  if(cs.length){const mn=Math.min(...cs);e.append((new Set(cs).size>1||cs.length<g.length?'Desde ':'')+eur(mn));const s=document.createElement('small');s.textContent=' IVA incluido';e.appendChild(s)}
  else{e.textContent='Precio por definir';e.classList.add('pdef')}
- const ab=()=>ficha(p0.producto,g[0].id);d.querySelector('.abrir').onclick=ab;d.querySelector('.ver').onclick=ab;return d}
+ d.querySelector('.ver').onclick=()=>ficha(p0.producto,g[0].id);return d}
 function verFase(id){S.sel.fase=new Set([id]);render()}
 function render(){const L=Object.values(G).map(g=>g.filter(p=>pasa(p))).filter(g=>g.length);const o=S.orden;
  const tienda=!S.cat&&!S.q&&o==='destacados'&&!FACETAS.some(f=>S.sel[f.k]&&S.sel[f.k].size);
@@ -114,12 +112,12 @@ function ficha(prod,id){const g=G[prod];let p=byId[id]||g[0];const m=$('#ficha')
   const ss=$('#f-sabor'),sf=$('#f-formato');ss.innerHTML='';sf.innerHTML='';sab.forEach(v=>ss.add(new Option(v||'Único',v)));fmt.forEach(v=>{const o=new Option(v||'Único',v);o.disabled=!g.some(x=>(x.formato||'')===v&&(x.sabor||'')===(p.sabor||''));sf.add(o)});
   ss.value=p.sabor||'';sf.value=p.formato||'';$('#f-lsabor').hidden=sab.length<2;$('#f-lformato').hidden=fmt.length<2;
   $('#f-consulta').href=WA.includes('A RELLENAR')?'#':WAURL('Hola, quiero información sobre '+p.nombre+' '+(p.formato||'')+' [Ref. '+p.sku+']'+origenTxt());
-  {const e=$('#f-pvp');e.innerHTML='';if(Number.isInteger(p.pvp_cent)&&p.pvp_cent>0){e.append(eur(p.pvp_cent));const s=document.createElement('small');s.textContent=' IVA incluido';e.appendChild(s);e.classList.remove('pdef')}else{e.textContent='Precio por definir (te lo confirmamos por WhatsApp)';e.classList.add('pdef')}}
+  {const e=$('#f-pvp');e.innerHTML='';const ok=Number.isInteger(p.pvp_cent)&&p.pvp_cent>0;if(ok){e.append(eur(p.pvp_cent));const s=document.createElement('small');s.textContent=' IVA incluido';e.appendChild(s);e.classList.remove('pdef')}else{e.textContent='Precio por definir';e.classList.add('pdef')}$('#f-add').hidden=!ok;$('#f-cant').hidden=!ok}
   infoAli(p);
   $('#f-desc').textContent=p.descripcion||'Descripción pendiente.'};
  $('#f-sabor').onchange=e=>{p=g.find(x=>(x.sabor||'')===e.target.value&&(x.formato||'')===(p.formato||''))||g.find(x=>(x.sabor||'')===e.target.value);pinta()};
  $('#f-formato').onchange=e=>{p=g.find(x=>(x.formato||'')===e.target.value&&(x.sabor||'')===(p.sabor||''))||g.find(x=>(x.formato||'')===e.target.value);pinta()};
- $('#f-add').onclick=()=>{const n=Math.max(1,Math.min(99,parseInt($('#f-cant').value)||1));cesta[p.id]=(cesta[p.id]||0)+n;guardar();$('#f-ok').textContent='Añadido a la cesta: '+n+' × '+p.nombre};
+ $('#f-add').onclick=()=>{if(!(Number.isInteger(p.pvp_cent)&&p.pvp_cent>0))return;const n=Math.max(1,Math.min(99,parseInt($('#f-cant').value)||1));cesta[p.id]=(cesta[p.id]||0)+n;guardar();$('#f-ok').textContent='Añadido a la cesta: '+n+' × '+p.nombre};
  $('#f-ok').textContent='';$('#f-cant').value=1;pinta();$('#f-cerrar').focus()}
 function infoAli(p){const b=$('#f-ali');b.innerHTML='';const i=p.info;const add=(t,v)=>{const d=document.createElement('p');const s=document.createElement('b');s.textContent=t+': ';d.append(s,v);b.appendChild(d)};
  if(!i||i.estado==='NO_APLICA'){if(i)add('Información alimentaria','no aplica (producto no alimentario)');return}

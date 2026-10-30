@@ -28,7 +28,8 @@ nav.menu{background:#1f3864}#menu{list-style:none;margin:0 auto;padding:0 8px;di
 #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
 .card{background:#fff;border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px}.card .abrir{background:none;color:inherit;padding:0;text-align:left;display:flex;flex-direction:column;gap:6px}
 .card img,.sinfoto{width:100%;aspect-ratio:1;object-fit:contain;background:#fafafa;border-radius:6px}.sinfoto{display:flex;align-items:center;justify-content:center;color:#888;font-size:.85em}
-.card h3{font-size:.98em;margin:0}.cat{font-size:.72em;color:#666;text-transform:uppercase}.xq{font-size:1.2em;font-weight:700}.xd{color:#a15c00;font-size:1em}.est{color:#666;font-size:.78em}.card .ver{margin-top:auto}
+.card h3{font-size:.98em;margin:0}.cat{font-size:.72em;color:#666;text-transform:uppercase}.xq{font-size:1.2em;font-weight:700}.xd{color:#a15c00;font-size:1em}.est{color:#666;font-size:.78em}.card .ver{margin-top:auto;width:100%}
+.card h3{min-height:2.6em}
 .nota{font-size:.85em;color:#666}.vacio{grid-column:1/-1;background:#fff;padding:20px;border-radius:8px}
 #ficha{position:fixed;inset:0;background:#0008;z-index:40;display:flex;align-items:center;justify-content:center;padding:12px}#ficha[hidden]{display:none}
 .fbox{background:#fff;border-radius:12px;max-width:960px;width:100%;max-height:94vh;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px;position:relative}
