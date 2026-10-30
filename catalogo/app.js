@@ -152,7 +152,7 @@ function resumen(o){o=o||{};const C=cuentaCesta();let D=null;const x=dtoApp(C);
  const v=s=>{const e=$(s);return e&&e.value?e.value.trim():''};
  return 'Pedido D4FITNESSHOP (catálogo)\n'+C.lineas.map(l=>{const p=l.p;return `- ${l.q} x ${p.nombre} ${p.formato||''} ${p.sabor||''} [Ref. ${p.sku}] · ${l.pu===null?'Precio por definir':eur(l.pu)+'/ud = '+eur(l.sub)}`}).join('\n')+
  `${tot}\n${txtEnvio(C)}`+
- [['Nombre',v('#nombre')],['Teléfono',v('#tel')],['Dirección de entrega',v('#dir')],['Código de descuento',v('#codigo_dto').toUpperCase()],['Ref. pedido',o.ref||'']].filter(y=>y[1]).map(y=>'\n'+y[0]+': '+y[1]).join('')+`\nPago por Bizum o transferencia (te paso los datos por WhatsApp).\n¿Me confirmas el pedido?`+origenTxt()}
+ [['Nombre',v('#nombre')],['Teléfono',v('#tel')],['Dirección de entrega',v('#dir')],['Código postal',v('#cp')],['Población',v('#poblacion')],['Provincia',v('#provincia')],['Código de descuento',v('#codigo_dto').toUpperCase()],['Ref. pedido',o.ref||'']].filter(y=>y[1]).map(y=>'\n'+y[0]+': '+y[1]).join('')+`\nPago por Bizum o transferencia (te paso los datos por WhatsApp).\n¿Me confirmas el pedido?`+origenTxt()}
 $('#fpedido').addEventListener('submit',e=>{e.preventDefault();const via=e.submitter&&e.submitter.dataset.via;const err=[];
  if(!Object.keys(cesta).length)err.push('La cesta está vacía.');
  if(!$('#tel').checkValidity())err.push('Teléfono no válido.');if(!$('#acepto').checked)err.push('Debes aceptar la política de privacidad.');

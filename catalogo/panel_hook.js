@@ -18,7 +18,7 @@
  window.D4Panel={enviar:function(C2,txt,WAURL,RES){
   var w=window.__TEST?null:window.open('about:blank','_blank');
   var ir=function(t){var u=WAURL(t);window.__ultimoEnlace=u;if(w)w.location.href=u;else if(!window.__TEST)window.open(u,'_blank','noopener')};
-  var p={cliente_nombre:val('nombre')||'Sin nombre',cliente_telefono:val('tel')||null,direccion_envio:val('dir'),total:(C2.total/100).toFixed(2),
+  var p={cliente_nombre:val('nombre')||'Sin nombre',cliente_telefono:val('tel')||null,direccion_envio:val('dir'),cp:val('cp')||null,poblacion:val('poblacion')||null,provincia:val('provincia')||null,total:(C2.total/100).toFixed(2),
    lineas:C2.lineas.map(function(l){return{id:String(l.p.id||'').slice(0,120),sku:String(l.p.sku||'').slice(0,40),producto:String(l.p.nombre).slice(0,200),variante:[l.p.formato,l.p.sabor,l.p.sku].filter(Boolean).join(' · ').slice(0,200),cantidad:l.q,precio_unit:l.pu===null?null:l.pu/100}})};
   var cod=C.descuentoAppActivo?val('codigo_dto').toUpperCase():'';var tapp=null;try{tapp=C.descuentoAppActivo&&window.__d4appOK?sessionStorage.getItem('d4app'):null}catch(e){}var tk=token();
   fetch(C.SUPABASE_URL+'/rest/v1/rpc/crear_pedido',{method:'POST',headers:{apikey:C.SUPABASE_KEY,Authorization:'Bearer '+(tk||C.SUPABASE_KEY),'Content-Type':'application/json'},body:JSON.stringify(tapp?{p:p,p_codigo:null,p_token_app:tapp}:{p:p,p_codigo:cod||null})})
@@ -27,3 +27,9 @@
   .catch(function(err){var m=document.getElementById('err');if((cod||tapp)&&m){m.textContent=tapp?'No se pudo registrar el pedido en el panel; te abrimos WhatsApp y D4 verificará el descuento.':'Descuento no aplicado: '+err.message+'. Te abrimos WhatsApp sin descuento.'}ir(RES?RES(tapp?{pendiente:true}:{srv:null}):txt)})}};
  function eur2(n){return Number(n).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'}})();
 (function(){document.addEventListener('DOMContentLoaded',function(){var t;try{t=sessionStorage.getItem('d4cesta_aviso');sessionStorage.removeItem('d4cesta_aviso')}catch(e){return}if(!t)return;var d=document.createElement('div');d.setAttribute('role','status');d.style.cssText='background:#0b5d2a;color:#fff;text-align:center;padding:10px;font-weight:700';d.textContent=t;document.body.insertAdjacentElement('afterbegin',d)})})();
+(function(){var C=window.CONFIG||{};if(!C.SUPABASE_URL||!C.SUPABASE_KEY)return;
+ function token(){try{var k=Object.keys(localStorage).find(function(x){return /^sb-.*-auth-token$/.test(x)});var t=k&&JSON.parse(localStorage.getItem(k));return t&&t.access_token&&t.expires_at*1000>Date.now()?t.access_token:null}catch(e){return null}}
+ function pon(id,v){var e=document.getElementById(id);if(e&&!e.value&&v)e.value=v}
+ document.addEventListener('DOMContentLoaded',function(){var tk=token();if(!tk)return;
+  fetch(C.SUPABASE_URL+'/rest/v1/perfiles?select=nombre,telefono,direccion,cp,poblacion,provincia',{headers:{apikey:C.SUPABASE_KEY,Authorization:'Bearer '+tk}})
+  .then(function(r){return r.ok?r.json():null}).then(function(rows){var p=rows&&rows[0];if(!p)return;pon('nombre',p.nombre);pon('tel',p.telefono);pon('dir',p.direccion);pon('cp',p.cp);pon('poblacion',p.poblacion);pon('provincia',p.provincia)}).catch(function(){})})})();
