@@ -71,12 +71,14 @@ function makeCard(g){const p0=g[0],todos=G[p0.producto];const d=document.createE
  if(cs.length){const mn=Math.min(...cs);e.append((new Set(cs).size>1||cs.length<g.length?'Desde ':'')+eur(mn));const s=document.createElement('small');s.textContent=' IVA incluido';e.appendChild(s)}
  else{e.textContent='Precio por definir';e.classList.add('pdef')}
  d.querySelector('.ver').onclick=()=>ficha(p0.producto,g[0].id);return d}
+/* Ordenar por precio: el menor PVP con IVA del grupo; sin precio = null (siempre al final) */
+function minPrecio(g){const cs=g.map(x=>x.pvp_cent).filter(c=>Number.isInteger(c)&&c>0);return cs.length?Math.min(...cs):null}
 function verFase(id){S.sel.fase=new Set([id]);render()}
 function render(){const L=Object.values(G).map(g=>g.filter(p=>pasa(p))).filter(g=>g.length);const o=S.orden;
  const tienda=!S.cat&&!S.q&&o==='destacados'&&!FACETAS.some(f=>S.sel[f.k]&&S.sel[f.k].size);
  document.body.classList.toggle('vista-tienda',tienda);
  document.querySelectorAll('.portada').forEach(n=>n.remove());
- if(!tienda)L.sort((a,b)=>{if(o==='nombre')return a[0].nombre.localeCompare(b[0].nombre,'es');if(o==='nombre-d')return b[0].nombre.localeCompare(a[0].nombre,'es');return nombreBase(a).localeCompare(nombreBase(b),'es')});
+ if(!tienda)L.sort((a,b)=>{if(o==='nombre')return a[0].nombre.localeCompare(b[0].nombre,'es');if(o==='nombre-d')return b[0].nombre.localeCompare(a[0].nombre,'es');if(o==='precio'||o==='precio-d'){const pa=minPrecio(a),pb=minPrecio(b);if(pa===null&&pb===null)return nombreBase(a).localeCompare(nombreBase(b),'es');if(pa===null)return 1;if(pb===null)return -1;return o==='precio'?pa-pb:pb-pa}return nombreBase(a).localeCompare(nombreBase(b),'es')});
  const faseSolo=S.sel.fase&&S.sel.fase.size===1&&!S.q&&!S.cat&&!FACETAS.some(f=>f.k!=='fase'&&S.sel[f.k]&&S.sel[f.k].size)?[...S.sel.fase][0]:'';
  $('#titulo').textContent=S.cat?(NOM[S.cat]||'Tienda'):(tienda?'La tienda':(faseSolo?(NOM[faseSolo]||'Resultados'):'Resultados'));
  $('#migas').innerHTML='<a href="#c=">Tienda</a>'+(S.cat?' › <span></span>':'');if(S.cat)$('#migas span').textContent=NOM[S.cat];
@@ -153,6 +155,7 @@ function resumen(o){o=o||{};const C=cuentaCesta();let D=null;const x=dtoApp(C);
  [['Nombre',v('#nombre')],['Teléfono',v('#tel')],['Dirección de entrega',v('#dir')],['Código postal',v('#cp')],['Población',v('#poblacion')],['Provincia',v('#provincia')],['Código de descuento',v('#codigo_dto').toUpperCase()],['Ref. pedido',o.ref||'']].filter(y=>y[1]).map(y=>'\n'+y[0]+': '+y[1]).join('')+`\nPago por Bizum o transferencia (te paso los datos por WhatsApp).\n¿Me confirmas el pedido?`+origenTxt()}
 $('#fpedido').addEventListener('submit',e=>{e.preventDefault();const via=e.submitter&&e.submitter.dataset.via;const err=[];
  if(!Object.keys(cesta).length)err.push('La cesta está vacía.');
+  if(!$('#nombre').value.trim())err.push('Escribe tu nombre.');if(!$('#dir').value.trim())err.push('Escribe la dirección de entrega.');
  if(!$('#tel').checkValidity())err.push('Teléfono no válido.');if(!$('#acepto').checked)err.push('Debes aceptar la política de privacidad.');
  $('#err').textContent=err.join(' ');if(err.length)return;const txt=resumen();window.__ultimoPedido=txt;
  if(WA.includes('A RELLENAR')){$('#err').textContent='Pedido no disponible todavía: falta configurar el teléfono de WhatsApp de pedidos (config.js). Tu cesta se conserva.';return}

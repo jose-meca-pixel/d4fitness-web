@@ -175,3 +175,16 @@ body.vista-tienda .rapida{display:none}
   .tienda-top .logo img{height:30px}
   .tienda-nav a{letter-spacing:0.08em}
 }
+
+/* v29 plan tienda 31/10: pasos 3-6 */
+.rapida a{background:#141416;border:1px solid #2a2a31;color:#e9e9ee}.rapida a.on{background:#E52528;border-color:#E52528;color:#fff}
+#cerrarfiltros{background:#E52528;color:#fff;border:0;border-radius:999px;padding:6px 14px;font-weight:700}
+@media (max-width:860px){
+ body.vista-tienda .rapida{display:flex}
+ #filtros{inset:auto 0 0 0!important;width:100%!important;height:88vh;height:88dvh;max-height:none;border-radius:16px 16px 0 0!important;transform:translateY(105%);z-index:2050;overflow:auto;overscroll-behavior:contain;padding-bottom:max(16px,env(safe-area-inset-bottom))}
+ body.filtros-abiertos #filtros{transform:none}
+ #filtros .fh{position:sticky;top:-12px;background:inherit;z-index:1;padding:8px 0}
+}
+#cesta{display:flex;flex-direction:column}#cesta[hidden]{display:none}
+#cesta .cesta-pie{position:sticky;bottom:calc(-1 * max(24px,env(safe-area-inset-bottom)));margin:12px -16px calc(-1 * max(24px,env(safe-area-inset-bottom)));padding:12px 16px max(14px,env(safe-area-inset-bottom));background:#0A0A0C;border-top:2px solid #E52528;color:#fff;order:99}
+#cesta .cesta-pie p{margin:2px 0}#cesta .cesta-pie .total{font-size:1.1em}#cesta .cesta-pie .dto{color:#ff8a8c}
