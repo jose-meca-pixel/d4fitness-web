@@ -1,0 +1,17 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Panel · D4FITNESSHOP</title><link rel="stylesheet" href="admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="/catalogo/config.js"></script></head><body>
+<header><b>D4FITNESSHOP · Panel</b><button id="salir" hidden>Cerrar sesión</button></header>
+<main>
+<section id="login"><h1>Acceso administrador</h1><form id="flogin"><input id="email" type="email" placeholder="Correo" autocomplete="username" required><input id="pass" type="password" placeholder="Contraseña" autocomplete="current-password" required><button>Entrar</button></form><p id="lmsg" class="msg"></p></section>
+<section id="app" hidden>
+<nav class="tabs"><button data-t="pedidos" class="on">Pedidos</button><button data-t="visitas">Visitas</button><button data-t="descuentos">Descuentos</button></nav>
+<div id="t-pedidos"><div class="barra"><select id="festado"><option value="">Todos los estados</option></select><input id="fbuscar" placeholder="Buscar ref., nombre, teléfono…"><button id="csv">Exportar CSV</button><button id="recargar">↻</button></div><div id="lista"></div></div>
+<div id="t-visitas" hidden><div class="barra"><select id="vdias"><option value="7">7 días</option><option value="30" selected>30 días</option><option value="90">90 días</option></select></div><div id="vres"></div></div>
+<div id="t-descuentos" hidden><h2>Códigos</h2><div id="codigos"></div><h2>Usuarios de la app (emails)</h2><form id="fapp" class="barra"><input id="appemail" type="email" placeholder="email@ejemplo.com" required><button>Añadir</button></form><div id="appusers"></div></div>
+</section>
+<dialog id="det"><form method="dialog" id="fdet"><div id="detinfo"></div>
+<label>Estado <select id="destado"></select></label><label>Nº seguimiento <input id="dseg" maxlength="200"></label><label>Notas internas <textarea id="dnotas" maxlength="4000" rows="4"></textarea></label>
+<p class="msg" id="dmsg"></p><div class="barra"><button value="guardar" id="dguardar">Guardar</button><button value="cancel" formnovalidate>Cerrar</button></div></form></dialog>
+</main><script src="admin.js"></script></body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Mi cuenta · D4FITNESSHOP</title><link rel="stylesheet" href="/admin/admin.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="/catalogo/config.js"></script></head><body>
+<header><a href="/catalogo/" style="color:#fff"><b>D4FITNESSHOP</b></a><button id="salir" hidden>Cerrar sesión</button></header><main>
+<section id="acceso"><h1>Mi cuenta</h1><form id="f" style="display:grid;gap:10px;max-width:360px"><input id="email" type="email" placeholder="Correo" autocomplete="username" required><input id="pass" type="password" placeholder="Contraseña (mín. 8)" minlength="8" autocomplete="current-password" required><button data-a="in">Entrar</button><button data-a="up" class="sec">Crear cuenta</button><button data-a="reset" class="sec" formnovalidate>He olvidado mi contraseña</button></form><p id="msg" class="msg"></p></section>
+<section id="yo" hidden><p id="hola"></p><h2>Mis pedidos</h2><div id="lista"></div></section>
+</main><script>
+const C=window.CONFIG,sb=supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY),$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const URLC=location.origin+'/cuenta/';
+$('#f').onsubmit=async e=>{e.preventDefault();const a=e.submitter.dataset.a,em=$('#email').value.trim(),pw=$('#pass').value;let r;$('#msg').textContent='';
+ if(a==='in')r=await sb.auth.signInWithPassword({email:em,password:pw});
+ else if(a==='up'){r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:URLC}});if(!r.error){$('#msg').textContent='Revisa tu correo para confirmar la cuenta.';return}}
+ else{if(!em){$('#msg').textContent='Escribe tu correo.';return}r=await sb.auth.resetPasswordForEmail(em,{redirectTo:URLC});if(!r.error){$('#msg').textContent='Si el correo existe, te hemos enviado un enlace.';return}}
+ if(r.error){$('#msg').textContent=r.error.message;return}pinta()};
+$('#salir').onclick=async()=>{await sb.auth.signOut();location.reload()};
+sb.auth.onAuthStateChange(async ev=>{if(ev==='PASSWORD_RECOVERY'){const np=prompt('Nueva contraseña (mín. 8 caracteres):');if(np&&np.length>=8){const {error}=await sb.auth.updateUser({password:np});alert(error?error.message:'Contraseña actualizada.')}}});
+async function pinta(){const {data:{user}}=await sb.auth.getUser();if(!user)return;$('#acceso').hidden=true;$('#yo').hidden=false;$('#salir').hidden=false;$('#hola').textContent='Sesión iniciada: '+user.email;
+ const {data}=await sb.rpc('mis_pedidos');
+ $('#lista').innerHTML=(data||[]).map(p=>`<div class="card"><b>${esc(p.referencia)}</b> · ${esc(p.estado.replace('_',' '))} · ${esc(p.total)} €${p.seguimiento?'<br>Seguimiento: '+esc(p.seguimiento):''}</div>`).join('')||'<p>Aún no tienes pedidos registrados.</p>'}
+pinta();
+</script></body></html>

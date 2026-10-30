@@ -1,0 +1,14 @@
+*{box-sizing:border-box}body{margin:0;background:#0A0A0C;color:#eee;font:15px/1.4 system-ui,-apple-system,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:2px solid #E52528}
+main{max-width:1000px;margin:auto;padding:16px}h1,h2{font-size:1.2rem}
+input,select,textarea,button{font:inherit;padding:10px;border-radius:8px;border:1px solid #333;background:#16161a;color:#eee}
+button{background:#E52528;border:0;color:#fff;font-weight:600;cursor:pointer}button.sec{background:#2a2a30}
+form#flogin{display:grid;gap:10px;max-width:360px}.msg{color:#ff8a8c;min-height:1.2em}
+.tabs{display:flex;gap:6px;margin-bottom:12px}.tabs button{background:#2a2a30}.tabs button.on{background:#E52528}
+.barra{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.barra input{flex:1;min-width:160px}
+.card{background:#141418;border:1px solid #26262c;border-radius:10px;padding:12px;margin:8px 0;cursor:pointer}
+.card b{color:#fff}.est{display:inline-block;padding:2px 8px;border-radius:99px;background:#2a2a30;font-size:.8rem}
+.est.pendiente_pago{background:#6b4a00}.est.pagado{background:#0b5d2a}.est.enviado,.est.entregado{background:#1d3f7a}.est.cancelado{background:#555}
+dialog{background:#141418;color:#eee;border:1px solid #E52528;border-radius:12px;width:min(560px,94vw)}dialog label{display:grid;gap:4px;margin:8px 0}
+table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:1px solid #26262c;text-align:left}.bar{background:#E52528;height:10px;border-radius:4px}
+.kpi{display:flex;gap:10px;flex-wrap:wrap}.kpi div{background:#141418;padding:12px;border-radius:10px;flex:1;min-width:120px}.kpi b{font-size:1.4rem;display:block}

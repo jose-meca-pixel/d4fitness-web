@@ -20,5 +20,11 @@ window.CONFIG = {
   VISITAS_TIPO: '',
   VISITAS_ENDPOINT: '',
   VISITAS_CLAVE_PUBLICA: '',
-  VISITAS_DEBUG: false
+  VISITAS_DEBUG: false,
+  // PANEL ADMIN / SUPABASE (proyecto d4fitnesshop). Solo clave PUBLICABLE; nunca service_role.
+  SUPABASE_URL: 'https://rgpzxaltalpdutvfbdaj.supabase.co',
+  SUPABASE_KEY: 'sb_publishable_nYzVGDw1TDJfZNJHMwznQg_77uzAzg6',
+  guardarPedidosEnPanel: false, // true = guarda el pedido en el panel (RPC crear_pedido) antes de abrir WhatsApp
+  registrarVisitas: false,      // true = visitas anónimas sin cookies (ver /assets/d4_visitas.js)
+  descuentoAppActivo: false     // true = muestra campo de código (D4FITNESS); se valida SIEMPRE en servidor
 };
