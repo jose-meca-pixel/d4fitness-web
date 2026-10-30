@@ -131,3 +131,5 @@ body{background:#0E0E10!important}
 .pedido-info,.aviso-etq{display:none}
 .btn-wa,#f-consulta,.wafloat{background:#26221F!important;color:#fff!important;border:1px solid #3D3834}
 .ok{color:var(--ink2)}
+
+.marcas-t{font-size:.8em;text-transform:uppercase;letter-spacing:.08em;color:#667;margin:10px 0 4px}.marcas{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}.marcas::-webkit-scrollbar{display:none}.marcas button{flex:0 0 auto;min-height:40px;padding:8px 16px;border-radius:8px;border:2px solid #1f3864;background:#fff;color:#1f3864;font:inherit;font-weight:700;font-size:.9em;cursor:pointer}.marcas button.on{background:#E52528;border-color:#E52528;color:#fff}.marcas button:focus-visible{outline:3px solid #E52528;outline-offset:2px}

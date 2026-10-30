@@ -22,7 +22,10 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const NOM={};TX.grupos.forEach(g=>g.items.forEach(i=>NOM[i.id]=i.nombre));
 const grupoDe=id=>TX.grupos.find(g=>g.items.some(i=>i.id===id));
 let cesta={};try{cesta=JSON.parse(localStorage.getItem('d4cesta')||'{}')}catch(e){cesta={}}
-const S={cat:'',sel:{},q:'',orden:'destacados'};
+const S={cat:'',sel:{},q:'',orden:'destacados',marca:''};
+/* MARCAS: pestañas generadas desde el campo p.marca; añadir una marca = poner marca en sus productos */
+const MARCAS=[...new Set(P.map(p=>p.marca).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+try{const qm=new URLSearchParams(location.search).get('marca');if(qm&&MARCAS.includes(qm))S.marca=qm}catch(e){}
 /* v11 PRECIOS: importes en céntimos enteros (pvp_cent, IVA incluido) leídos de catalogo_cliente.js; el total se calcula aquí, nunca se escribe a mano */
 const eur=c=>(c/100).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:true})+' €';
 
@@ -34,8 +37,8 @@ function precioTxt(p){return Number.isInteger(p.pvp_cent)&&p.pvp_cent>0?eur(p.pv
 
 const FACETAS=[{k:'linea',t:'Línea'},{k:'carac',t:'Características'},{k:'fase',t:'Fase'},{k:'sabor',t:'Sabor'},{k:'formato',t:'Formato'}];
 function valores(p,k){if(k==='sabor')return p.sabor?[p.sabor]:[];if(k==='formato')return p.formato?[p.formato]:[];const g=TX.grupos.find(x=>x.id===k);return g?(p.colecciones||[]).filter(c=>g.items.some(i=>i.id===c)):[]}
-function pasa(p,salvo){if(salvo!=='__cat'&&S.cat&&!(p.colecciones||[]).includes(S.cat))return false;
- if(S.q){const t=(p.nombre+' '+p.sku+' '+(p.sabor||'')+' '+(p.formato||'')+' '+(p.colecciones||[]).map(c=>NOM[c]).join(' ')).toLowerCase();if(!S.q.toLowerCase().split(/\s+/).every(w=>t.includes(w)))return false}
+function pasa(p,salvo){if(S.marca&&p.marca!==S.marca)return false;if(salvo!=='__cat'&&S.cat&&!(p.colecciones||[]).includes(S.cat))return false;
+ if(S.q){const t=(p.nombre+' '+(p.marca||'')+' '+p.sku+' '+(p.sabor||'')+' '+(p.formato||'')+' '+(p.colecciones||[]).map(c=>NOM[c]).join(' ')).toLowerCase();if(!S.q.toLowerCase().split(/\s+/).every(w=>t.includes(w)))return false}
  for(const f of FACETAS){if(f.k===salvo)continue;const s=S.sel[f.k];if(s&&s.size&&!valores(p,f.k).some(v=>s.has(v)))return false}
  return true}
 function lbl(k,v){return k==='sabor'||k==='formato'?v:(NOM[v]||v)}
@@ -95,7 +98,7 @@ function infoAli(p){const b=$('#f-ali');b.innerHTML='';const i=p.info;const add=
  if(i.ingredientes)add('Ingredientes (según ficha del fabricante)',i.ingredientes.replace(/^Ingredientes:\s*/i,''));
  add('Alérgenos',i.alergenos&&i.alergenos.length?i.alergenos.join('; '):'no determinados: consulta la etiqueta del producto (que no figure aquí no significa que no los tenga)');
  if(i.trazas)add('Trazas',Array.isArray(i.trazas)?i.trazas.join('; '):String(i.trazas));
- if(i.fuente){const d=document.createElement('p');d.className='est';d.textContent='Fuente: ficha web de Crown Sport Nutrition, consultada el '+(i.fecha||'')+'. La etiqueta del envase prevalece.';b.appendChild(d)}}
+ if(i.fuente){const d=document.createElement('p');d.className='est';d.textContent='Fuente: ficha web del fabricante, consultada el '+(i.fecha||'')+'. La etiqueta del envase prevalece.';b.appendChild(d)}}
 function cierraFicha(){$('#ficha').hidden=true;document.body.classList.remove('modal-abierto')}
 function guardar(){Object.keys(cesta).forEach(k=>{if(!byId[k]||!(cesta[k]>=1))delete cesta[k]});try{localStorage.setItem('d4cesta',JSON.stringify(cesta))}catch(e){}pintaCesta()}
 function pintaCesta(){const L=$('#lineas');L.innerHTML='';let n=0;Object.entries(cesta).forEach(([id,q])=>{const p=byId[id];n+=q;const r=document.createElement('div');r.className='linea';
@@ -131,3 +134,14 @@ visita('visita');
  const r=$('#rapida');if(r){[{id:'',nombre:'Todo'}].concat(TX.grupos[0].items).forEach(c=>{const a=document.createElement('a');a.href='#c='+c.id;a.textContent=c.nombre;r.appendChild(a)});
   const marca=()=>$$('#rapida a').forEach(x=>x.classList.toggle('on',x.getAttribute('href')==='#c='+S.cat));window.addEventListener('hashchange',marca);marca()}})();
 
+
+/* Pestañas de marcas (role=tablist, flechas/Inicio/Fin) */
+(function(){const main=document.getElementById('contenido');if(!main||!MARCAS.length)return;
+ const bar=document.createElement('div');bar.className='marcas';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Marcas');
+ const ops=[{v:'',t:'Todas las marcas'}].concat(MARCAS.map(m=>({v:m,t:m})));
+ const btns=ops.map(o=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.dataset.marca=o.v;
+  const n=new Set(P.filter(p=>!o.v||p.marca===o.v).map(p=>p.producto)).size;b.textContent=o.t+' ('+n+')';b.addEventListener('click',()=>sel(o.v,true));bar.appendChild(b);return b});
+ function pinta(){btns.forEach(b=>{const on=b.dataset.marca===S.marca;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;b.classList.toggle('on',on)})}
+ function sel(v,foco){S.marca=v;pinta();try{const u=new URL(location.href);v?u.searchParams.set('marca',v):u.searchParams.delete('marca');history.replaceState(null,'',u)}catch(e){}render();if(foco){const b=btns.find(x=>x.dataset.marca===v);b&&b.focus()}}
+ bar.addEventListener('keydown',e=>{const i=btns.findIndex(b=>b.dataset.marca===S.marca);let j=null;if(e.key==='ArrowRight')j=(i+1)%btns.length;else if(e.key==='ArrowLeft')j=(i-1+btns.length)%btns.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=btns.length-1;if(j!==null){e.preventDefault();sel(btns[j].dataset.marca,true)}});
+ const h=document.createElement('h2');h.className='marcas-t';h.textContent='Marcas';main.insertBefore(h,main.firstChild);main.insertBefore(bar,h.nextSibling);pinta()})();
