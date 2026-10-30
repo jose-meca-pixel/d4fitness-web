@@ -142,12 +142,17 @@ function pintaCesta(){const L=$('#lineas');L.innerHTML='';let n=0;Object.entries
 /* Descuento app (15 %): solo si el servidor confirmó el token (panel_hook.js -> window.__d4appOK/__d4appPct). El importe definitivo lo calcula el servidor en crear_pedido. */
 function dtoApp(C){const pct=Number(window.__d4appPct);if(!window.__d4appOK||!(pct>0)||!C.total)return null;return{pct,pctTxt:pct.toLocaleString('es-ES'),cent:Math.round(C.total*pct/100)}}
 /* srv: {descuento,total} en euros devueltos por el servidor (crear_pedido); null = sin descuento; undefined = usar la verificación del token */
-function resumen(srv){const C=cuentaCesta();let D=null;if(srv&&srv.pct!==undefined)D=srv;else if(srv===undefined){const x=dtoApp(C);if(x)D={pct:x.pct,descuento:x.cent/100,total:(C.total-x.cent)/100}}
+/* ÚNICO constructor del texto de pedido para WhatsApp (lo usan el envío directo y D4Panel.enviar).
+   o undefined: vista previa con el descuento confirmado en pantalla. o={srv:{pct,descuento,total}|null, ref, pendiente:true}
+   srv = importes devueltos por el servidor (crear_pedido); pendiente = descuento confirmado en pantalla pero el guardado falló. */
+function resumen(o){o=o||{};const C=cuentaCesta();let D=null;const x=dtoApp(C);
+ if(o.srv)D=o.srv;else if(o.srv===undefined&&x)D={pct:x.pct,descuento:x.cent/100,total:(C.total-x.cent)/100};
  const e2=n=>eur(Math.round(Number(n)*100));const P2=C.pend?' + líneas pendientes de confirmar por WhatsApp':'';
- const tot=D?`\nTotal: ${eur(C.total)}\nDescuento usuario D4 (${Number(D.pct).toLocaleString('es-ES')} %): -${e2(D.descuento)}\nTotal con descuento (IVA incluido): ${e2(D.total)}${P2}`:`\nTOTAL (IVA incluido): ${eur(C.total)}${P2}`;
+ const tot=D?`\nTotal: ${eur(C.total)}\nDescuento usuario D4 (${Number(D.pct).toLocaleString('es-ES')} %): -${e2(D.descuento)}\nTotal con descuento (IVA incluido): ${e2(D.total)}${P2}`+(o.pendiente?'\n(Descuento pendiente de verificar por D4)':''):`\nTOTAL (IVA incluido): ${eur(C.total)}${P2}`;
+ const v=s=>{const e=$(s);return e&&e.value?e.value.trim():''};
  return 'Pedido D4FITNESSHOP (catálogo)\n'+C.lineas.map(l=>{const p=l.p;return `- ${l.q} x ${p.nombre} ${p.formato||''} ${p.sabor||''} [Ref. ${p.sku}] · ${l.pu===null?'Precio por definir':eur(l.pu)+'/ud = '+eur(l.sub)}`}).join('\n')+
  `${tot}\n${txtEnvio(C)}`+
- [['Nombre',$('#nombre').value],['Teléfono',$('#tel').value],['Dirección',$('#dir').value]].filter(x=>x[1]&&x[1].trim()).map(x=>'\n'+x[0]+': '+x[1].trim()).join('')+`\nPago por Bizum o transferencia (te paso los datos por WhatsApp).\n¿Me confirmas el pedido?`+origenTxt()}
+ [['Nombre',v('#nombre')],['Teléfono',v('#tel')],['Dirección de entrega',v('#dir')],['Código de descuento',v('#codigo_dto').toUpperCase()],['Ref. pedido',o.ref||'']].filter(y=>y[1]).map(y=>'\n'+y[0]+': '+y[1]).join('')+`\nPago por Bizum o transferencia (te paso los datos por WhatsApp).\n¿Me confirmas el pedido?`+origenTxt()}
 $('#fpedido').addEventListener('submit',e=>{e.preventDefault();const via=e.submitter&&e.submitter.dataset.via;const err=[];
  if(!Object.keys(cesta).length)err.push('La cesta está vacía.');
  if(!$('#tel').checkValidity())err.push('Teléfono no válido.');if(!$('#acepto').checked)err.push('Debes aceptar la política de privacidad.');
