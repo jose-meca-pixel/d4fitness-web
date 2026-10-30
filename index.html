@@ -1,64 +1,99 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>D4 FITNESS · Entrena. Come. Recupera.</title>
-<meta name="description" content="D4 FITNESS: la app de entreno, nutrición y recovery para iOS y Android. Soporte oficial y tienda de nutrición deportiva con pedidos por WhatsApp y envío gratis.">
-<link rel="canonical" href="https://d4fitness.com/">
-<meta name="theme-color" content="#0A0A0C">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="D4 FITNESS">
-<meta property="og:locale" content="es_ES">
-<meta property="og:title" content="D4 FITNESS · Entrena. Come. Recupera.">
-<meta property="og:description" content="La app de entreno, nutrición y recovery. Soporte oficial y tienda de nutrición deportiva.">
-<meta property="og:url" content="https://d4fitness.com/">
-<meta property="og:image" content="https://d4fitness.com/assets/logo-d4fitness.png">
-<meta property="og:image:width" content="800"><meta property="og:image:height" content="891">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="/assets/favicon.png">
-<link rel="preload" as="image" href="/assets/logo-d4fitness-hero.webp" type="image/webp">
-<link rel="stylesheet" href="/assets/home.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"D4 FITNESS","url":"https://d4fitness.com/","logo":"https://d4fitness.com/assets/logo-d4fitness.png","sameAs":["https://www.instagram.com/d4fitness.oficial/"]}</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D4 FITNESS · App y tienda</title>
+  <meta name="description" content="D4 FITNESS. Entreno, nutrición y recuperación. Descarga la app y entra en la tienda oficial.">
+  <meta name="theme-color" content="#0A0A0C">
+  <link rel="icon" href="/assets/favicon.png">
+  <link rel="canonical" href="https://d4fitness.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#0a0a0c; --fg:#f4f4f5; --muted:#9b9ba3; --dim:#6e6e76; --red:#e52528; --line:#2a2a31; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, system-ui, sans-serif; }
+    a { color: inherit; }
+    button, a { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+    .top { position: sticky; top: 0; z-index: 5; background: var(--bg); }
+    .wrap { max-width: 1120px; margin: 0 auto; }
+    .top .in { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.25rem; }
+    .top img { height: 36px; width: auto; }
+    nav { display: flex; gap: 1.1rem; align-items: center; }
+    nav a { color: #7d7d86; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
+    nav a[aria-current="page"] { color: #fff; box-shadow: inset 0 -2px 0 var(--red); }
+    .poster { max-width: 1120px; margin: 0 auto; min-height: calc(100svh - 64px); padding: 1.5rem 1.75rem 1rem; display: grid; gap: 1.75rem; align-items: center; }
+    .logo { height: 72px; width: auto; }
+    h1 { margin: 1.35rem 0 0; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: clamp(3.6rem, 6.5vw, 5.8rem); font-weight: 700; letter-spacing: 0.01em; line-height: 0.84; text-transform: uppercase; }
+    .kicker { margin: 0.85rem 0 0; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #8a8a92; }
+    .rule { display: block; width: 56px; height: 2px; margin-top: 1rem; background: var(--red); }
+    .lead { margin: 0.7rem 0 0; max-width: 24rem; color: var(--muted); line-height: 1.45; font-size: 0.95rem; }
+    .download { display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 1.6rem; width: min(100%, 300px); min-height: 48px; padding: 0.75rem 1.25rem; border-radius: 4px; background: var(--red); color: #fff; text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.55rem; }
+    .badge { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 42px; min-width: 140px; padding: 0.2rem 0.65rem 0.2rem 0.5rem; border-radius: 8px; border: 1px solid #2a2a30; background: #000; color: #fff; text-decoration: none; }
+    .badge small { display: block; font-size: 0.55rem; color: #8e8e96; }
+    .badge strong { display: block; font-size: 0.88rem; font-weight: 600; }
+    .badge svg { width: 18px; height: 18px; flex: none; }
+    .phones { width: min(100%, 440px); height: auto; justify-self: center; }
+    .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin: 0.5rem 0 0; padding: 0.75rem 0 0.1rem; border-top: 1px solid #2a1213; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+    .legal { max-width: 1120px; margin: 0 auto; padding: 1.25rem 1.75rem 2rem; color: var(--dim); font-size: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; }
+    .legal a { color: var(--dim); }
+    @media (min-width: 900px) {
+      .poster { grid-template-columns: minmax(380px, 1.05fr) minmax(300px, 440px); column-gap: 2.5rem; padding: 1rem 2rem; }
+      .logo { height: 78px; }
+      .foot { grid-column: 1 / -1; }
+      .phones { width: 100%; justify-self: end; }
+    }
+  </style>
 </head>
 <body>
-<a class="skip" href="#main">Saltar al contenido</a>
-<div class="bg" aria-hidden="true"></div>
-<main id="main">
-<section class="hero">
-<h1 class="sr">D4 FITNESS</h1>
-<picture class="logo-wrap">
-<source srcset="/assets/logo-d4fitness-hero.webp" type="image/webp">
-<img class="logo" src="/assets/logo-d4fitness-hero.png" width="548" height="296" alt="Logo D4 FITNESS" fetchpriority="high" decoding="async">
-</picture>
-<p class="claim">Entrena. <span>Come.</span> Recupera.</p>
-<p class="sub">La app de entreno, nutrición y recovery. Soporte oficial y tienda de nutrición deportiva.</p>
-<div class="actions">
-<a class="btn btn-red" href="/catalogo/">TIENDA <span aria-hidden="true">→</span></a>
-<details class="app" id="app">
-<summary class="btn btn-ghost">APP <span class="chev" aria-hidden="true">▾</span></summary>
-<div class="panel">
-<a class="store" href="https://apps.apple.com/es/app/d4-fitness/id6818841609" rel="noopener"><span class="ico" aria-hidden="true"></span><span><small>Descargar en</small>App Store</span></a>
-<a class="store" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk" rel="noopener"><span class="ico" aria-hidden="true">▼</span><span><small>Descarga directa</small>Android APK</span></a>
-<p class="note">Android: permite instalar apps de origen desconocido. <a href="/descargas.html">Más info</a></p>
-</div>
-</details>
-</div>
-</section>
-<section class="cards" aria-label="Accesos">
-<a class="card" href="/soporte.html"><h2>Soporte</h2><p>Ayuda oficial con la app y tus pedidos.</p><span class="go" aria-hidden="true">→</span></a>
-<a class="card" href="/descargas.html"><h2>Descargas</h2><p>App para iOS y Android.</p><span class="go" aria-hidden="true">→</span></a>
-<a class="card" href="/catalogo/"><h2>Tienda</h2><p>Tienda online de nutrición deportiva. Pedidos por WhatsApp, envío gratis.</p><span class="go" aria-hidden="true">→</span></a>
-</section>
-<section class="social" aria-label="Contacto">
-<a class="ig" href="https://www.instagram.com/d4fitness.oficial/" rel="noopener">Instagram <strong>@d4fitness.oficial</strong></a>
-<a class="mail" href="mailto:d4fitness.support@gmail.com">d4fitness.support@gmail.com</a>
-</section>
-</main>
-<footer>
-<nav aria-label="Legal"><a href="/cuenta/">Mi cuenta</a> · <a href="/privacy.html">Privacidad</a> · <a href="/catalogo/legal.html">Aviso legal</a></nav>
-<p>© 2026 D4 FITNESS · Vendedor: Jose Meca Sánchez de Bustamante</p>
-</footer>
-<script>window.CONFIG=window.CONFIG||{registrarVisitas:false,SUPABASE_URL:'https://rgpzxaltalpdutvfbdaj.supabase.co',SUPABASE_KEY:'sb_publishable_nYzVGDw1TDJfZNJHMwznQg_77uzAzg6'};</script><script src="/assets/d4_visitas.js" defer></script><script src="/assets/home.js" defer></script>
+  <header class="top">
+    <div class="in">
+      <a href="/"><img src="/assets/logo-tight.png" alt="D4 FITNESS"></a>
+      <nav aria-label="Principal">
+        <a href="/" aria-current="page">Inicio</a>
+        <a href="/catalogo/">Tienda</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="poster">
+      <div>
+        <img class="logo" src="/assets/logo-tight.png" alt="">
+        <h1>Entreno<br>Nutrición<br>Recuperación</h1>
+        <p class="kicker">Entrena · Nútrete · Recupérate</p>
+        <span class="rule" aria-hidden="true"></span>
+        <p class="lead">Tu rendimiento. Nuestro sistema.<br>Todo en una sola app.</p>
+        <a class="download" href="#descarga">Descarga D4 FITNESS <span aria-hidden="true">→</span></a>
+        <div class="badges" id="descarga">
+          <a class="badge" href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.4-1-1.5-2.6-1.7-3.2-1.7-1.3-.1-2.6.8-3.3.8s-1.7-.8-2.8-.8c-1.4 0-2.8.9-3.5 2.2-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.1 1.1 0 1.5-.7 2.8-.7s1.6.7 2.8.7 1.9-1.1 2.6-2.1c.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.2-.9-2.3-3.3zM14.7 6.5c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1.1 1.6-.9 2.6 1 .1 1.9-.5 2.5-1.2z"/></svg>
+            <span><small>Descárgalo en el</small><strong>App Store</strong></span>
+          </a>
+          <a class="badge" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.2 3.6 8.8 6.4a6.4 6.4 0 0 1 6.4 0l1.6-2.8 1.2.7-1.6 2.7A6.8 6.8 0 0 1 19 11H5a6.8 6.8 0 0 1 2.6-4.8L6 3.5l1.2-.7zM8.2 12.2h7.6v6.2a1.2 1.2 0 0 1-1.2 1.2h-.6v2.1a1.1 1.1 0 0 1-2.2 0V19.6H12v2.1a1.1 1.1 0 0 1-2.2 0V19.6h-.6a1.2 1.2 0 0 1-1.2-1.2v-6.2z"/></svg>
+            <span><small>Descarga</small><strong>Android</strong></span>
+          </a>
+        </div>
+      </div>
+      <img class="phones" src="/assets/phones-clean.jpg" alt="Pantallas de la app D4 FITNESS: entreno, nutrición y recuperación">
+      <p class="foot">
+        <span>Ciencia · Disciplina · Resultados</span>
+        <span>D4 FITNESS · Tu mejor versión, cada día</span>
+      </p>
+    </section>
+  </main>
+  <footer class="legal">
+    <span>© 2026 D4 FITNESS · Jose Meca Sánchez de Bustamante</span>
+    <a href="mailto:d4fitness.support@gmail.com">d4fitness.support@gmail.com</a>
+    <a href="/catalogo/legal.html#aviso">Aviso legal</a>
+    <a href="/catalogo/legal.html#privacidad">Privacidad</a>
+    <a href="/catalogo/legal.html#cookies">Cookies</a>
+    <a href="/catalogo/legal.html#condiciones">Condiciones</a>
+    <a href="/catalogo/legal.html#desistimiento">Desistimiento</a>
+  </footer>
 </body>
 </html>
