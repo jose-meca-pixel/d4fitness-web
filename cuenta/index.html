@@ -2,20 +2,72 @@
 <title>Mi cuenta · D4FITNESSHOP</title><link rel="stylesheet" href="/admin/admin.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script><script src="/catalogo/config.js"></script></head><body>
 <header><a href="/catalogo/" style="color:#fff"><b>D4FITNESSHOP</b></a><button id="salir" hidden>Cerrar sesión</button></header><main>
-<section id="acceso"><h1>Mi cuenta</h1><form id="f" style="display:grid;gap:10px;max-width:360px"><input id="email" type="email" placeholder="Correo" autocomplete="username" required><input id="pass" type="password" placeholder="Contraseña (mín. 8)" minlength="8" autocomplete="current-password" required><button data-a="in">Entrar</button><button data-a="up" class="sec">Crear cuenta</button><button data-a="reset" class="sec" formnovalidate>He olvidado mi contraseña</button></form><p id="msg" class="msg"></p></section>
-<section id="yo" hidden><p id="hola"></p><h2>Mis pedidos</h2><div id="lista"></div></section>
+<section id="acceso"><h1>Mi cuenta</h1>
+<p>Crea una cuenta para ver tus pedidos, el estado del envío y repetir una compra. El pedido se sigue confirmando por WhatsApp. Entra antes de enviarlo para que quede guardado aquí.</p>
+<form id="f" style="display:grid;gap:10px;max-width:360px"><input id="email" type="email" placeholder="Correo" autocomplete="username" required><input id="pass" type="password" placeholder="Contraseña (mín. 8)" minlength="8" autocomplete="current-password" required><button data-a="in">Entrar</button><button data-a="up" class="sec">Crear cuenta</button><button data-a="reset" class="sec" formnovalidate>He olvidado mi contraseña</button></form>
+<form id="nueva" hidden style="display:grid;gap:10px;max-width:360px"><h2>Nueva contraseña</h2><input id="np" type="password" minlength="8" placeholder="Nueva contraseña (mín. 8)" autocomplete="new-password" required><button>Guardar contraseña</button></form>
+<p id="msg" class="msg"></p></section>
+<section id="yo" hidden><p id="hola"></p><h2>Mis pedidos</h2><p id="aviso"></p><div id="lista"></div></section>
 </main><script>
-const C=window.CONFIG,sb=supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY),$=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const C=window.CONFIG,sb=supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY),$=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 const URLC=location.origin+'/cuenta/';
+const EST={pendiente_pago:'Pendiente de pago',pagado:'Pagado',tramitado_proveedor:'En preparación',enviado:'Enviado',entregado:'Entregado',cancelado:'Cancelado'};
+const pedidos=[];
+function textoError(m){
+  const t=String(m||'');
+  if(/invalid login/i.test(t))return 'Correo o contraseña incorrectos.';
+  if(/email not confirmed/i.test(t))return 'Confirma el correo antes de entrar. Revisa también el spam.';
+  if(/already registered|already been registered/i.test(t))return 'Ya hay una cuenta con ese correo. Entra o pide una contraseña nueva.';
+  if(/password/i.test(t)&&/least|short|weak/i.test(t))return 'La contraseña tiene que tener al menos 8 caracteres.';
+  return t||'No se ha podido completar. Inténtalo de nuevo.';
+}
 $('#f').onsubmit=async e=>{e.preventDefault();const a=e.submitter.dataset.a,em=$('#email').value.trim(),pw=$('#pass').value;let r;$('#msg').textContent='';
  if(a==='in')r=await sb.auth.signInWithPassword({email:em,password:pw});
- else if(a==='up'){r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:URLC}});if(!r.error){$('#msg').textContent='Revisa tu correo para confirmar la cuenta.';return}}
+ else if(a==='up'){r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:URLC}});if(!r.error){$('#msg').textContent='Revisa tu correo para confirmar la cuenta. Después ya puedes entrar.';return}}
  else{if(!em){$('#msg').textContent='Escribe tu correo.';return}r=await sb.auth.resetPasswordForEmail(em,{redirectTo:URLC});if(!r.error){$('#msg').textContent='Si el correo existe, te hemos enviado un enlace.';return}}
- if(r.error){$('#msg').textContent=r.error.message;return}pinta()};
-$('#salir').onclick=async()=>{await sb.auth.signOut();location.reload()};
-sb.auth.onAuthStateChange(async ev=>{if(ev==='PASSWORD_RECOVERY'){const np=prompt('Nueva contraseña (mín. 8 caracteres):');if(np&&np.length>=8){const {error}=await sb.auth.updateUser({password:np});alert(error?error.message:'Contraseña actualizada.')}}});
-async function pinta(){const {data:{user}}=await sb.auth.getUser();if(!user)return;$('#acceso').hidden=true;$('#yo').hidden=false;$('#salir').hidden=false;$('#hola').textContent='Sesión iniciada: '+user.email;
- const {data}=await sb.rpc('mis_pedidos');
- $('#lista').innerHTML=(data||[]).map(p=>`<div class="card"><b>${esc(p.referencia)}</b> · ${esc(p.estado.replace('_',' '))} · ${esc(p.total)} €${p.seguimiento?'<br>Seguimiento: '+esc(p.seguimiento):''}</div>`).join('')||'<p>Aún no tienes pedidos registrados.</p>'}
+ if(r.error){$('#msg').textContent=textoError(r.error.message);return}pinta()};
+$('#nueva').onsubmit=async e=>{e.preventDefault();const np=$('#np').value;if(np.length<8){$('#msg').textContent='La contraseña tiene que tener al menos 8 caracteres.';return}
+ const {error}=await sb.auth.updateUser({password:np});$('#msg').textContent=error?textoError(error.message):'Contraseña actualizada. Ya puedes entrar.';if(!error){recuperando=false;$('#nueva').hidden=true;$('#f').hidden=false;pinta()}};
+$('#salir').onclick=async()=>{await sb.auth.signOut();location.href=URLC};
+let recuperando=false;
+sb.auth.onAuthStateChange(async ev=>{if(ev==='PASSWORD_RECOVERY'){recuperando=true;$('#acceso').hidden=false;$('#f').hidden=true;$('#nueva').hidden=false;$('#yo').hidden=true}});
+function skuDe(l){if(l&&l.sku)return String(l.sku);const v=String(l&&l.variante||'');const p=v.split(' · ');return p[p.length-1].trim()}
+function fecha(iso){try{return new Date(iso).toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'})}catch(e){return ''}}
+function euros(n){return Number(n).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'}
+function envio(p){
+  if(p.seguimiento)return 'Seguimiento: '+esc(p.seguimiento);
+  if(p.estado==='enviado'||p.estado==='entregado')return 'Enviado. El número de seguimiento todavía no está cargado.';
+  if(p.estado==='cancelado')return 'Pedido cancelado.';
+  return 'Todavía no hay número de seguimiento.';
+}
+async function repetir(i){
+  const p=pedidos[i];const lineas=Array.isArray(p.lineas)?p.lineas:[];
+  if(!lineas.length){$('#aviso').textContent='Este pedido no tiene líneas guardadas, así que no se puede repetir desde aquí.';return}
+  $('#aviso').textContent='Preparando la cesta…';
+  let cat;try{cat=await (await fetch('/catalogo/catalogo_cliente.json')).json()}catch(e){$('#aviso').textContent='No he podido cargar el catálogo. Inténtalo de nuevo.';return}
+  const byId=new Map(),bySku=new Map();
+  (cat.productos||[]).forEach(pr=>{if(pr.id)byId.set(pr.id,pr.id);if(pr.sku)bySku.set(String(pr.sku),pr.id)});
+  const cesta={};const faltan=[];
+  lineas.forEach(l=>{const q=parseInt(l.cantidad,10)||0;const id=(l.id&&byId.has(l.id))?l.id:bySku.get(skuDe(l));if(!id||q<1){faltan.push(l.producto||'un producto');return}cesta[id]=(cesta[id]||0)+q});
+  if(!Object.keys(cesta).length){$('#aviso').textContent='Esos productos ya no están en el catálogo.';return}
+  try{localStorage.setItem('d4cesta',JSON.stringify(cesta))}catch(e){$('#aviso').textContent='No he podido guardar la cesta en este navegador.';return}
+  const extra=faltan.length?(' No he encontrado: '+faltan.join(', ')+'.'):'';
+  sessionStorage.setItem('d4cesta_aviso','Cesta lista con el pedido '+p.referencia+'. Revísala y envíala por WhatsApp.'+extra);
+  location.href='/catalogo/';
+}
+async function pinta(){if(recuperando)return;const {data:{user}}=await sb.auth.getUser();if(recuperando||!user)return;
+ $('#acceso').hidden=true;$('#yo').hidden=false;$('#salir').hidden=false;
+ $('#hola').textContent='Sesión iniciada: '+user.email;
+ const {data,error}=await sb.rpc('mis_pedidos');
+ if(error){$('#lista').innerHTML='<p>No he podido cargar los pedidos.</p>';return}
+ pedidos.length=0;(data||[]).forEach(p=>pedidos.push(p));
+ if(!pedidos.length){$('#lista').innerHTML='<p>Aún no tienes pedidos. Entra aquí y luego envía el pedido desde la tienda: solo se guardan los que haces con la sesión iniciada.</p>';return}
+ $('#lista').innerHTML=pedidos.map((p,i)=>{
+  const lineas=(Array.isArray(p.lineas)?p.lineas:[]).map(l=>'<li>'+esc(l.cantidad)+' × '+esc(l.producto||'')+'</li>').join('');
+  return '<article class="card"><b>'+esc(p.referencia)+'</b> · '+esc(fecha(p.created_at))+'<br><span class="est '+esc(p.estado)+'">'+esc(EST[p.estado]||p.estado)+'</span> · '+esc(euros(p.total))+'<br>'+envio(p)+(lineas?'<ul>'+lineas+'</ul>':'')+'<p><button type="button" class="sec" data-i="'+i+'">Repetir pedido</button></p></article>';
+ }).join('');
+ $('#lista').querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>repetir(Number(b.dataset.i)));
+}
 pinta();
 </script></body></html>
