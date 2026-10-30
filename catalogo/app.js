@@ -160,8 +160,8 @@ $('#fpedido').addEventListener('submit',e=>{e.preventDefault();const via=e.submi
  if(WA.includes('A RELLENAR')){$('#err').textContent='Pedido no disponible todavía: falta configurar el teléfono de WhatsApp de pedidos (config.js). Tu cesta se conserva.';return}
  if(CFG.guardarPedidosEnPanel&&window.D4Panel){D4Panel.enviar(cuentaCesta(),txt,WAURL,resumen);visita('pedido_wa');return}
  const url=WAURL(txt);window.__ultimoEnlace=url;visita('pedido_wa');if(!window.__TEST)window.open(url,'_blank','noopener')});
-$('#vercesta').onclick=()=>{$('#cesta').hidden=false;$('#cesta h2').setAttribute('tabindex','-1');$('#cesta h2').focus()};$('#cerrar').onclick=()=>{$('#cesta').hidden=true};$('#vaciar').onclick=()=>{cesta={};guardar()};
-$('#f-cerrar').onclick=cierraFicha;$('#ficha').addEventListener('click',e=>{if(e.target.id==='ficha')cierraFicha()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){cierraFicha();$('#cesta').hidden=true;document.body.classList.remove('filtros-abiertos')}});
+$('#vercesta').onclick=()=>{$('#cesta').hidden=false;document.documentElement.classList.add('cesta-abierta');$('#cesta').scrollTop=0;$('#cesta h2').setAttribute('tabindex','-1');$('#cesta h2').focus({preventScroll:true})};$('#cerrar').onclick=()=>{$('#cesta').hidden=true;document.documentElement.classList.remove('cesta-abierta')};$('#vaciar').onclick=()=>{cesta={};guardar()};
+$('#f-cerrar').onclick=cierraFicha;$('#ficha').addEventListener('click',e=>{if(e.target.id==='ficha')cierraFicha()});document.addEventListener('keydown',e=>{if(e.key==='Escape'){cierraFicha();$('#cesta').hidden=true;document.documentElement.classList.remove('cesta-abierta');document.body.classList.remove('filtros-abiertos')}});
 $('#q').addEventListener('input',e=>{S.q=e.target.value.trim();render()});$('#orden').addEventListener('change',e=>{S.orden=e.target.value;render()});
 $('#btnfiltros').onclick=()=>document.body.classList.toggle('filtros-abiertos');$('#cerrarfiltros').onclick=()=>document.body.classList.remove('filtros-abiertos');$('#limpiartodo').onclick=limpiar;
 // menú superior (megamenú) a partir de la taxonomía
