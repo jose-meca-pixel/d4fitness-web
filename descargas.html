@@ -1,6 +1,159 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Descargas · D4 FITNESS</title><meta name="description" content="Descarga la app D4 FITNESS para iOS y Android."><link rel="canonical" href="https://d4fitness.com/descargas.html"><meta name="theme-color" content="#0A0A0C"><link rel="icon" type="image/png" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/nav.css"><link rel="stylesheet" href="/assets/site.css"></head><body>
-<nav class="d4nav" aria-label="D4 FITNESS"><div class="in"><a class="lg" href="/"><img src="/assets/D4_FITNESS_transparente.png" alt="D4 FITNESS" width="120" height="40"></a><ul><li><a href="/soporte.html">Soporte</a></li><li><a href="/catalogo/">Catálogo</a></li><li><a href="/descargas.html" aria-current="page">Descargas</a></li></ul></div></nav>
-<main><h1>Descargas</h1><div class="cards"><section class="card"><h2>iOS (iPhone)</h2><p>Disponible en la App Store.</p><a class="btn" href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener">Descargar en App Store</a></section>
-<section class="card"><h2>Android</h2><p>Versión 1.0.3 (build 248), unos 122 MB. Las actualizaciones (OTA) se aplican solas dentro de la app al abrirla.</p><a class="btn" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk" rel="noopener">Descargar APK (Android)</a><p>Para instalarla: abre el archivo descargado y, si Android lo pide, permite «Instalar apps de orígenes desconocidos» para tu navegador o gestor de archivos.</p></section></div>
-<section class="card" id="contacto"><h2>Instagram y contacto</h2><p>Síguenos en Instagram: <a href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">@d4fitness.oficial</a></p><p>Email: <a href="mailto:d4fitness.support@gmail.com">d4fitness.support@gmail.com</a></p></section></main>
-<footer>© 2026 D4 FITNESS · <a href="/soporte.html">Soporte</a> · <a href="/catalogo/">Catálogo</a> · <a href="/descargas.html">Descargas</a> · <a href="/privacy.html">Privacidad</a> · <a href="/catalogo/legal.html">Aviso legal</a></footer></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Descarga D4 FITNESS</title>
+<style>
+  :root {
+    /* Fondo de marca: el mismo que usa tu web (theme-color). */
+    --fondo: #0A0A0C;
+    --superficie: #141418;
+    --borde: #2A2A32;
+    --texto: #F5F5F7;
+    --texto-suave: #B7B7C2;
+
+    /* PROVISIONALES: sustituye por los colores exactos del logo de D4 FITNESS. */
+    --acento: #FF5A1F;
+    --acento-2: #FFB020;
+    --acento-texto: #140A05;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--fondo); color: var(--texto);
+         font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5;
+         min-height: 100vh; }
+
+  .hero { position: relative; overflow: hidden; isolation: isolate; }
+  .hero::after { /* textura de rejilla muy sutil */
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%);
+  }
+  .hero::before { /* resplandor de marca */
+    content: ""; position: absolute; z-index: -1; width: 620px; height: 620px; right: -160px; top: 50%;
+    transform: translateY(-50%); border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--acento) 50%, transparent) 0%, transparent 68%);
+    filter: blur(24px);
+  }
+  .hero__interior { max-width: 1040px; margin: 0 auto; padding: 56px 20px 40px;
+                    display: grid; gap: 40px; align-items: center; }
+  @media (min-width: 820px) { .hero__interior { grid-template-columns: 1.15fr .85fr; padding: 88px 24px 56px; } }
+
+  h2 { margin: 0 0 16px; font-size: clamp(2.6rem, 9vw, 5rem); line-height: .98; font-weight: 900;
+       letter-spacing: -.03em; text-wrap: balance; }
+  h2 span { display: block; }
+  h2 span:nth-child(2) { color: transparent; -webkit-text-stroke: 2px var(--texto); }
+  h2 span:nth-child(3) { background: linear-gradient(90deg, var(--acento), var(--acento-2));
+                         -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .intro { margin: 0 0 28px; max-width: 42ch; font-size: 1.1rem; color: var(--texto-suave); }
+
+  .botones { display: flex; flex-direction: column; gap: 12px; max-width: 420px; }
+  @media (min-width: 560px) { .botones { flex-direction: row; max-width: none; } }
+  .btn { display: flex; flex-direction: column; justify-content: center; min-height: 64px; flex: 1;
+         padding: 12px 22px; border-radius: 16px; text-decoration: none; color: var(--texto);
+         background: var(--superficie); border: 1px solid var(--borde);
+         transition: transform .15s, border-color .15s, box-shadow .15s; }
+  .btn small { font-size: .8rem; color: var(--texto-suave); }
+  .btn strong { font-size: 1.1rem; }
+  @media (hover: hover) { .btn:hover { transform: translateY(-2px); border-color: var(--texto-suave); } }
+  .btn:focus-visible { outline: 3px solid var(--acento-2); outline-offset: 3px; }
+  .btn--principal { background: linear-gradient(135deg, var(--acento), var(--acento-2));
+                    border-color: transparent; color: var(--acento-texto);
+                    box-shadow: 0 10px 30px color-mix(in srgb, var(--acento) 40%, transparent); }
+  .btn--principal small { color: color-mix(in srgb, var(--acento-texto) 75%, transparent); }
+  @media (hover: hover) { .btn--principal:hover { box-shadow: 0 14px 38px color-mix(in srgb, var(--acento) 55%, transparent); } }
+  [data-plataforma="android"] .btn--android, [data-plataforma="ios"] .btn--ios { order: -1; }
+
+  .pilares { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 0; padding: 0; list-style: none; }
+  .pilares li { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--borde);
+                font-size: .9rem; color: var(--texto-suave); }
+
+  .aviso { margin: 20px 0 0; max-width: 46ch; font-size: .88rem; color: var(--texto-suave); }
+  .aviso a { color: var(--texto); }
+  .aviso a:focus-visible { outline: 3px solid var(--acento-2); outline-offset: 2px; }
+  .aviso[hidden] { display: none; }
+
+  /* Tarjeta de marca: muestra el logo, sin inventar pantallas de la app */
+  .movil { justify-self: center; width: min(260px, 70vw); aspect-ratio: 9 / 18.5; padding: 10px;
+           border-radius: 38px; background: linear-gradient(160deg, #2B2B33, #101014);
+           border: 1px solid #3A3A44; box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 0 0 6px rgba(255,255,255,.03);
+           transform: rotate(4deg); animation: entra .8s ease-out both; }
+  .movil__pantalla { height: 100%; border-radius: 30px; display: grid; place-items: center; position: relative; overflow: hidden;
+                     background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--acento) 30%, #0A0A0C), #0A0A0C 70%); }
+  .movil__pantalla::before { content: ""; position: absolute; top: 10px; width: 70px; height: 18px; border-radius: 12px; background: #000; }
+  .movil__pantalla img { width: 62%; height: auto; }
+  @keyframes entra { from { opacity: 0; transform: translateY(24px) rotate(8deg); } to { opacity: 1; transform: rotate(4deg); } }
+
+  .pie { max-width: 1040px; margin: 0 auto; padding: 24px 20px 40px; border-top: 1px solid var(--borde);
+         display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: .9rem; color: var(--texto-suave); }
+  .pie a { color: var(--texto-suave); text-decoration: none; }
+  .pie a:hover { color: var(--texto); text-decoration: underline; }
+  .pie a:focus-visible { outline: 3px solid var(--acento-2); outline-offset: 2px; border-radius: 4px; }
+
+  @media (prefers-reduced-motion: reduce) { .movil { animation: none; } .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<section class="hero" aria-labelledby="titulo" data-plataforma="otro">
+  <div class="hero__interior">
+    <div>
+      <h2 id="titulo"><span>Entrena.</span><span>Come.</span><span>Recupera.</span></h2>
+      <p class="intro">Tu entrenamiento, tu nutrición y tu recuperación en una sola app. Disponible para iPhone y Android.</p>
+
+      <div class="botones">
+        <!-- Puedes cambiar estos botones por las insignias oficiales de App Store y Google Play. -->
+        <a class="btn btn--ios" href="https://apps.apple.com/es/app/d4-fitness/id6818841609"
+           aria-label="Descargar D4 FITNESS en App Store">
+          <small>iPhone y iPad</small><strong>Descargar en App Store</strong>
+        </a>
+        <a class="btn btn--android" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk"
+           aria-label="Descargar D4 FITNESS para Android, archivo APK">
+          <small>Android</small><strong>Descargar para Android (APK)</strong>
+        </a>
+      </div>
+
+      <ul class="pilares" aria-label="Qué incluye la app">
+        <li>Entreno</li><li>Nutrición</li><li>Recovery</li>
+      </ul>
+
+      <p class="aviso" id="aviso-android">
+        En Android, el APK se instala fuera de Google Play: tu móvil te pedirá permiso para instalar apps de
+        origen desconocido. <a href="https://d4fitness.com/descargas.html">Ver instrucciones</a>.
+      </p>
+    </div>
+
+    <div class="movil" aria-hidden="true">
+      <div class="movil__pantalla">
+        <img src="https://d4fitness.com/assets/logo-d4fitness.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <footer class="pie">
+    <a href="https://d4fitness.com/soporte.html">Soporte</a>
+    <a href="https://d4fitness.com/catalogo/">Tienda</a>
+    <a href="https://d4fitness.com/privacy.html">Privacidad</a>
+    <a href="https://d4fitness.com/catalogo/legal.html">Aviso legal</a>
+    <a href="https://www.instagram.com/d4fitness.oficial/">Instagram</a>
+  </footer>
+</section>
+
+<script>
+  (function () {
+    var seccion = document.querySelector('.hero');
+    var aviso = document.getElementById('aviso-android');
+    var ua = navigator.userAgent || '';
+    var plataforma = /android/i.test(ua) ? 'android' : /iphone|ipad|ipod/i.test(ua) ? 'ios' : 'otro';
+    seccion.setAttribute('data-plataforma', plataforma);
+    var sel = plataforma === 'android' ? '.btn--android' : plataforma === 'ios' ? '.btn--ios' : null;
+    if (sel) document.querySelector(sel).classList.add('btn--principal');
+    if (plataforma === 'ios') aviso.hidden = true;
+  })();
+</script>
+</body>
+</html>
