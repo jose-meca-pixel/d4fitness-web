@@ -24,7 +24,7 @@ window.CONFIG = {
   // PANEL ADMIN / SUPABASE (proyecto d4fitnesshop). Solo clave PUBLICABLE; nunca service_role.
   SUPABASE_URL: 'https://rgpzxaltalpdutvfbdaj.supabase.co',
   SUPABASE_KEY: 'sb_publishable_nYzVGDw1TDJfZNJHMwznQg_77uzAzg6',
-  guardarPedidosEnPanel: false, // true = guarda el pedido en el panel (RPC crear_pedido) antes de abrir WhatsApp
-  registrarVisitas: false,      // true = visitas anónimas sin cookies (ver /assets/d4_visitas.js)
-  descuentoAppActivo: false     // true = muestra campo de código (D4FITNESS); se valida SIEMPRE en servidor
+  guardarPedidosEnPanel: true,  // true = guarda el pedido en el panel (RPC crear_pedido) antes de abrir WhatsApp
+  registrarVisitas: true,       // true = visitas anónimas sin cookies (ver /assets/d4_visitas.js)
+  descuentoAppActivo: true      // true = campo de código D4FITNESS + enlace de la app ?app=<token> (15 %); se valida SIEMPRE en servidor. El token de app requiere también guardarPedidosEnPanel=true
 };
