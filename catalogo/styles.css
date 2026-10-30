@@ -160,3 +160,17 @@ body.vista-tienda .rapida{display:none}
 .momentos button:hover{background:#E52528;border-color:#E52528}
 @media (max-width:1199px){.pasillo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.baldosas{grid-template-columns:repeat(3,minmax(0,1fr))}.pasillo-grid .card:nth-child(n+4){display:none}}
 @media (max-width:700px){.pasillo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.pasillo-h h3{font-size:26px}.baldosas{grid-template-columns:repeat(2,minmax(0,1fr))}.baldosa{min-height:76px;padding:12px}.baldosa strong{font-size:18px}.pasillo-grid .card:nth-child(n+3){display:none}}
+
+/* Paso 1: una sola cabecera, igual que la portada */
+.tienda-top{background:#0A0A0C;border-bottom:1px solid #2a1213}
+.tienda-top .barra{max-width:1120px;gap:16px;padding:12px 20px}
+.tienda-top .logo img{height:36px;width:auto;display:block}
+.tienda-nav{display:flex;gap:1.1rem;align-items:center}
+.tienda-nav a{color:#7d7d86;text-decoration:none;font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;font-weight:600}
+.tienda-nav a[aria-current=page]{color:#fff;box-shadow:inset 0 -2px 0 #E52528}
+.tienda-top #vercesta{background:transparent;color:#fff;border:1px solid #2a2a31;border-radius:999px;min-height:40px;display:inline-flex;align-items:center;gap:6px;padding:6px 12px}
+.tienda-top .badge-cesta{background:#E52528;color:#fff}
+@media(max-width:700px){
+  .tienda-top .logo img{height:30px}
+  .tienda-nav a{letter-spacing:0.08em}
+}
