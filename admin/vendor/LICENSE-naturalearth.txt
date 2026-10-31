@@ -1,0 +1,1 @@
+paises_110m.geojson: derivado de Natural Earth 1:110m Admin 0 Countries (dominio público, https://www.naturalearthdata.com/about/terms-of-use/). Solo iso y nombre; coordenadas redondeadas.

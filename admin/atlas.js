@@ -1,0 +1,33 @@
+/* Atlas anónimo de visitas por país (ESTIMADO por zona horaria del navegador). Leaflet + GeoJSON locales, sin teselas ni CDN.
+   k-anonimato: países con menos de 3 visitas en la vista se agrupan en «Otros» y no se iluminan. */
+(function(){const K=3;let GEO=null,map=null,capa=null,datos={},vis=[];
+const flag=c=>/^[A-Z]{2}$/.test(c)?String.fromCodePoint(...[...c].map(x=>127397+x.charCodeAt(0))):'';
+const nom=c=>{try{return new Intl.DisplayNames(['es'],{type:'region'}).of(c)}catch(e){return c}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function geo(){if(!GEO)GEO=await (await fetch('vendor/paises_110m.geojson?v=1')).json();return GEO}
+function mundo(){map&&map.fitBounds([[-56,-168],[78,190]])}
+function zoom(){if(!map||!capa)return;const b=L.latLngBounds([]);capa.eachLayer(l=>{if(datos[l.feature.properties.iso])b.extend(l.getBounds())});b.isValid()?map.fitBounds(b.pad(.35),{maxZoom:5}):mundo()}
+async function render(el,V,o){
+ const cnt={};let sin=0;V.forEach(v=>{if(v.pais)cnt[v.pais]=(cnt[v.pais]||0)+1;else sin++});
+ datos={};let otros=0;Object.entries(cnt).forEach(([c,n])=>n>=K?datos[c]=n:otros+=n);
+ vis=Object.entries(datos).sort((a,b)=>b[1]-a[1]);const conPais=V.length-sin;
+ const mesTxt=o.dias+' días'+(o.filtro==='app'?' · app':o.filtro==='web'?' · web':'');
+ if(!el.querySelector('.atlas')){el.innerHTML=`<div class="atlas"><div class="atop"><b class="atit">ATLAS DE VISITAS</b><span class="vivo"><i></i>EN DIRECTO</span><span class="aper"></span></div>
+ <div class="amap"><div id="amapa"></div><div class="acont"><b></b><span></span></div><div class="abtn"><button data-m="mundo" class="on">MUNDO</button><button data-m="zoom">ZOOM</button></div><ol class="arank"></ol></div>
+ <p class="aaviso">País <b>estimado por la zona horaria del navegador</b> (no por IP): puede fallar con VPN o zonas compartidas. Países con menos de ${K} visitas se agrupan en «Otros» y no se muestran en el mapa.</p>
+ <h2>Top países</h2><table class="tbar atabla"></table></div>`;
+  el.querySelectorAll('.abtn button').forEach(b=>b.onclick=()=>{el.querySelectorAll('.abtn button').forEach(x=>x.classList.toggle('on',x===b));b.dataset.m==='zoom'?zoom():mundo()});
+  map=L.map('amapa',{attributionControl:false,zoomControl:false,worldCopyJump:false,minZoom:1,maxZoom:6,zoomSnap:.25});
+  map.attributionControl=L.control.attribution({prefix:false,position:'topright'}).addAttribution('Natural Earth').addTo(map);
+  capa=L.geoJSON(await geo(),{style:()=>({})}).addTo(map);new ResizeObserver(()=>map.invalidateSize()).observe(el.querySelector('#amapa'));mundo()}
+ const mx=Math.max(1,...vis.map(x=>x[1]));
+ capa.setStyle(f=>{const n=datos[f.properties.iso];return n?{color:'#ffd34d',weight:1,fillColor:'#f5b301',fillOpacity:.55+.45*n/mx,className:'pon'}:{color:'#2a2d48',weight:.6,fillColor:'#1a1c33',fillOpacity:1,className:''}});
+ capa.eachLayer(l=>{const c=l.feature.properties.iso,n=datos[c];l.unbindTooltip();if(n)l.bindTooltip(`${flag(c)} ${esc(nom(c))}: ${n}`,{sticky:true})});
+ el.querySelector('.aper').textContent=mesTxt.toUpperCase();
+ el.querySelector('.acont b').textContent=conPais;el.querySelector('.acont span').textContent=`visitas · ${vis.length} ${vis.length===1?'país':'países'}${otros?' + otros':''}`;
+ el.querySelector('.arank').innerHTML=vis.slice(0,5).map(([c,n],i)=>`<li><em>#${i+1}</em> <span class="fl">${flag(c)}</span> ${esc(nom(c))}</li>`).join('');
+ const filas=vis.map(([c,n])=>[`${flag(c)} ${nom(c)}`,n]);if(otros)filas.push(['Otros (<'+K+' visitas por país)',otros]);if(sin)filas.push(['Sin estimar',sin]);
+ const t=Math.max(1,...filas.map(x=>x[1]));
+ el.querySelector('.atabla').innerHTML=filas.map(([k,n])=>`<tr><td class="k">${esc(k)}</td><td class="b"><div class="bar oro" style="width:${Math.max(3,n/t*100)}%"></div></td><td class="n">${n}</td></tr>`).join('')||'<tr><td>Sin datos de país todavía</td></tr>';
+ if(el.querySelector('.abtn .on').dataset.m==='zoom')zoom()}
+window.D4Atlas={render}})();
