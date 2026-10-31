@@ -6,10 +6,12 @@ const $=s=>document.querySelector(s);const ESTADOS={pendiente_pago:'Pendiente de
 const eur=n=>n==null?'—':Number(n).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let PEDIDOS=[],actual=null;
+/* MODO DEMO solo en localhost con ?demo=1: datos agregados de EJEMPLO para probar el gráfico. No funciona en d4fitness.com ni escribe nada. */
+const DEMO=['localhost','127.0.0.1'].includes(location.hostname)&&new URLSearchParams(location.search).has('demo');
 for(const [k,v] of Object.entries(ESTADOS)){$('#festado').add(new Option(v,k));$('#destado').add(new Option(v,k))}
 async function esAdmin(){const {data:{user}}=await sb.auth.getUser();if(!user)return false;const {data}=await sb.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();return !!data}
 function vista(v){['login','recuperar','nueva','app'].forEach(x=>$('#'+x).hidden=x!==v);$('#salir').hidden=v!=='app'}
-async function arranca(){if(RECUPERANDO){vista('nueva');return}$('#recuperar').hidden=true;$('#nueva').hidden=true;if(await esAdmin()){$('#login').hidden=true;$('#app').hidden=false;$('#salir').hidden=false;cargaPedidos()}else{const {data:{user}}=await sb.auth.getUser();if(user){await sb.auth.signOut();$('#lmsg').textContent='Esta cuenta no tiene permisos de administrador.'}$('#login').hidden=false;$('#app').hidden=true;$('#salir').hidden=true}}
+async function arranca(){if(DEMO){vista('app');$('main').insertAdjacentHTML('afterbegin','<div class="demo">MODO DEMO LOCAL · DATOS DE EJEMPLO</div>');document.querySelector('.tabs button[data-t="visitas"]').click();return}if(RECUPERANDO){vista('nueva');return}$('#recuperar').hidden=true;$('#nueva').hidden=true;if(await esAdmin()){$('#login').hidden=true;$('#app').hidden=false;$('#salir').hidden=false;cargaPedidos()}else{const {data:{user}}=await sb.auth.getUser();if(user){await sb.auth.signOut();$('#lmsg').textContent='Esta cuenta no tiene permisos de administrador.'}$('#login').hidden=false;$('#app').hidden=true;$('#salir').hidden=true}}
 $('#flogin').onsubmit=async e=>{e.preventDefault();$('#lmsg').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#pass').value});$('#pass').value='';if(error){$('#lmsg').textContent='No se pudo entrar: '+error.message;return}RECUPERANDO=false;arranca()};
 $('#olvido').onclick=e=>{e.preventDefault();$('#remail').value=$('#email').value.trim();$('#rmsg').textContent='';vista('recuperar')};
 $('#rvolver').onclick=()=>{$('#lmsg').textContent='';vista('login')};
@@ -41,11 +43,17 @@ $('#csv').onclick=()=>{const cols=['referencia','created_at','estado','cliente_n
  const rows=filtrados().map(p=>cols.map(c=>q(p[c])).concat(q((p.lineas||[]).map(l=>l.cantidad+'x '+l.producto+' '+(l.variante||'')).join(' | '))).join(';'));
  const blob=new Blob(['\ufeff'+cols.concat('lineas').join(';')+'\n'+rows.join('\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pedidos_d4fitnesshop_'+new Date().toISOString().slice(0,10)+'.csv';a.click()};
 async function cargaVisitas(){const dias=+$('#vdias').value;const desde=new Date(Date.now()-dias*864e5).toISOString().slice(0,10);
- const {data,error}=await sb.from('visitas').select('dia,ruta,referrer,dispositivo').gte('dia',desde).limit(50000);if(error){$('#vres').textContent='Error: '+error.message;return}
- const cuenta=k=>{const m={};data.forEach(v=>{const x=v[k]||'(directo)';m[x]=(m[x]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1])};
- const tabla=(t,arr,max)=>{const top=arr.slice(0,max||15),mx=top[0]?top[0][1]:1;return `<h2>${t}</h2><table>${top.map(([k,n])=>`<tr><td>${esc(k)}</td><td style="width:40%"><div class="bar" style="width:${Math.max(3,n/mx*100)}%"></div></td><td>${n}</td></tr>`).join('')||'<tr><td>Sin datos</td></tr>'}</table>`};
- const pd=cuenta('dia').sort((a,b)=>a[0]<b[0]?1:-1);
- $('#vres').innerHTML=`<div class="kpi"><div><b>${data.length}</b>visitas</div><div><b>${(data.length/dias).toFixed(1)}</b>por día</div></div>`+tabla('Visitas por día',pd,dias)+tabla('Páginas más vistas',cuenta('ruta'))+tabla('Origen',cuenta('referrer'))+tabla('Dispositivo',cuenta('dispositivo'))}
+ let {data,error}=DEMO?{data:demoVisitas(dias)}:await sb.from('visitas').select('dia,ruta,referrer,dispositivo,origen').gte('dia',desde).limit(50000);
+ if(error&&/origen/.test(error.message))({data,error}=await sb.from('visitas').select('dia,ruta,referrer,dispositivo').gte('dia',desde).limit(50000));
+ if(error){$('#vres').textContent='Error: '+error.message;return}
+ const todos=data.map(v=>({...v,origen:v.origen||'web'})),o=$('#vorig').value,V=o?todos.filter(v=>v.origen===o):todos;
+ const cuenta=(k,arr)=>{const m={};(arr||V).forEach(v=>{const x=v[k]||'(directo)';m[x]=(m[x]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+ const tabla=(t,arr,max)=>{const top=arr.slice(0,max||15),mx=Math.max(1,...top.map(x=>x[1]));return `<h2>${t}</h2><table class="tbar">${top.map(([k,n])=>`<tr><td class="k">${esc(k)}</td><td class="b"><div class="bar" style="width:${Math.max(3,n/mx*100)}%"></div></td><td class="n">${n}</td></tr>`).join('')||'<tr><td>Sin datos</td></tr>'}</table>`};
+ const nApp=todos.filter(v=>v.origen==='app').length,nWeb=todos.length-nApp;
+ const pd=cuenta('dia').sort((a,b)=>a[0]<b[0]?1:-1),hoy=new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Madrid'});
+ $('#vres').innerHTML=`<div class="kpi"><div><b>${V.length}</b>visitas${o?' ('+(o==='app'?'app':'web')+')':''}</div><div><b>${(V.length/dias).toFixed(1)}</b>por día</div><div><b>${V.filter(v=>v.dia===hoy).length}</b>hoy</div><div><b>${nWeb}</b>web</div><div><b>${nApp}</b>desde la app${todos.length?' · '+Math.round(nApp/todos.length*100)+' %':''}</div></div>`+tabla('Visitas por día',pd,dias)+tabla('Páginas más vistas',cuenta('ruta'))+tabla('Origen',cuenta('referrer'))+tabla('Dispositivo',cuenta('dispositivo'))}
+$('#vorig').onchange=cargaVisitas;
+function demoVisitas(dias){const r=[],rutas=['/catalogo/','/','/cuenta/'],dis=['movil','escritorio','movil','tablet'];for(let d=0;d<Math.min(dias,30);d++){const dia=new Date(Date.now()-d*864e5).toISOString().slice(0,10);for(let i=0;i<(d*7%5)+2;i++)r.push({dia,ruta:rutas[i%3],referrer:i%2?'instagram.com':null,dispositivo:dis[i%4],origen:i%3===0?'app':'web'})}return r}
 $('#vdias').onchange=cargaVisitas;
 async function cargaDtos(){const {data,error}=await sb.from('codigos_descuento').select('*').order('codigo');if(error){$('#codigos').textContent='Error: '+error.message;return}
  $('#codigos').innerHTML='';data.forEach(c=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<b>${esc(c.codigo)}</b> · ${esc(c.porcentaje)} % · ${c.solo_usuarios_app?'solo usuarios app':'para todos'} · ${c.caduca?'caduca '+new Date(c.caduca).toLocaleDateString('es-ES'):'sin caducidad'} · <b>${c.activo?'ACTIVO':'inactivo'}</b> `;const b=document.createElement('button');b.textContent=c.activo?'Desactivar':'Activar';b.onclick=async ev=>{ev.stopPropagation();await sb.from('codigos_descuento').update({activo:!c.activo}).eq('codigo',c.codigo);cargaDtos()};d.appendChild(b);$('#codigos').appendChild(d)});
