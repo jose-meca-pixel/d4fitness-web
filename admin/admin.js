@@ -1,4 +1,6 @@
 /* Panel admin D4FITNESSHOP. Solo usa la clave publicable; los permisos los impone RLS en Supabase (tabla admins). */
+/* Detecta el retorno desde enlace de recuperación/invitación ANTES de que supabase-js consuma el hash. */
+const HASH0=new URLSearchParams(location.hash.slice(1)),QS0=new URLSearchParams(location.search);let RECUPERANDO=['recovery','invite'].includes(HASH0.get('type')||QS0.get('type'));
 const C=window.CONFIG||{};const sb=supabase.createClient(C.SUPABASE_URL,C.SUPABASE_KEY);
 const $=s=>document.querySelector(s);const ESTADOS={pendiente_pago:'Pendiente de pago',pagado:'Pagado',tramitado_proveedor:'Tramitado con proveedor',enviado:'Enviado',entregado:'Entregado',cancelado:'Cancelado'};
 const eur=n=>n==null?'—':Number(n).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
@@ -6,8 +8,24 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 let PEDIDOS=[],actual=null;
 for(const [k,v] of Object.entries(ESTADOS)){$('#festado').add(new Option(v,k));$('#destado').add(new Option(v,k))}
 async function esAdmin(){const {data:{user}}=await sb.auth.getUser();if(!user)return false;const {data}=await sb.from('admins').select('user_id').eq('user_id',user.id).maybeSingle();return !!data}
-async function arranca(){if(await esAdmin()){$('#login').hidden=true;$('#app').hidden=false;$('#salir').hidden=false;cargaPedidos()}else{const {data:{user}}=await sb.auth.getUser();if(user){await sb.auth.signOut();$('#lmsg').textContent='Esta cuenta no tiene permisos de administrador.'}$('#login').hidden=false;$('#app').hidden=true;$('#salir').hidden=true}}
-$('#flogin').onsubmit=async e=>{e.preventDefault();$('#lmsg').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#pass').value});$('#pass').value='';if(error){$('#lmsg').textContent='No se pudo entrar: '+error.message;return}arranca()};
+function vista(v){['login','recuperar','nueva','app'].forEach(x=>$('#'+x).hidden=x!==v);$('#salir').hidden=v!=='app'}
+async function arranca(){if(RECUPERANDO){vista('nueva');return}$('#recuperar').hidden=true;$('#nueva').hidden=true;if(await esAdmin()){$('#login').hidden=true;$('#app').hidden=false;$('#salir').hidden=false;cargaPedidos()}else{const {data:{user}}=await sb.auth.getUser();if(user){await sb.auth.signOut();$('#lmsg').textContent='Esta cuenta no tiene permisos de administrador.'}$('#login').hidden=false;$('#app').hidden=true;$('#salir').hidden=true}}
+$('#flogin').onsubmit=async e=>{e.preventDefault();$('#lmsg').textContent='';const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#pass').value});$('#pass').value='';if(error){$('#lmsg').textContent='No se pudo entrar: '+error.message;return}RECUPERANDO=false;arranca()};
+$('#olvido').onclick=e=>{e.preventDefault();$('#remail').value=$('#email').value.trim();$('#rmsg').textContent='';vista('recuperar')};
+$('#rvolver').onclick=()=>{$('#lmsg').textContent='';vista('login')};
+$('#frec').onsubmit=async e=>{e.preventDefault();const b=e.submitter;if(b)b.disabled=true;
+ await sb.auth.resetPasswordForEmail($('#remail').value.trim(),{redirectTo:'https://d4fitness.com/admin/'}).catch(()=>{});
+ /* Mensaje neutro: no revela si el correo existe ni si hubo error. */
+ $('#rmsg').textContent='Si el correo es de un administrador, recibirás un enlace en unos minutos. Revisa también la carpeta de spam.';if(b)setTimeout(()=>b.disabled=false,30000)};
+sb.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY'){RECUPERANDO=true;vista('nueva')}});
+$('#fnueva').onsubmit=async e=>{e.preventDefault();const p1=$('#np1'),p2=$('#np2');$('#nmsg').className='msg';
+ if(p1.value.length<12){$('#nmsg').textContent='La contraseña debe tener al menos 12 caracteres.';return}
+ if(p1.value!==p2.value){$('#nmsg').textContent='Las contraseñas no coinciden.';return}
+ const {data:{session}}=await sb.auth.getSession();if(!session){$('#nmsg').textContent='El enlace ha caducado o ya se usó. Pide uno nuevo.';return}
+ const {error}=await sb.auth.updateUser({password:p1.value});p1.value='';p2.value='';
+ if(error){$('#nmsg').textContent='No se pudo guardar: '+error.message;return}
+ RECUPERANDO=false;history.replaceState(null,'',location.pathname);$('#lmsg').textContent='';
+ if(await esAdmin()){arranca()}else{await sb.auth.signOut();vista('login');$('#lmsg').textContent='Contraseña guardada, pero esta cuenta no tiene permisos de administrador.'}};
 $('#salir').onclick=async()=>{await sb.auth.signOut();location.reload()};
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));['pedidos','visitas','descuentos'].forEach(t=>$('#t-'+t).hidden=t!==b.dataset.t);if(b.dataset.t==='visitas')cargaVisitas();if(b.dataset.t==='descuentos')cargaDtos()});
 async function cargaPedidos(){const {data,error}=await sb.from('pedidos').select('*').order('created_at',{ascending:false}).limit(1000);if(error){$('#lista').textContent='Error: '+error.message;return}PEDIDOS=data;pinta()}

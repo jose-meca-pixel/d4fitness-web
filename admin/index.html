@@ -1,10 +1,12 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>Panel · D4FITNESSHOP</title><link rel="stylesheet" href="admin.css">
+<meta name="robots" content="noindex,nofollow"><title>Panel · D4FITNESSHOP</title><link rel="stylesheet" href="admin.css?v=2">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="/catalogo/config.js"></script></head><body>
 <header><b>D4FITNESSHOP · Panel</b><button id="salir" hidden>Cerrar sesión</button></header>
 <main>
-<section id="login"><h1>Acceso administrador</h1><form id="flogin"><input id="email" type="email" placeholder="Correo" autocomplete="username" required><input id="pass" type="password" placeholder="Contraseña" autocomplete="current-password" required><button>Entrar</button></form><p id="lmsg" class="msg"></p></section>
+<section id="login"><h1>Acceso administrador</h1><form id="flogin"><input id="email" type="email" placeholder="Correo" autocomplete="username" required><input id="pass" type="password" placeholder="Contraseña" autocomplete="current-password" required><button>Entrar</button></form><p id="lmsg" class="msg"></p><p><a href="#" id="olvido" class="lnk">He olvidado / quiero establecer mi contraseña</a></p></section>
+<section id="recuperar" hidden><h1>Establecer o recuperar contraseña</h1><p class="ayuda">Escribe tu correo de administrador y te enviaremos un enlace para elegir tu contraseña.</p><form id="frec" class="fpass"><input id="remail" type="email" placeholder="Correo" autocomplete="username" required><button>Enviar enlace</button><button type="button" class="sec" id="rvolver">Volver</button></form><p id="rmsg" class="msg ok"></p></section>
+<section id="nueva" hidden><h1>Elige tu nueva contraseña</h1><p class="ayuda">Mínimo 12 caracteres. Puedes usar la contraseña segura que sugiere tu navegador o llavero.</p><form id="fnueva" class="fpass"><input id="np1" type="password" placeholder="Nueva contraseña" autocomplete="new-password" minlength="12" required><input id="np2" type="password" placeholder="Repite la contraseña" autocomplete="new-password" minlength="12" required><button>Guardar contraseña</button></form><p id="nmsg" class="msg"></p></section>
 <section id="app" hidden>
 <nav class="tabs"><button data-t="pedidos" class="on">Pedidos</button><button data-t="visitas">Visitas</button><button data-t="descuentos">Descuentos</button></nav>
 <div id="t-pedidos"><div class="barra"><select id="festado"><option value="">Todos los estados</option></select><input id="fbuscar" placeholder="Buscar ref., nombre, teléfono…"><button id="csv">Exportar CSV</button><button id="recargar">↻</button></div><div id="lista"></div></div>
@@ -14,4 +16,4 @@
 <dialog id="det"><form method="dialog" id="fdet"><div id="detinfo"></div>
 <label>Estado <select id="destado"></select></label><label>Nº seguimiento <input id="dseg" maxlength="200"></label><label>Notas internas <textarea id="dnotas" maxlength="4000" rows="4"></textarea></label>
 <p class="msg" id="dmsg"></p><div class="barra"><button value="guardar" id="dguardar">Guardar</button><button value="cancel" formnovalidate>Cerrar</button></div></form></dialog>
-</main><script src="admin.js"></script></body></html>
+</main><script src="admin.js?v=2"></script></body></html>

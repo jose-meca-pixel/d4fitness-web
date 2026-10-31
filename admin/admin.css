@@ -12,3 +12,4 @@ form#flogin{display:grid;gap:10px;max-width:360px}.msg{color:#ff8a8c;min-height:
 dialog{background:#141418;color:#eee;border:1px solid #E52528;border-radius:12px;width:min(560px,94vw)}dialog label{display:grid;gap:4px;margin:8px 0}
 table{width:100%;border-collapse:collapse}td,th{padding:6px;border-bottom:1px solid #26262c;text-align:left}.bar{background:#E52528;height:10px;border-radius:4px}
 .kpi{display:flex;gap:10px;flex-wrap:wrap}.kpi div{background:#141418;padding:12px;border-radius:10px;flex:1;min-width:120px}.kpi b{font-size:1.4rem;display:block}
+form#flogin,.fpass{display:grid;gap:10px;max-width:360px}.lnk{color:#ff8a8c;font-size:.9rem}.ayuda{color:#aaa;max-width:360px}.msg.ok{color:#9be3b0}
