@@ -28,3 +28,10 @@ form#flogin,.fpass{display:grid;gap:10px;max-width:360px}.lnk{color:#ff8a8c;font
 .leaflet-container{background:transparent;font:inherit}.leaflet-tooltip{background:#11132a;color:#fff;border:1px solid #f5b301}
 @media(max-width:600px){#amapa{height:300px}.acont b{font-size:1.8rem}.arank li{font-size:.85rem}.abtn button{padding:6px 16px;font-size:.75rem}}
 @media(max-width:600px){.arank li:nth-child(n+4){display:none}}
+.asin{display:block;margin-top:6px;color:#ffd34d;font-style:normal;font-weight:700;font-size:.8rem;background:rgba(17,19,42,.85);border:1px solid #6b5a1a;border-radius:8px;padding:4px 8px}
+.aprov{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:500;background:rgba(17,19,42,.9);color:#c9cbe8;font-size:.72rem;padding:4px 10px;border-radius:999px;border:1px solid #33365a;pointer-events:none;white-space:nowrap}
+.tprov{background:#e8302e;color:#fff;border:0;font-weight:700}
+.leaflet-control-zoom a{background:#11132a!important;color:#f5b301!important;border-color:#33365a!important}
+@media(max-width:600px){.aprov{top:auto;bottom:4px;font-size:.62rem;white-space:normal;width:60%;text-align:center}}
+.asin[hidden],.aprov[hidden]{display:none}
+@media(max-width:600px){.aprov{display:none!important}}

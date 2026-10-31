@@ -1,1 +1,2 @@
 paises_110m.geojson: derivado de Natural Earth 1:110m Admin 0 Countries (dominio público, https://www.naturalearthdata.com/about/terms-of-use/). Solo iso y nombre; coordenadas redondeadas.
+provincias_es.geojson: Natural Earth 1:10m Admin 1 States/Provinces (dominio público), filtrado a España y simplificado con mapshaper.
