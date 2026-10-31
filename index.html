@@ -1,99 +1,127 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>D4 FITNESS · App y tienda</title>
-  <meta name="description" content="D4 FITNESS. Entreno, nutrición y recuperación. Descarga la app y entra en la tienda oficial.">
-  <meta name="theme-color" content="#0A0A0C">
-  <link rel="icon" href="/assets/favicon.png">
-  <link rel="canonical" href="https://d4fitness.com/">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --bg:#0a0a0c; --fg:#f4f4f5; --muted:#9b9ba3; --dim:#6e6e76; --red:#e52528; --line:#2a2a31; }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--fg); font-family: Inter, system-ui, sans-serif; }
-    a { color: inherit; }
-    button, a { cursor: pointer; }
-    :focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
-    .top { position: sticky; top: 0; z-index: 5; background: var(--bg); }
-    .wrap { max-width: 1120px; margin: 0 auto; }
-    .top .in { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1.25rem; }
-    .top img { height: 36px; width: auto; }
-    nav { display: flex; gap: 1.1rem; align-items: center; }
-    nav a { color: #7d7d86; text-decoration: none; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
-    nav a[aria-current="page"] { color: #fff; box-shadow: inset 0 -2px 0 var(--red); }
-    .poster { max-width: 1120px; margin: 0 auto; min-height: calc(100svh - 64px); padding: 1.5rem 1.75rem 1rem; display: grid; gap: 1.75rem; align-items: center; }
-    .logo { height: 72px; width: auto; }
-    h1 { margin: 1.35rem 0 0; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: clamp(3.6rem, 6.5vw, 5.8rem); font-weight: 700; letter-spacing: 0.01em; line-height: 0.84; text-transform: uppercase; }
-    .kicker { margin: 0.85rem 0 0; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #8a8a92; }
-    .rule { display: block; width: 56px; height: 2px; margin-top: 1rem; background: var(--red); }
-    .lead { margin: 0.7rem 0 0; max-width: 24rem; color: var(--muted); line-height: 1.45; font-size: 0.95rem; }
-    .download { display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem; margin-top: 1.6rem; width: min(100%, 300px); min-height: 48px; padding: 0.75rem 1.25rem; border-radius: 4px; background: var(--red); color: #fff; text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; }
-    .badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.55rem; }
-    .badge { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 42px; min-width: 140px; padding: 0.2rem 0.65rem 0.2rem 0.5rem; border-radius: 8px; border: 1px solid #2a2a30; background: #000; color: #fff; text-decoration: none; }
-    .badge small { display: block; font-size: 0.55rem; color: #8e8e96; }
-    .badge strong { display: block; font-size: 0.88rem; font-weight: 600; }
-    .badge svg { width: 18px; height: 18px; flex: none; }
-    .phones { width: min(100%, 440px); height: auto; justify-self: center; }
-    .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; margin: 0.5rem 0 0; padding: 0.75rem 0 0.1rem; border-top: 1px solid #2a1213; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-    .legal { max-width: 1120px; margin: 0 auto; padding: 1.25rem 1.75rem 2rem; color: var(--dim); font-size: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; }
-    .legal a { color: var(--dim); }
-    @media (min-width: 900px) {
-      .poster { grid-template-columns: minmax(380px, 1.05fr) minmax(300px, 440px); column-gap: 2.5rem; padding: 1rem 2rem; }
-      .logo { height: 78px; }
-      .foot { grid-column: 1 / -1; }
-      .phones { width: 100%; justify-self: end; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D4 FITNESS · App de hipertrofia en español para iPhone</title>
+<meta name="description" content="Plan de hipertrofia por volumen (MEV-MAV), nutrición y recuperación en una app. Sin anuncios ni rastreo. Un mes de Premium gratis al suscribirte.">
+<link rel="canonical" href="https://d4fitness.com/">
+<meta name="theme-color" content="#0A0A0C">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="D4 FITNESS">
+<meta property="og:title" content="D4 FITNESS · App de hipertrofia en español para iPhone">
+<meta property="og:description" content="Plan de hipertrofia por volumen (MEV-MAV), nutrición y recuperación en una app. Sin anuncios ni rastreo. Un mes de Premium gratis al suscribirte.">
+<meta property="og:url" content="https://d4fitness.com/">
+<meta property="og:image" content="https://d4fitness.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="D4 FITNESS: gana músculo con el volumen justo para ti. Capturas de la app en iPhone.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="D4 FITNESS · App de hipertrofia en español para iPhone">
+<meta name="twitter:description" content="Plan de hipertrofia por volumen (MEV-MAV), nutrición y recuperación en una app. Sin anuncios ni rastreo. Un mes de Premium gratis al suscribirte.">
+<meta name="twitter:image" content="https://d4fitness.com/assets/og-image.png">
+<link rel="preload" href="assets/fonts/barlow-condensed-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "D4 FITNESS: Gym y Dieta", "operatingSystem": "iOS 16.4 o posterior", "applicationCategory": "HealthApplication", "inLanguage": "es", "url": "https://d4fitness.com/", "downloadUrl": "https://apps.apple.com/es/app/d4-fitness/id6818841609", "softwareVersion": "1.0.3", "author": {"@type": "Person", "name": "Jose Meca Sánchez de Bustamante"}, "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "EUR", "name": "Descarga gratuita"}, {"@type": "Offer", "price": "9.99", "priceCurrency": "EUR", "name": "Premium mensual"}, {"@type": "Offer", "price": "59.99", "priceCurrency": "EUR", "name": "Premium anual"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Cómo funciona la renovación de Premium?", "acceptedAnswer": {"@type": "Answer", "text": "Tras el mes gratis se cobra 9,99 €/mes o 59,99 €/año a tu cuenta de Apple. La suscripción se renueva sola salvo que la canceles al menos 24 h antes del final del periodo, desde Ajustes de tu cuenta de Apple."}}, {"@type": "Question", "name": "¿Está disponible para Android?", "acceptedAnswer": {"@type": "Answer", "text": "No. Por ahora D4 FITNESS es solo para iPhone, con iOS 16.4 o posterior, y se descarga desde el App Store."}}, {"@type": "Question", "name": "¿En qué idioma está la app?", "acceptedAnswer": {"@type": "Answer", "text": "Solo en español."}}, {"@type": "Question", "name": "¿Qué hacéis con mis datos?", "acceptedAnswer": {"@type": "Answer", "text": "D4 no muestra anuncios ni usa rastreo. Si conectas Apple Salud, la app solo lee peso, pasos y sueño, y no escribe nada en Salud. Lo tienes todo en la política de privacidad."}}, {"@type": "Question", "name": "¿Tengo que usar la IA?", "acceptedAnswer": {"@type": "Answer", "text": "No. Las funciones de IA, con Gemini, son opcionales; puedes entrenar y llevar tu dieta sin activarlas."}}]}</script>
 </head>
 <body>
-  <header class="top">
-    <div class="in">
-      <a href="/"><img src="/assets/logo-tight.png" alt="D4 FITNESS"></a>
-      <nav aria-label="Principal">
-        <a href="/" aria-current="page">Inicio</a>
-        <a href="/catalogo/">Tienda</a>
-      </nav>
-    </div>
-  </header>
-  <main>
-    <section class="poster">
-      <div>
-        <img class="logo" src="/assets/logo-tight.png" alt="">
-        <h1>Entreno<br>Nutrición<br>Recuperación</h1>
-        <p class="kicker">Entrena · Nútrete · Recupérate</p>
-        <span class="rule" aria-hidden="true"></span>
-        <p class="lead">Tu rendimiento. Nuestro sistema.<br>Todo en una sola app.</p>
-        <a class="download" href="#descarga">Descarga D4 FITNESS <span aria-hidden="true">→</span></a>
-        <div class="badges" id="descarga">
-          <a class="badge" href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener noreferrer">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.7c0-2.2 1.8-3.3 1.9-3.4-1-1.5-2.6-1.7-3.2-1.7-1.3-.1-2.6.8-3.3.8s-1.7-.8-2.8-.8c-1.4 0-2.8.9-3.5 2.2-1.5 2.6-.4 6.5 1.1 8.6.7 1 1.6 2.2 2.7 2.1 1.1 0 1.5-.7 2.8-.7s1.6.7 2.8.7 1.9-1.1 2.6-2.1c.8-1.2 1.1-2.3 1.2-2.4-.1 0-2.2-.9-2.3-3.3zM14.7 6.5c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.6.6-1.1 1.6-.9 2.6 1 .1 1.9-.5 2.5-1.2z"/></svg>
-            <span><small>Descárgalo en el</small><strong>App Store</strong></span>
-          </a>
-          <a class="badge" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk">
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top"><div class="wrap">
+<a href="/" aria-label="D4 FITNESS, inicio"><img src="assets/img/logo.webp" width="480" height="244" alt="D4 FITNESS"></a>
+<nav aria-label="Principal"><ul><li class="opt"><a href="#metodo">Método</a></li><li class="opt"><a href="#privacidad">Privacidad</a></li><li><a href="#precios">Precios</a></li><li><a href="#faq">FAQ</a></li><li><a href="/catalogo/">Tienda</a></li></ul></nav>
+</div></header>
+<main id="main">
+<section class="hero" aria-labelledby="h1"><div class="wrap">
+<div>
+<p class="kicker">Entrena · Nútrete · Recupérate</p>
+<h1 id="h1">Gana músculo con el volumen <em>justo para ti.</em></h1>
+<span class="rule"></span>
+<p class="lead">D4 calcula tus series semanales por músculo entre tu mínimo efectivo (MEV) y tu máximo adaptativo (MAV), y ajusta tu nutrición y tu recuperación cada día.</p>
+<div class="cta"><a class="badge " href="https://apps.apple.com/es/app/d4-fitness/id6818841609"><img src="assets/img/app-store-badge.svg" width="156" height="52" alt="Descargar en el App Store"></a><a class="apk" href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.2 3.6 8.8 6.4a6.4 6.4 0 0 1 6.4 0l1.6-2.8 1.2.7-1.6 2.7A6.8 6.8 0 0 1 19 11H5a6.8 6.8 0 0 1 2.6-4.8L6 3.5l1.2-.7zM8.2 12.2h7.6v6.2a1.2 1.2 0 0 1-1.2 1.2h-.6v2.1a1.1 1.1 0 0 1-2.2 0V19.6H12v2.1a1.1 1.1 0 0 1-2.2 0V19.6h-.6a1.2 1.2 0 0 1-1.2-1.2v-6.2z"/></svg>
             <span><small>Descarga</small><strong>Android</strong></span>
-          </a>
-        </div>
-      </div>
-      <img class="phones" src="/assets/phones-clean.jpg" alt="Pantallas de la app D4 FITNESS: entreno, nutrición y recuperación">
-      <p class="foot">
-        <span>Ciencia · Disciplina · Resultados</span>
-        <span>D4 FITNESS · Tu mejor versión, cada día</span>
-      </p>
-    </section>
-  </main>
-  <footer class="legal">
-    <span>© 2026 D4 FITNESS · Jose Meca Sánchez de Bustamante</span>
-    <a href="mailto:d4fitness.support@gmail.com">d4fitness.support@gmail.com</a>
-    <a href="/catalogo/legal.html#aviso">Aviso legal</a>
-    <a href="/catalogo/legal.html#privacidad">Privacidad</a>
-    <a href="/catalogo/legal.html#cookies">Cookies</a>
-    <a href="/catalogo/legal.html#condiciones">Condiciones</a>
-    <a href="/catalogo/legal.html#desistimiento">Desistimiento</a>
-  </footer>
+          </a></div>
+<p class="offer"><strong>Un mes de Premium gratis al suscribirte.</strong> Después, 9,99 €/mes o 59,99 €/año.</p>
+</div>
+<div class="hero-shot"><picture><source type="image/avif" srcset="assets/shots/01-390.avif 390w, assets/shots/01-780.avif 780w" sizes="(min-width:900px) 320px, 78vw"><source type="image/webp" srcset="assets/shots/01-390.webp 390w, assets/shots/01-780.webp 780w" sizes="(min-width:900px) 320px, 78vw"><img src="assets/shots/01-390.webp" width="390" height="844" alt="Pantalla Entreno: sesión de Espalda con recuperación 60, botón Empezar sesión y opciones de cardio Bici, Carrera y Cardio." fetchpriority="high"></picture></div>
+<p class="motto"><span>Ciencia · Disciplina · Resultados</span><span>iPhone · En español</span></p>
+</div></section>
+
+<section id="metodo" aria-labelledby="h-metodo"><div class="wrap split">
+<div>
+<p class="eyebrow">El método</p>
+<h2 id="h-metodo">Ni de menos, ni de más: MEV-MAV</h2>
+<span class="rule"></span>
+<p class="lead">Crecer depende de hacer suficiente volumen sin pasarte de lo que puedes recuperar. D4 lo lleva músculo a músculo.</p>
+<ol class="steps">
+<li><strong>Mínimo efectivo (MEV)</strong><span>Las series semanales a partir de las que un músculo empieza a crecer.</span></li>
+<li><strong>Máximo adaptativo (MAV)</strong><span>El techo útil: por encima, más series suman fatiga y no progreso.</span></li>
+<li><strong>Ajuste diario</strong><span>Tu recuperación del día ajusta la sesión, la dieta y el descanso.</span></li>
+</ol>
+</div>
+<figure><picture><source type="image/avif" srcset="assets/shots/06-390.avif 390w, assets/shots/06-780.avif 780w" sizes="(min-width:900px) 300px, 78vw"><source type="image/webp" srcset="assets/shots/06-390.webp 390w, assets/shots/06-780.webp 780w" sizes="(min-width:900px) 300px, 78vw"><img src="assets/shots/06-390.webp" width="390" height="844" alt="Tu día: recuperación 6,4 sobre 10 y volumen semanal por músculo; Core 22 de 10 por encima del máximo, Pecho 16 de 16 óptimo y Tríceps 12 de 10 alto." loading="lazy" decoding="async"></picture><figcaption>Volumen por músculo: sabes cuándo te pasas.</figcaption></figure>
+</div></section>
+
+<section id="privacidad" aria-labelledby="h-priv"><div class="wrap">
+<p class="eyebrow">Privacidad</p>
+<h2 id="h-priv">Tu entreno es tuyo</h2>
+<span class="rule"></span>
+<ul class="ticks">
+<li><strong>Cero anuncios.</strong> Ni banners ni vídeos entre series.</li>
+<li><strong>Cero rastreo.</strong> La app no usa rastreo publicitario.</li>
+<li><strong>IA opcional, con Gemini.</strong> Solo se usa si tú la activas.</li>
+<li><strong>Apple Salud, solo lectura.</strong> Peso, pasos y sueño, con tu permiso.</li>
+</ul>
+<p class="note"><a class="link" href="/privacy.html">Lee la política de privacidad completa</a></p>
+</div></section>
+
+<section id="app" aria-labelledby="h-app"><div class="wrap">
+<p class="eyebrow">La app</p>
+<h2 id="h-app">Así es D4 por dentro</h2>
+<div class="tour">
+<div class="split"><div><h3>Volumen por músculo</h3><p class="lead">Volumen por músculo: sabes cuándo te pasas.</p></div><figure><picture><source type="image/avif" srcset="assets/shots/06-390.avif 390w, assets/shots/06-780.avif 780w" sizes="(min-width:900px) 300px, 78vw"><source type="image/webp" srcset="assets/shots/06-390.webp 390w, assets/shots/06-780.webp 780w" sizes="(min-width:900px) 300px, 78vw"><img src="assets/shots/06-390.webp" width="390" height="844" alt="Tu día: recuperación 6,4 sobre 10 y volumen semanal por músculo; Core 22 de 10 por encima del máximo, Pecho 16 de 16 óptimo y Tríceps 12 de 10 alto." loading="lazy" decoding="async"></picture></figure></div>
+<div class="split rev"><div><h3>Tu dieta y tus macros, claros</h3><p class="lead">Calorías y macros calculados para tu objetivo.</p></div><figure><picture><source type="image/avif" srcset="assets/shots/02-390.avif 390w, assets/shots/02-780.avif 780w" sizes="(min-width:900px) 300px, 78vw"><source type="image/webp" srcset="assets/shots/02-390.webp 390w, assets/shots/02-780.webp 780w" sizes="(min-width:900px) 300px, 78vw"><img src="assets/shots/02-390.webp" width="390" height="844" alt="Pantalla Dieta: 0 de 1570 kcal con barras de proteína, carbohidratos y grasas, accesos a Mi nutricionista y Comida rápida." loading="lazy" decoding="async"></picture></figure></div>
+<div class="split"><div><h3>Conecta con Apple Salud</h3><p class="lead">Pasos, sueño y peso, solo si das permiso.</p></div><figure><picture><source type="image/avif" srcset="assets/shots/04-390.avif 390w, assets/shots/04-780.avif 780w" sizes="(min-width:900px) 300px, 78vw"><source type="image/webp" srcset="assets/shots/04-390.webp 390w, assets/shots/04-780.webp 780w" sizes="(min-width:900px) 300px, 78vw"><img src="assets/shots/04-390.webp" width="390" height="844" alt="Conexión con Apple Salud: la app lee peso, pasos y sueño, indica que no escribe nada en Salud y ofrece botón Desconectar." loading="lazy" decoding="async"></picture></figure></div>
+</div>
+<h3 class="gal" id="h-galeria">Todas las pantallas</h3>
+<div class="carousel">
+<ul class="shots" id="shots" tabindex="0" aria-labelledby="h-galeria" aria-roledescription="carrusel"><li id="c1"><figure><picture><source type="image/avif" srcset="assets/shots/01-390.avif 390w, assets/shots/01-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/01-390.webp 390w, assets/shots/01-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/01-390.webp" width="390" height="844" alt="Pantalla Entreno: sesión de Espalda con recuperación 60, botón Empezar sesión y opciones de cardio Bici, Carrera y Cardio." loading="lazy" decoding="async"></picture><figcaption><strong>Entrena con un plan que se adapta a ti.</strong> Tu sesión cambia con tu recuperación del día.</figcaption></figure></li><li id="c2"><figure><picture><source type="image/avif" srcset="assets/shots/02-390.avif 390w, assets/shots/02-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/02-390.webp 390w, assets/shots/02-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/02-390.webp" width="390" height="844" alt="Pantalla Dieta: 0 de 1570 kcal con barras de proteína, carbohidratos y grasas, accesos a Mi nutricionista y Comida rápida." loading="lazy" decoding="async"></picture><figcaption><strong>Tu dieta y tus macros, claros.</strong> Calorías y macros calculados para tu objetivo.</figcaption></figure></li><li id="c3"><figure><picture><source type="image/avif" srcset="assets/shots/03-390.avif 390w, assets/shots/03-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/03-390.webp 390w, assets/shots/03-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/03-390.webp" width="390" height="844" alt="Pantalla de progreso: botón Actualizar valoración, medidas corporales, grasa corporal y análisis corporal." loading="lazy" decoding="async"></picture><figcaption><strong>Mide tu progreso real.</strong> Medidas y grasa corporal, con fechas de revisión.</figcaption></figure></li><li id="c4"><figure><picture><source type="image/avif" srcset="assets/shots/04-390.avif 390w, assets/shots/04-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/04-390.webp 390w, assets/shots/04-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/04-390.webp" width="390" height="844" alt="Conexión con Apple Salud: la app lee peso, pasos y sueño, indica que no escribe nada en Salud y ofrece botón Desconectar." loading="lazy" decoding="async"></picture><figcaption><strong>Conecta con Apple Salud.</strong> Pasos, sueño y peso, solo si das permiso.</figcaption></figure></li><li id="c5"><figure><picture><source type="image/avif" srcset="assets/shots/05-390.avif 390w, assets/shots/05-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/05-390.webp 390w, assets/shots/05-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/05-390.webp" width="390" height="844" alt="Actividad Caminar con GPS: 1,27 km a ritmo de 11:17 por kilómetro sobre un mapa difuminado." loading="lazy" decoding="async"></picture><figcaption><strong>Sal a correr o caminar.</strong> Cardio con GPS; la ruta se queda en tu iPhone.</figcaption></figure></li><li id="c6"><figure><picture><source type="image/avif" srcset="assets/shots/06-390.avif 390w, assets/shots/06-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/06-390.webp 390w, assets/shots/06-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/06-390.webp" width="390" height="844" alt="Tu día: recuperación 6,4 sobre 10 y volumen semanal por músculo; Core 22 de 10 por encima del máximo, Pecho 16 de 16 óptimo y Tríceps 12 de 10 alto." loading="lazy" decoding="async"></picture><figcaption><strong>Volumen por músculo.</strong> Volumen por músculo: sabes cuándo te pasas.</figcaption></figure></li><li id="c7"><figure><picture><source type="image/avif" srcset="assets/shots/07-390.avif 390w, assets/shots/07-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/07-390.webp 390w, assets/shots/07-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/07-390.webp" width="390" height="844" alt="Dieta de la cena con Comida rápida, Estudio completo y Análisis foto; macros cumplidos al 97, 99 y 100 %." loading="lazy" decoding="async"></picture><figcaption><strong>Tu día de dieta.</strong> Tu día de dieta, cumplido de un vistazo.</figcaption></figure></li><li id="c8"><figure><picture><source type="image/avif" srcset="assets/shots/08-390.avif 390w, assets/shots/08-780.avif 780w" sizes="(min-width:900px) 250px, 72vw"><source type="image/webp" srcset="assets/shots/08-390.webp 390w, assets/shots/08-780.webp 780w" sizes="(min-width:900px) 250px, 72vw"><img src="assets/shots/08-390.webp" width="390" height="844" alt="Sesión Pierna más Hombro en definición: press militar con barra 2 series de 10 a 15 con RIR 1 a 3 y elevación lateral en polea con técnica verificada." loading="lazy" decoding="async"></picture><figcaption><strong>Cada serie, medida.</strong> Cada serie con su peso, repeticiones y RIR.</figcaption></figure></li></ul>
+<div class="ctrl" hidden><button type="button" data-dir="-1" aria-controls="shots" aria-label="Captura anterior">←</button><button type="button" data-dir="1" aria-controls="shots" aria-label="Captura siguiente">→</button></div>
+</div>
+</div></section>
+
+<section id="precios" aria-labelledby="h-precios"><div class="wrap">
+<p class="eyebrow">Precios</p>
+<h2 id="h-precios">Gratis o Premium</h2>
+<div class="plans">
+<div class="plan"><h3>Gratis</h3><p class="price">0 €</p><p class="note">Descarga la app y empieza sin pagar.</p></div>
+<div class="plan pro"><h3>Premium mensual</h3><p class="price">9,99 € <small>/mes</small></p><p class="note">Primer mes gratis al suscribirte.</p></div>
+<div class="plan pro"><h3>Premium anual</h3><p class="price">59,99 € <small>/año</small></p><p class="note">Equivale a 5,00 €/mes: ahorras un 50 %. Primer mes gratis al suscribirte.</p></div>
+</div>
+<p class="note">El cobro se hace en tu cuenta de Apple. Renovación automática salvo que canceles al menos 24 h antes del final del periodo.</p>
+</div></section>
+
+<section id="faq" aria-labelledby="h-faq"><div class="wrap">
+<p class="eyebrow">Dudas</p>
+<h2 id="h-faq">Preguntas frecuentes</h2>
+<div class="faq"><details><summary>¿Cómo funciona la renovación de Premium?</summary><p>Tras el mes gratis se cobra 9,99 €/mes o 59,99 €/año a tu cuenta de Apple. La suscripción se renueva sola salvo que la canceles al menos 24 h antes del final del periodo, desde Ajustes de tu cuenta de Apple.</p></details><details><summary>¿Está disponible para Android?</summary><p>No. Por ahora D4 FITNESS es solo para iPhone, con iOS 16.4 o posterior, y se descarga desde el App Store.</p></details><details><summary>¿En qué idioma está la app?</summary><p>Solo en español.</p></details><details><summary>¿Qué hacéis con mis datos?</summary><p>D4 no muestra anuncios ni usa rastreo. Si conectas Apple Salud, la app solo lee peso, pasos y sueño, y no escribe nada en Salud. Lo tienes todo en la política de privacidad. <a class="link" href="/privacy.html">Leer la política de privacidad</a>.</p></details><details><summary>¿Tengo que usar la IA?</summary><p>No. Las funciones de IA, con Gemini, son opcionales; puedes entrenar y llevar tu dieta sin activarlas.</p></details></div>
+</div></section>
+
+<section class="close" aria-labelledby="h-close"><div class="wrap">
+<h2 id="h-close">Tu mejor versión, cada día.</h2>
+<p class="lead center">Un mes de Premium gratis al suscribirte.</p>
+<a class="badge " href="https://apps.apple.com/es/app/d4-fitness/id6818841609"><img src="assets/img/app-store-badge.svg" width="156" height="52" alt="Descargar en el App Store"></a>
+</div></section>
+</main>
+<footer><div class="wrap">
+<span>© 2026 D4 FITNESS · Jose Meca Sánchez de Bustamante</span>
+<a href="/privacy.html">Privacidad</a>
+<a href="/catalogo/">Tienda</a>
+<a href="mailto:d4fitness.support@gmail.com">Soporte</a>
+</div></footer>
+<script src="assets/carousel.js" defer></script>
 </body>
 </html>
