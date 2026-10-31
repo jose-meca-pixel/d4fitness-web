@@ -35,3 +35,4 @@ form#flogin,.fpass{display:grid;gap:10px;max-width:360px}.lnk{color:#ff8a8c;font
 @media(max-width:600px){.aprov{top:auto;bottom:4px;font-size:.62rem;white-space:normal;width:60%;text-align:center}}
 .asin[hidden],.aprov[hidden]{display:none}
 @media(max-width:600px){.aprov{display:none!important}}
+.acont{max-width:72%}.acont span{white-space:normal;display:block}
