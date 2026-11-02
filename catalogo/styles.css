@@ -188,3 +188,17 @@ body.vista-tienda .rapida{display:none}
 #cesta{display:flex;flex-direction:column}#cesta[hidden]{display:none}
 #cesta .cesta-pie{position:sticky;bottom:calc(-1 * max(24px,env(safe-area-inset-bottom)));margin:12px -16px calc(-1 * max(24px,env(safe-area-inset-bottom)));padding:12px 16px max(14px,env(safe-area-inset-bottom));background:#0A0A0C;border-top:2px solid #E52528;color:#fff;order:99}
 #cesta .cesta-pie p{margin:2px 0}#cesta .cesta-pie .total{font-size:1.1em}#cesta .cesta-pie .dto{color:#ff8a8c}
+
+/* Banner de marcas (02/11/2026) */
+.banner-marcas{background:#0A0A0C;border:1px solid #2A2522;border-left:4px solid #E52528;border-radius:12px;padding:12px 14px 10px;margin:12px 0 14px}
+.banner-marcas .marcas-t{margin:0 0 10px;color:#F4F1ED;font-family:"Barlow Condensed",Inter,sans-serif;font-size:15px;font-weight:700;display:flex;align-items:baseline;gap:10px}
+.banner-marcas .marcas-t small{font-size:11px;color:#A8A29E;font-weight:500;letter-spacing:.08em}
+.banner-marcas .marcas{align-items:stretch;padding-bottom:2px}
+.banner-marcas .marcas button{min-height:56px}
+.banner-marcas .marcas button.m-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 18px;min-width:168px;background:#141416}
+.banner-marcas .m-logo img{display:block;height:36px;width:auto;max-width:150px}
+.banner-marcas .m-n{font-size:11px;font-weight:500;color:#A8A29E;letter-spacing:.06em}
+.banner-marcas .marcas button.m-logo.on{background:#1A0C0D;border:2px solid #E52528;box-shadow:0 0 0 1px #E52528 inset}
+.banner-marcas .marcas button.m-logo.on .m-n{color:#fff}
+@media(min-width:760px){.banner-marcas .m-logo img{height:44px;max-width:180px}.banner-marcas .marcas button.m-logo{min-width:210px}}
+.banner-marcas .marcas button:not(.m-logo){min-width:96px}

@@ -180,13 +180,15 @@ visita('visita');
   const marca=()=>$$('#rapida a').forEach(x=>x.classList.toggle('on',x.getAttribute('href')==='#c='+S.cat));window.addEventListener('hashchange',marca);marca()}})();
 
 
-/* Pestañas de marcas (role=tablist, flechas/Inicio/Fin) */
+/* Banner de marcas (role=tablist, flechas/Inicio/Fin). Solo marcas con productos reales (campo p.marca).
+   LOGOS: logotipo original por marca (añadir aquí al incorporar una marca con acuerdo). */
+const LOGOS={'Crown Sport Nutrition':'img/crown-logo.png'};
 (function(){const main=document.getElementById('contenido');if(!main||!MARCAS.length)return;
  const bar=document.createElement('div');bar.className='marcas';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Marcas');
- const ops=[{v:'',t:'Todas las marcas'}].concat(MARCAS.map(m=>({v:m,t:m})));
+ const ops=[{v:'',t:'Todas'}].concat(MARCAS.map(m=>({v:m,t:m})));
  const btns=ops.map(o=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.dataset.marca=o.v;
-  const n=new Set(P.filter(p=>!o.v||p.marca===o.v).map(p=>p.producto)).size;b.textContent=o.t+' ('+n+')';b.addEventListener('click',()=>sel(o.v,true));bar.appendChild(b);return b});
+  const n=new Set(P.filter(p=>!o.v||p.marca===o.v).map(p=>p.producto)).size;const lg=LOGOS[o.v];if(lg){b.className='m-logo';b.setAttribute('aria-label',o.t+', '+n+' productos');b.innerHTML='<img src="'+lg+'" alt="'+o.t+'" width="580" height="202" loading="eager"><span class="m-n">'+n+' productos</span>'}else b.textContent=o.t+' ('+n+')';b.addEventListener('click',()=>sel(o.v,true));bar.appendChild(b);return b});
  function pinta(){btns.forEach(b=>{const on=b.dataset.marca===S.marca;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;b.classList.toggle('on',on)})}
  function sel(v,foco){S.marca=v;pinta();try{const u=new URL(location.href);v?u.searchParams.set('marca',v):u.searchParams.delete('marca');history.replaceState(null,'',u)}catch(e){}render();if(foco){const b=btns.find(x=>x.dataset.marca===v);b&&b.focus()}}
  bar.addEventListener('keydown',e=>{const i=btns.findIndex(b=>b.dataset.marca===S.marca);let j=null;if(e.key==='ArrowRight')j=(i+1)%btns.length;else if(e.key==='ArrowLeft')j=(i-1+btns.length)%btns.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=btns.length-1;if(j!==null){e.preventDefault();sel(btns[j].dataset.marca,true)}});
- const h=document.createElement('h2');h.className='marcas-t';h.textContent='Marcas';main.insertBefore(h,main.firstChild);main.insertBefore(bar,h.nextSibling);pinta()})();
+ const sec=document.createElement('section');sec.className='banner-marcas';sec.setAttribute('aria-labelledby','marcas-t');const h=document.createElement('h2');h.className='marcas-t';h.id='marcas-t';h.innerHTML='Nuestras marcas <small>Distribución oficial</small>';sec.appendChild(h);sec.appendChild(bar);main.insertBefore(sec,main.firstChild);pinta()})();
