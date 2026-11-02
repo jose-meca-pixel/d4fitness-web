@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soporte · D4 FITNESS</title>
   <meta name="description" content="D4 Fitness: motor determinista de entreno + nutrición + recovery. Invitaciones Premium y soporte oficial. Android (APK) · iOS en App Store." />
-  <meta name="theme-color" content="#E52528" />
+  <meta name="theme-color" content="#0A0A0C" />
   <meta name="robots" content="index,follow" />
 
   <!-- Open Graph -->
@@ -63,10 +63,10 @@
       --line:     #2A2A30;
       --text:     #F2F2F2;
       --muted:    #9a9aa3;
-      --faint:    #6b6b75;
+      --faint:    #A8A29E;
       --accent:   #E52528;
-      --ai:       #b79cff;
-      --gradient: linear-gradient(135deg, #E52528 0%, #888888 100%);
+      --ai:       #FF6B6E;
+      --gradient: #E52528;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -126,7 +126,7 @@
       font-weight: 800; letter-spacing: -1.5px; line-height: 1.08;
       margin-bottom: 20px; max-width: 820px;
     }
-    h1 em { font-style: normal; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h1 em { font-style: normal; color: #E52528; }
     .hero-sub {
       font-size: clamp(15px, 2vw, 19px); color: var(--muted);
       max-width: 560px; margin: 0 auto 36px;
@@ -150,7 +150,7 @@
     }
     .btn-secondary:hover { border-color: var(--accent); }
     .btn-ai {
-      border-color: rgba(183,156,255,0.45);
+      border-color: rgba(229,37,40,0.45);
       color: var(--ai);
     }
     .btn-ai:hover { border-color: var(--ai); }
@@ -188,7 +188,7 @@
       font-size: 20px; margin-bottom: 14px;
     }
     .feature-icon.ai {
-      background: rgba(183,156,255,0.12); border-color: rgba(183,156,255,0.35);
+      background: rgba(229,37,40,0.12); border-color: rgba(229,37,40,0.35);
     }
     .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
     .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
@@ -209,7 +209,7 @@
     }
     .pill.live { color: #22c55e; border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.1); }
     .pill.soon { color: var(--faint); }
-    .pill.ai { color: var(--ai); border-color: rgba(183,156,255,0.4); background: rgba(183,156,255,0.1); }
+    .pill.ai { color: var(--ai); border-color: rgba(229,37,40,0.4); background: rgba(229,37,40,0.1); }
 
     .steps { display: flex; flex-direction: column; gap: 0; max-width: 640px; }
     .step { display: flex; gap: 20px; padding-bottom: 32px; }
@@ -301,30 +301,14 @@
       .stats { flex-direction: column; }
     }
   </style>
-<link rel="stylesheet" href="/assets/nav.css"></head>
-<body>
-<nav class="d4nav" aria-label="D4 FITNESS"><div class="in"><a class="lg" href="/"><img src="/assets/D4_FITNESS_transparente.png" alt="D4 FITNESS" width="120" height="40"></a><ul><li><a href="/soporte.html" aria-current="page">Soporte</a></li><li><a href="/catalogo/">Catálogo</a></li><li><a href="/descargas.html">Descargas</a></li><li><a href="/cuenta/">Mi cuenta</a></li></ul></div></nav>
-
-<nav>
-  <a href="#" style="display:flex;align-items:center;">
-    <img src="./assets/D4_FITNESS_transparente.png" alt="D4 Fitness" height="34"
-         style="height:34px;width:auto;mix-blend-mode:screen;" />
-  </a>
-  <div class="nav-links">
-    <a href="#app">App</a>
-    <a href="#features">Funciones</a>
-    <a href="#invite">Invitaciones</a>
-    <a href="#community">Redes</a>
-    <a href="#pricing">Precios</a>
-    <a href="#support">Soporte</a>
-  </div>
-  <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" class="nav-cta" target="_blank" rel="noopener">App Store</a>
-</nav>
+<link rel="stylesheet" href="/assets/comun.css?v=1"></head>
+<body><a class="d4skip" href="#top">Saltar al contenido</a>
+<header class="d4bar"><div class="in"><a class="lg" href="/" aria-label="D4 FITNESS, inicio"><img src="/assets/img/logo.webp" width="480" height="244" alt="D4 FITNESS"></a><nav aria-label="Principal"><ul><li><a href="/">Inicio</a></li><li><a href="/catalogo/">Tienda</a></li></ul></nav></div></header>
 
 <section class="hero" id="top">
   <img src="./assets/D4_FITNESS_transparente.png" alt="D4 Fitness"
        style="height:110px;width:auto;margin-bottom:22px;mix-blend-mode:screen;filter:drop-shadow(0 0 36px rgba(229,37,40,0.45));" />
-  <div class="hero-badge">Android (APK) · iOS en App Store · runtime 1.0.3</div>
+  <div class="hero-badge">Android (APK) · iPhone en App Store</div>
   <h1>El plan correcto para <em>hoy</em> — recovery, entreno y comida.</h1>
   <p class="hero-sub">
     D4 no es una biblioteca de vídeos genéricos. Un motor determinista calcula tu día.
@@ -336,25 +320,21 @@
     <a href="https://www.instagram.com/d4fitness.oficial/" class="btn-secondary" target="_blank" rel="noopener">
       Instagram @d4fitness.oficial
     </a>
-    <a href="#support" class="btn-secondary btn-ai">Soporte y ayuda</a>
-  </div>
-  <div class="hero-meta">
-    <span><strong>Paquete:</strong> com.d4fitness.app</span>
-    <span><strong>Soporte:</strong> d4fitness.support@gmail.com</span>
+    <a href="#support" class="btn-secondary">Soporte y ayuda</a>
   </div>
 </section>
 
 <div class="stats" id="app">
   <div class="stat"><div class="stat-number">Android</div><div class="stat-label">APK directa (GitHub)</div></div>
   <div class="stat"><div class="stat-number">iOS</div><div class="stat-label">Disponible en App Store</div></div>
-  <div class="stat"><div class="stat-number">1.0.3</div><div class="stat-label">Versión runtime (OTA 29/10/2026)</div></div>
+  <div class="stat"><div class="stat-number">Free</div><div class="stat-label">Completo y permanente</div></div>
   <div class="stat"><div class="stat-number">OTA</div><div class="stat-label">Actualizaciones automáticas</div></div>
 </div>
 
 <section id="features">
   <p class="section-tag">La app</p>
   <h2>Qué incluye D4 Fitness hoy</h2>
-  <p class="section-sub">Diseño Carbon v4 (NÚCLEO + IMPULSO). El motor calcula tu plan.</p>
+  <p class="section-sub">El motor calcula tu plan.</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">💓</div>
@@ -374,7 +354,7 @@
     <div class="feature-card">
       <div class="feature-icon ai">✦</div>
       <div class="feature-title">Premium</div>
-      <div class="feature-desc">Volumen + registro de series, Dieta A/B/C/D, Recovery diario y Demos + especialización. Todo Premium está desbloqueado gratis hasta el 31/12/2026.</div>
+      <div class="feature-desc">Volumen + registro de series, Dieta A/B/C/D, Recovery diario y Demos + especialización. Premium es opcional: 9,99 €/mes o 59,99 €/año, con el primer mes gratis al registrarte.</div>
     </div>
     <div class="feature-card">
       <div class="feature-icon ai">📷</div>
@@ -497,13 +477,13 @@
 
 <section id="pricing">
   <p class="section-tag">Precios</p>
-  <h2>Empieza gratis.<br>Sube cuando quieras.</h2>
-  <p class="section-sub">Sin compromiso. Cancela en la tienda. Códigos de invitación suman meses Premium.</p>
+  <h2>Free completo.<br>Premium opcional.</h2>
+  <p class="section-sub">Free es completo y permanente. Premium es opcional: 9,99 €/mes o 59,99 €/año, con el primer mes gratis al registrarte. Códigos de invitación suman meses Premium.</p>
   <div class="pricing-grid">
     <div class="plan">
-      <div class="plan-name">Gratis</div>
+      <div class="plan-name">Free</div>
       <div class="plan-price">0€ <span>/mes</span></div>
-      <div class="plan-desc">Lo esencial para arrancar</div>
+      <div class="plan-desc">Completo y permanente. No caduca.</div>
       <ul class="plan-features">
         <li>Valoración y plan del motor</li>
         <li>Pantalla Hoy + recovery básico</li>
@@ -517,8 +497,8 @@
     <div class="plan featured">
       <div class="plan-badge">Más popular</div>
       <div class="plan-name">Premium</div>
-      
-      <div class="plan-desc">Gratis hasta el 31/12/2026. Después, precio indicado en la tienda de apps (mensual o anual).</div>
+      <div class="plan-price">9,99€ <span>/mes</span></div>
+      <div class="plan-desc">o 59,99 €/año. Opcional. Primer mes gratis al registrarte.</div>
       <ul class="plan-features">
         <li>Todo lo del plan gratuito</li>
         <li>Volumen + registro de series</li>
@@ -562,24 +542,12 @@
     </div>
     <div class="support-row">
       <span>Última actualización web</span>
-      <strong style="color:var(--muted);font-size:13px;">29 de octubre de 2026 · versión runtime 1.0.3</strong>
+      <strong style="color:var(--muted);font-size:13px;">2 de noviembre de 2026</strong>
     </div>
   </div>
 </section>
 
-<footer>
-  <span class="logo">D4 Fitness</span>
-  <nav>
-    <a href='/privacy.html'>Privacidad</a>
-    <a href="mailto:d4fitness.support@gmail.com">Contacto</a>
-    <a href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://apps.apple.com/es/app/d4-fitness/id6818841609" target="_blank" rel="noopener">App Store</a>
-  </nav>
-  <p class="footer-copy">
-    © 2026 D4 Fitness · d4fitness.com · No somos un servicio médico.
-    Instagram oficial: @d4fitness.oficial.
-  </p>
-</footer>
+<footer class="d4pie"><nav aria-label="Enlaces del sitio"><a href="/soporte.html">Soporte</a><a href="/descargas.html">Descargas</a><a href="/catalogo/">Tienda</a><a href="/privacy.html">Privacidad de la app</a><a href="/catalogo/legal.html#privacidad">Privacidad de la tienda</a><a href="/terms.html">Términos</a><a href="/catalogo/legal.html#aviso">Aviso legal</a><a href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">Instagram</a></nav><p>© 2026 D4 FITNESS</p></footer>
 
 </body>
 </html>

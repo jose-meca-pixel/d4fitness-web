@@ -52,7 +52,7 @@ body.modal-abierto{overflow:hidden}
 .card img{height:auto}#menu summary{white-space:nowrap}@media (max-width:860px){#menu summary{padding:10px 10px;font-size:.8em}}
 [hidden]{display:none!important}
 /* ===== Estilo D4 FITNESS (tokens de la app D4: estado1003/d4/src/theme/tokens.ts) ===== */
-:root{--bg:#0A0A0C;--bg2:#171513;--sf:#1E1B18;--sf2:#26221F;--ln:#3D3834;--ink:#F4F1ED;--ink2:#D6D0CA;--mut:#A8A29E;--chr:#D6D9DE;--red:#E52528;--redh:#F63A3E;--redp:#D41F23;--redt:#FF6B6E;--or:#FF9A3C}
+:root{--bg:#0A0A0C;--bg2:#171513;--sf:#1E1B18;--sf2:#26221F;--ln:#3D3834;--ink:#F4F1ED;--ink2:#D6D0CA;--mut:#A8A29E;--chr:#D6D9DE;--red:#E52528;--redh:#D41F23;--redp:#D41F23;--redt:#FF6B6E;--or:#FF9A3C}
 body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 h1,h2,h3,#menu summary,.xq,button{font-family:"Barlow Condensed",Inter,system-ui,sans-serif}
 h2,h3{letter-spacing:.02em}a{color:var(--redt)}
@@ -202,3 +202,18 @@ body.vista-tienda .rapida{display:none}
 .banner-marcas .marcas button.m-logo.on .m-n{color:#fff}
 @media(min-width:760px){.banner-marcas .m-logo img{height:44px;max-width:180px}.banner-marcas .marcas button.m-logo{min-width:210px}}
 .banner-marcas .marcas button:not(.m-logo){min-width:96px}
+
+/* diseno-web-20261102 */
+.tienda-top{border-bottom:2px solid #E52528!important}
+.tienda-nav a{min-height:44px;display:inline-flex;align-items:center;padding:0 12px;font-size:.95rem!important;color:#F4F1ED!important;border-radius:8px}
+.tienda-nav a[aria-current=page]{background:#E52528;color:#fff!important}
+.tienda-top #vercesta{min-height:48px!important}
+#ncesta[hidden]{display:none!important}
+.marcas-t small,.promesa,.motto{font-size:13px!important}
+#fpedido.labvis label.sr{position:static;left:auto;display:block;font-size:13px;font-weight:600;margin:8px 0 2px;color:inherit}
+@media (max-width:860px){
+ nav.menu{display:none}
+ main#contenido{padding-bottom:84px}
+ .wafloat{bottom:max(14px,env(safe-area-inset-bottom))}
+}
+body.modal-abierto .wafloat,body.filtros-abiertos .wafloat,html.cesta-abierta .wafloat{display:none!important}

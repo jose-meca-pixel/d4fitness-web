@@ -86,7 +86,7 @@ function render(){const L=Object.values(G).map(g=>g.filter(p=>pasa(p))).filter(g
  const grid=$('#grid');grid.innerHTML='';grid.classList.toggle('por-pasillos',tienda);
  if(!L.length){grid.innerHTML='<p class="vacio">No hay productos con estos filtros. <button type="button" onclick="limpiar()">Limpiar filtros</button></p>';pintaFacetas();chips();return}
  if(!tienda){L.forEach(g=>grid.appendChild(makeCard(g)));pintaFacetas();chips();return}
- const buckets=new Map();L.forEach(g=>{const id=pasilloDe(g);if(!buckets.has(id))buckets.set(id,[]);buckets.get(id).push(g)});
+ const buckets=new Map();L.forEach(g=>{const cols=new Set(g.flatMap(p=>p.colecciones||[]));let any=false;PASILLOS.forEach(id=>{if(cols.has(id)){any=true;if(!buckets.has(id))buckets.set(id,[]);buckets.get(id).push(g)}});if(!any){if(!buckets.has('otros'))buckets.set('otros',[]);buckets.get('otros').push(g)}});
  const top=document.createElement('div');top.className='portada';
  const promesa=document.createElement('p');promesa.className='promesa';promesa.textContent='IVA incluido · Envío gratis · Pedido por WhatsApp · Pago al confirmar';
  const nav=document.createElement('nav');nav.className='baldosas';nav.setAttribute('aria-label','Pasillos');
@@ -133,7 +133,7 @@ function guardar(){Object.keys(cesta).forEach(k=>{if(!byId[k]||!(cesta[k]>=1))de
 function pintaCesta(){const L=$('#lineas');L.innerHTML='';let n=0;Object.entries(cesta).forEach(([id,q])=>{const p=byId[id];n+=q;const r=document.createElement('div');r.className='linea';
  r.innerHTML='<span></span><input type="number" min="0" max="99" aria-label="Cantidad"><b class="sub"></b><button type="button" class="papelera" aria-label="Quitar producto" title="Quitar de la cesta"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/></svg></button>';r.querySelector('span').textContent=p.nombre+' · '+(p.formato||'')+' '+(p.sabor||'')+' · '+precioTxt(p)+(p.pvp_cent?' /ud':'');r.querySelector('.sub').textContent=p.pvp_cent?eur(p.pvp_cent*q):'Por definir';
  const i=r.querySelector('input');i.value=q;i.onchange=()=>{cesta[id]=parseInt(i.value)||0;guardar()};r.querySelector('.papelera').onclick=()=>{delete cesta[id];guardar()};L.appendChild(r)});
- $('#ncesta').textContent=n;const C=cuentaCesta();const T=$('#totales');T.innerHTML='';if(!n){T.textContent='La cesta está vacía.';return}
+ $('#ncesta').textContent=n;$('#ncesta').hidden=!n;const C=cuentaCesta();const T=$('#totales');T.innerHTML='';if(!n){T.textContent='La cesta está vacía.';return}
  const t=document.createElement('p');t.className='total';t.textContent='TOTAL (IVA incluido): '+eur(C.total)+(C.pend?' + líneas pendientes de confirmar por WhatsApp':'');
  const e=document.createElement('p');e.className='nota';e.textContent='Envío gratis. El pedido se confirma por WhatsApp.';
  const D=dtoApp(C);if(D){t.textContent='Total: '+eur(C.total);const d=document.createElement('p');d.className='dto';d.textContent='Descuento usuario D4 ('+D.pctTxt+' %): -'+eur(D.cent);
@@ -192,3 +192,9 @@ const LOGOS={'Crown Sport Nutrition':'img/crown-logo.png'};
  function sel(v,foco){S.marca=v;pinta();try{const u=new URL(location.href);v?u.searchParams.set('marca',v):u.searchParams.delete('marca');history.replaceState(null,'',u)}catch(e){}render();if(foco){const b=btns.find(x=>x.dataset.marca===v);b&&b.focus()}}
  bar.addEventListener('keydown',e=>{const i=btns.findIndex(b=>b.dataset.marca===S.marca);let j=null;if(e.key==='ArrowRight')j=(i+1)%btns.length;else if(e.key==='ArrowLeft')j=(i-1+btns.length)%btns.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=btns.length-1;if(j!==null){e.preventDefault();sel(btns[j].dataset.marca,true)}});
  const sec=document.createElement('section');sec.className='banner-marcas';sec.setAttribute('aria-labelledby','marcas-t');const h=document.createElement('h2');h.className='marcas-t';h.id='marcas-t';h.innerHTML='Nuestras marcas <small>Distribución oficial</small>';sec.appendChild(h);sec.appendChild(bar);main.insertBefore(sec,main.firstChild);pinta()})();
+
+/* D17: foco atrapado en ficha y filtros */
+document.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var m=!$('#ficha').hidden?$('#ficha'):(document.body.classList.contains('filtros-abiertos')&&innerWidth<=860?$('#filtros'):null);if(!m)return;
+ var f=[...m.querySelectorAll('a[href],button,input,select,textarea,summary,[tabindex]:not([tabindex="-1"])')].filter(x=>!x.disabled&&x.offsetParent!==null);if(!f.length)return;
+ var a=f[0],z=f[f.length-1];if(!m.contains(document.activeElement)){e.preventDefault();a.focus();return}
+ if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});

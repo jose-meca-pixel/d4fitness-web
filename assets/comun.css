@@ -1,0 +1,21 @@
+/* Cabecera y pie comunes de d4fitness.com (D04, D14, D17, D19). Tokens de la app. */
+[hidden]{display:none!important}
+.d4skip{position:absolute;left:-999px;top:0;background:#E52528;color:#fff;padding:.7rem 1rem;z-index:3000;font:600 15px/1.2 Inter,system-ui,sans-serif;text-decoration:none}
+.d4skip:focus{left:1rem}
+.d4bar{position:sticky;top:0;z-index:2000;background:#0A0A0C;border-bottom:2px solid #E52528;font:600 15px/1 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.d4bar .in{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 16px}
+.d4bar .lg{display:flex;align-items:center;min-height:44px;min-width:44px}
+.d4bar .lg img{height:38px;width:auto;display:block}
+.d4bar nav{position:static;display:block;padding:0;margin:0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;height:auto;width:auto;inset:auto}
+.d4bar ul{display:flex;flex-wrap:wrap;gap:4px;list-style:none;margin:0;padding:0}
+.d4bar ul a{display:flex;align-items:center;min-height:44px;padding:0 14px;border-radius:8px;color:#F4F1ED;text-decoration:none;font-size:15px;letter-spacing:0;text-transform:none;font-weight:600}
+.d4bar ul a:hover,.d4bar ul a:focus-visible{background:#1E1B18;color:#fff}
+.d4bar ul a[aria-current=page]{background:#E52528;color:#fff}
+.d4bar ul a[aria-current=page]:hover{background:#D41F23}
+.d4bar ul .sec a{color:#A8A29E}
+@media(max-width:719px){.d4bar ul .sec{display:none}}
+.d4pie{border-top:1px solid #2A2A31;background:#0A0A0C;color:#A8A29E;padding:24px 16px 32px;text-align:center;font:400 14px/1.5 Inter,system-ui,sans-serif}
+.d4pie nav{position:static;display:flex;flex-wrap:wrap;justify-content:center;gap:0 6px;padding:0;margin:0 auto 8px;max-width:1120px;background:none;border:0;backdrop-filter:none}
+.d4pie nav a{letter-spacing:0;text-transform:none;display:inline-flex;align-items:center;min-height:44px;padding:0 10px;color:#F4F1ED;text-decoration:underline;text-decoration-color:#E52528;text-underline-offset:3px;font-size:14px}
+.d4pie nav a:hover{color:#FF6B6E}
+.d4pie p{margin:0;color:#A8A29E;font-size:13px}

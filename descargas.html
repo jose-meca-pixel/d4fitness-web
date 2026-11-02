@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Descargas · D4 FITNESS</title><meta name="description" content="Descarga la app D4 FITNESS para iOS y Android."><link rel="canonical" href="https://d4fitness.com/descargas.html"><meta name="theme-color" content="#0A0A0C"><link rel="icon" type="image/png" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/nav.css"><link rel="stylesheet" href="/assets/site.css"><style>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Descargas · D4 FITNESS</title><meta name="description" content="Descarga la app D4 FITNESS para iOS y Android."><link rel="canonical" href="https://d4fitness.com/descargas.html"><meta name="theme-color" content="#0A0A0C"><link rel="icon" type="image/png" href="/assets/favicon.png"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/comun.css?v=1"><style>
   :root {
     /* Fondo de marca: el mismo que usa tu web (theme-color). */
     --fondo: #0A0A0C;
@@ -7,10 +7,10 @@
     --texto: #F5F5F7;
     --texto-suave: #B7B7C2;
 
-    /* PROVISIONALES: sustituye por los colores exactos del logo de D4 FITNESS. */
-    --acento: #FF5A1F;
-    --acento-2: #FFB020;
-    --acento-texto: #140A05;
+    /* Rojo de marca (tokens de la app). */
+    --acento: #E52528;
+    --acento-2: #F4F1ED;
+    --acento-texto: #FFFFFF;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -36,11 +36,12 @@
                     display: grid; gap: 40px; align-items: center; }
   @media (min-width: 820px) { .hero__interior { grid-template-columns: 1.15fr .85fr; padding: 88px 24px 56px; } }
 
-  h2 { margin: 0 0 16px; font-size: clamp(2.6rem, 9vw, 5rem); line-height: .98; font-weight: 900;
+  h2 { margin: 0 0 16px; font-size: 1.6rem; line-height: 1.2; }
+  .hero h2 { margin: 0 0 16px; font-size: clamp(2.6rem, 9vw, 5rem); line-height: .98; font-weight: 900;
        letter-spacing: -.03em; text-wrap: balance; }
   h2 span { display: block; }
   h2 span:nth-child(2) { color: transparent; -webkit-text-stroke: 2px var(--texto); }
-  h2 span:nth-child(3) { background: linear-gradient(90deg, var(--acento), var(--acento-2));
+  h2 span:nth-child(3) { color: var(--acento); background: none;
                          -webkit-background-clip: text; background-clip: text; color: transparent; }
 
   .intro { margin: 0 0 28px; max-width: 42ch; font-size: 1.1rem; color: var(--texto-suave); }
@@ -55,10 +56,10 @@
   .btn strong { font-size: 1.1rem; }
   @media (hover: hover) { .btn:hover { transform: translateY(-2px); border-color: var(--texto-suave); } }
   .btn:focus-visible { outline: 3px solid var(--acento-2); outline-offset: 3px; }
-  .btn--principal { background: linear-gradient(135deg, var(--acento), var(--acento-2));
+  .btn--principal { background: var(--acento);
                     border-color: transparent; color: var(--acento-texto);
                     box-shadow: 0 10px 30px color-mix(in srgb, var(--acento) 40%, transparent); }
-  .btn--principal small { color: color-mix(in srgb, var(--acento-texto) 75%, transparent); }
+  .btn--principal small { color: rgba(255,255,255,.85); }
   @media (hover: hover) { .btn--principal:hover { box-shadow: 0 14px 38px color-mix(in srgb, var(--acento) 55%, transparent); } }
   [data-plataforma="android"] .btn--android, [data-plataforma="ios"] .btn--ios { order: -1; }
 
@@ -94,10 +95,21 @@
   main.bloque .hero{text-align:left;padding:0}
   main.bloque .hero p.intro{color:var(--texto-suave);margin:0 0 28px;max-width:42ch}
   main.bloque .movil__pantalla img{width:62%;height:auto}
+  .captura { margin: 0; justify-self: center; width: min(300px, 70vw); }
+  .captura img { width: 100%; height: auto; border-radius: 28px; border: 1px solid #2A2A31; display: block; }
+  .precios { max-width: 1040px; margin: 0 auto; padding: 40px 20px 8px; }
+  .precios .planes { display: grid; gap: 12px; margin-top: 16px; }
+  @media (min-width: 720px) { .precios .planes { grid-template-columns: repeat(3, 1fr); } }
+  .precios .plan { border: 1px solid #2A2A31; border-radius: 10px; padding: 16px; background: #171513; display: grid; gap: 4px; }
+  .precios .plan.pro { border-color: #E52528; }
+  .precios .cifra { font-size: 1.6rem; font-weight: 800; }
+  .precios small { color: #A8A29E; font-size: 14px; }
+  .btn { min-height: 48px; }
+  .btn--principal:hover { background: #D41F23; }
 </style></head><body>
-<nav class="d4nav" aria-label="D4 FITNESS"><div class="in"><a class="lg" href="/"><img src="/assets/D4_FITNESS_transparente.png" alt="D4 FITNESS" width="120" height="40"></a><ul><li><a href="/soporte.html">Soporte</a></li><li><a href="/catalogo/">Catálogo</a></li><li><a href="/descargas.html" aria-current="page">Descargas</a></li><li><a href="/cuenta/">Mi cuenta</a></li></ul></div></nav>
-<main class="bloque">
-<section class="hero" aria-labelledby="titulo" data-plataforma="otro">
+<a class="d4skip" href="#main">Saltar al contenido</a><header class="d4bar"><div class="in"><a class="lg" href="/" aria-label="D4 FITNESS, inicio"><img src="/assets/img/logo.webp" width="480" height="244" alt="D4 FITNESS"></a><nav aria-label="Principal"><ul><li><a href="/">Inicio</a></li><li><a href="/catalogo/">Tienda</a></li></ul></nav></div></header>
+<main class="bloque" id="main">
+<section class="hero" aria-labelledby="titulo" data-plataforma="escritorio">
   <div class="hero__interior">
     <div>
       <h2 id="titulo"><span>Entrena.</span><span>Come.</span><span>Recupera.</span></h2>
@@ -125,20 +137,13 @@
       </p>
     </div>
 
-    <div class="movil" aria-hidden="true">
-      <div class="movil__pantalla">
-        <img src="https://d4fitness.com/assets/logo-d4fitness.png" alt="">
-      </div>
-    </div>
+    <figure class="captura"><picture><source type="image/avif" srcset="/assets/shots/01-390.avif 390w, /assets/shots/01-780.avif 780w" sizes="(min-width:820px) 300px, 70vw"><source type="image/webp" srcset="/assets/shots/01-390.webp 390w, /assets/shots/01-780.webp 780w" sizes="(min-width:820px) 300px, 70vw"><img src="/assets/shots/01-390.webp" width="390" height="844" alt="Pantalla Entreno de la app D4 FITNESS: sesión de Espalda con recuperación 60, botón Empezar sesión y opciones de cardio." loading="eager"></picture></figure>
   </div>
-
-  <footer class="pie">
-    <a href="https://d4fitness.com/soporte.html">Soporte</a>
-    <a href="https://d4fitness.com/catalogo/">Tienda</a>
-    <a href="https://d4fitness.com/privacy.html">Privacidad</a>
-    <a href="https://d4fitness.com/catalogo/legal.html">Aviso legal</a>
-    <a href="https://www.instagram.com/d4fitness.oficial/">Instagram</a>
-  </footer>
+</section>
+<section id="precios" aria-labelledby="titulo-precios" class="precios">
+  <h2 id="titulo-precios">Precios</h2>
+  <p>Free es completo y permanente. Premium es opcional: 9,99 €/mes o 59,99 €/año, con el primer mes gratis al registrarte.</p>
+  <div class="planes"><div class="plan"><strong>Free</strong><span class="cifra">0 €</span><small>Completo y permanente. No caduca.</small></div><div class="plan pro"><strong>Premium mensual</strong><span class="cifra">9,99 €/mes</span><small>Opcional. Primer mes gratis al registrarte.</small></div><div class="plan pro"><strong>Premium anual</strong><span class="cifra">59,99 €/año</span><small>Opcional. Primer mes gratis al registrarte.</small></div></div>
 </section>
 <section id="instalar-apk" aria-labelledby="titulo-apk" style="max-width:760px;margin:0 auto;padding:48px 24px;line-height:1.6">
   <h2 id="titulo-apk">Cómo instalar el APK en Android</h2>
@@ -152,7 +157,7 @@
   <p>Descarga el APK solo desde esta página o desde <a href="https://github.com/jose-meca-pixel/d4fitness-android/releases/latest/download/d4-fitness.apk">el enlace oficial de GitHub</a>. ¿Problemas? Escríbenos a <a href="mailto:d4fitness.support@gmail.com">d4fitness.support@gmail.com</a>.</p>
 </section>
 </main>
-<footer>© 2026 D4 FITNESS · <a href="/soporte.html">Soporte</a> · <a href="/catalogo/">Catálogo</a> · <a href="/descargas.html">Descargas</a> · <a href="/privacy.html">Privacidad</a> · <a href="/catalogo/legal.html">Aviso legal</a></footer>
+<footer class="d4pie"><nav aria-label="Enlaces del sitio"><a href="/soporte.html">Soporte</a><a href="/descargas.html">Descargas</a><a href="/catalogo/">Tienda</a><a href="/privacy.html">Privacidad de la app</a><a href="/catalogo/legal.html#privacidad">Privacidad de la tienda</a><a href="/terms.html">Términos</a><a href="/catalogo/legal.html#aviso">Aviso legal</a><a href="https://www.instagram.com/d4fitness.oficial/" target="_blank" rel="noopener">Instagram</a></nav><p>© 2026 D4 FITNESS</p></footer>
 <script>
   (function () {
     var seccion = document.querySelector('.hero');
@@ -160,7 +165,7 @@
     var ua = navigator.userAgent || '';
     var plataforma = /android/i.test(ua) ? 'android' : /iphone|ipad|ipod/i.test(ua) ? 'ios' : 'otro';
     seccion.setAttribute('data-plataforma', plataforma);
-    var sel = plataforma === 'android' ? '.btn--android' : plataforma === 'ios' ? '.btn--ios' : null;
+    var sel = plataforma === 'android' ? '.btn--android' : '.btn--ios';
     if (sel) document.querySelector(sel).classList.add('btn--principal');
     if (plataforma === 'ios') aviso.hidden = true;
   })();
