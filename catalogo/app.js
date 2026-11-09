@@ -61,7 +61,7 @@ function chips(){const c=$('#chips');c.innerHTML='';const add=(t,fn)=>{const b=d
  FACETAS.forEach(f=>(S.sel[f.k]||new Set()).forEach(v=>add(lbl(f.k,v),()=>{S.sel[f.k].delete(v);render()})));
  if(c.children.length){const b=document.createElement('button');b.type='button';b.className='limpiar';b.textContent='Limpiar todo';b.onclick=limpiar;c.appendChild(b)}}
 function limpiar(){S.sel={};S.q='';$('#q').value='';if(S.cat)location.hash='#c=';else render()}
-const PASILLOS=['crown-packs','geles','barritas','isotonico','creatina','recuperacion','proteinas-y-aminoacidos','potenciadores-de-rendimiento','salud','accesorios','hidratacion-y-energia'];
+const PASILLOS=['crown-packs','geles','barritas','isotonico','creatina','recuperacion','proteinas-y-aminoacidos','potenciadores-de-rendimiento','vitaminas-y-minerales','sistema-inmunitario','omega-3','colageno-y-articulaciones','probioticos-y-digestion','adaptogenos','cafeina-y-preentreno','bebidas-funcionales','cookies-y-snacks','postres-y-cremas','salud','accesorios','hidratacion-y-energia'];
 function pasilloDe(g){const cols=new Set(g.flatMap(p=>p.colecciones||[]));for(const id of PASILLOS)if(cols.has(id))return id;return 'otros'}
 function makeCard(g){const p0=g[0],todos=G[p0.producto];const d=document.createElement('article');d.className='card';d.dataset.producto=p0.producto;
  d.innerHTML='<img loading="lazy" alt="" width="300" height="300"><h3></h3><p class="pvp"></p><button type="button" class="ver">Ver opciones</button>';
@@ -127,7 +127,7 @@ function infoAli(p){const b=$('#f-ali');b.innerHTML='';const i=p.info;const add=
  if(i.ingredientes)add('Ingredientes (según ficha del fabricante)',i.ingredientes.replace(/^Ingredientes:\s*/i,''));
  add('Alérgenos',i.alergenos&&i.alergenos.length?i.alergenos.join('; '):'no determinados: consulta la etiqueta del producto (que no figure aquí no significa que no los tenga)');
  if(i.trazas)add('Trazas',Array.isArray(i.trazas)?i.trazas.join('; '):String(i.trazas));
-if(i.nutricion)add('Información nutricional (ficha oficial)',i.nutricion);if(i.idioma_ficha)add('Idioma de la ficha oficial',i.idioma_ficha);if(i.nota)add('Nota',i.nota);
+if(i.nutricion)add('Información nutricional (ficha oficial)',i.nutricion);if(i.nutricion_nota)add('Nota sobre la información nutricional',i.nutricion_nota);if(i.nutricion&&i.nutricion_fuente&&i.nutricion_fuente!==i.fuente)add('Fuente de la información nutricional',i.nutricion_fuente+(i.nutricion_fecha?' (consultada el '+i.nutricion_fecha+')':''));if(i.idioma_ficha)add('Idioma de la ficha oficial',i.idioma_ficha);if(i.nota)add('Nota',i.nota);
   if(i.fuente){const d=document.createElement('p');d.className='est';d.textContent='Fuente: ficha web del fabricante, consultada el '+(i.fecha||'')+'. La etiqueta del envase prevalece.';b.appendChild(d)}}
 function cierraFicha(){$('#ficha').hidden=true;document.body.classList.remove('modal-abierto')}
 function guardar(){Object.keys(cesta).forEach(k=>{if(!byId[k]||!(cesta[k]>=1))delete cesta[k]});try{localStorage.setItem('d4cesta',JSON.stringify(cesta))}catch(e){}pintaCesta()}
