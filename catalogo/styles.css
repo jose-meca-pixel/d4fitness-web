@@ -217,3 +217,6 @@ body.vista-tienda .rapida{display:none}
  .wafloat{bottom:max(14px,env(safe-area-inset-bottom))}
 }
 body.modal-abierto .wafloat,body.filtros-abiertos .wafloat,html.cesta-abierta .wafloat{display:none!important}
+
+/* Placa clara para logotipos oscuros en el banner de marcas */
+.banner-marcas .marcas button.m-logo.m-placa img{background:#fff;border-radius:6px;padding:4px 8px;box-sizing:content-box}

@@ -181,17 +181,24 @@ visita('visita');
 
 
 /* Banner de marcas (role=tablist, flechas/Inicio/Fin). Solo marcas con productos reales (campo p.marca).
-   LOGOS: logotipo original por marca (añadir aquí al incorporar una marca con acuerdo). */
-const LOGOS={'Crown Sport Nutrition':'img/crown-logo.png'};
+   LOGOS: logotipo original por marca (añadir aquí al incorporar una marca con acuerdo).
+   «Distribución oficial» solo para Crown Sport Nutrition. */
+const LOGOS={'Crown Sport Nutrition':'img/crown-logo.png',
+ 'Cellucor':'img/logos/cellucor.png','Quamtrax':'img/logos/quamtrax.png','Applied Nutrition':'img/logos/applied-nutrition.png',
+ 'Optimum Nutrition':'img/logos/optimum-nutrition.png','BSN':'img/logos/bsn.png','Barebells':'img/logos/barebells.png',
+ 'Yamamoto Nutrition':'img/logos/yamamoto-nutrition.png','QNT':'img/logos/qnt.png'};
+/* Logotipos oscuros: se muestran sobre una placa clara para que se lean en el banner oscuro */
+const LOGO_PLACA=new Set(['Cellucor','Applied Nutrition','Yamamoto Nutrition','QNT']);
+const OFICIAL=new Set(['Crown Sport Nutrition']);
 (function(){const main=document.getElementById('contenido');if(!main||!MARCAS.length)return;
  const bar=document.createElement('div');bar.className='marcas';bar.setAttribute('role','tablist');bar.setAttribute('aria-label','Marcas');
  const ops=[{v:'',t:'Todas'}].concat(MARCAS.map(m=>({v:m,t:m})));
  const btns=ops.map(o=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.dataset.marca=o.v;
-  const n=new Set(P.filter(p=>!o.v||p.marca===o.v).map(p=>p.producto)).size;const lg=LOGOS[o.v];if(lg){b.className='m-logo';b.setAttribute('aria-label',o.t+', '+n+' productos');b.innerHTML='<img src="'+lg+'" alt="'+o.t+'" width="580" height="202" loading="eager"><span class="m-n">'+n+' productos</span>'}else b.textContent=o.t+' ('+n+')';b.addEventListener('click',()=>sel(o.v,true));bar.appendChild(b);return b});
+  const n=new Set(P.filter(p=>!o.v||p.marca===o.v).map(p=>p.producto)).size;const lg=LOGOS[o.v];if(lg){b.className='m-logo'+(LOGO_PLACA.has(o.v)?' m-placa':'');const of=OFICIAL.has(o.v);b.setAttribute('aria-label',o.t+(of?', distribución oficial':'')+', '+n+' productos');b.innerHTML='<img src="'+lg+'" alt="'+o.t+'" loading="eager"><span class="m-n">'+(of?'Distribución oficial · ':'')+n+' productos</span>';const im=b.querySelector('img');im.onerror=()=>{im.remove();b.classList.remove('m-logo','m-placa');b.textContent=o.t+' ('+n+')'}}else b.textContent=o.t+' ('+n+')';b.addEventListener('click',()=>sel(o.v,true));bar.appendChild(b);return b});
  function pinta(){btns.forEach(b=>{const on=b.dataset.marca===S.marca;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;b.classList.toggle('on',on)})}
  function sel(v,foco){S.marca=v;pinta();try{const u=new URL(location.href);v?u.searchParams.set('marca',v):u.searchParams.delete('marca');history.replaceState(null,'',u)}catch(e){}render();if(foco){const b=btns.find(x=>x.dataset.marca===v);b&&b.focus()}}
  bar.addEventListener('keydown',e=>{const i=btns.findIndex(b=>b.dataset.marca===S.marca);let j=null;if(e.key==='ArrowRight')j=(i+1)%btns.length;else if(e.key==='ArrowLeft')j=(i-1+btns.length)%btns.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=btns.length-1;if(j!==null){e.preventDefault();sel(btns[j].dataset.marca,true)}});
- const sec=document.createElement('section');sec.className='banner-marcas';sec.setAttribute('aria-labelledby','marcas-t');const h=document.createElement('h2');h.className='marcas-t';h.id='marcas-t';h.innerHTML='Nuestras marcas <small>Distribución oficial</small>';sec.appendChild(h);sec.appendChild(bar);main.insertBefore(sec,main.firstChild);pinta()})();
+ const sec=document.createElement('section');sec.className='banner-marcas';sec.setAttribute('aria-labelledby','marcas-t');const h=document.createElement('h2');h.className='marcas-t';h.id='marcas-t';h.innerHTML='Nuestras marcas <small>Distribución oficial: solo Crown Sport Nutrition</small>';sec.appendChild(h);sec.appendChild(bar);main.insertBefore(sec,main.firstChild);pinta()})();
 
 /* D17: foco atrapado en ficha y filtros */
 document.addEventListener('keydown',function(e){if(e.key!=='Tab')return;var m=!$('#ficha').hidden?$('#ficha'):(document.body.classList.contains('filtros-abiertos')&&innerWidth<=860?$('#filtros'):null);if(!m)return;
