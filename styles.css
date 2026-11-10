@@ -116,3 +116,11 @@ footer a{color:#a3a3ab}
 /* D02/D15: cierre con las dos descargas */
 .cta.center{justify-content:center}.close .cta .badge{margin-top:0}.note.center{text-align:center}
 .d4bar .lg img{width:auto}
+
+/* 10/11/2026 · Mejora de diseño (rama mejora-diseno-2026-11-10) */
+/* Los enlaces #metodo, #precios y #faq no quedan tapados por la cabecera fija */
+section[id]{scroll-margin-top:72px}
+/* Botones de descarga con respuesta al pasar el ratón */
+.badge,.apk{transition:transform .15s ease,box-shadow .15s ease}
+@media (hover:hover){.badge:hover,.apk:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(229,37,40,.25)}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
