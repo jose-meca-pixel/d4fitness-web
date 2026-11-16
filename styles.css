@@ -124,3 +124,16 @@ section[id]{scroll-margin-top:72px}
 .badge,.apk{transition:transform .15s ease,box-shadow .15s ease}
 @media (hover:hover){.badge:hover,.apk:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(229,37,40,.25)}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* 16/11/2026 · Sección «Para entrenadores» (pasos + lo que tienen sus clientes + planes de entrenador) */
+.sub{margin-top:3rem}
+.ent-grid .steps{margin-top:1.5rem}
+@media (min-width:900px){.ent-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}.ent-grid .sub{margin-top:1.5rem}}
+.plan h4{font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.01em;font-size:1.5rem;line-height:1;margin:0}
+.plans.tiers{grid-template-columns:1fr 1fr;margin-top:1.5rem}
+.tiers .plan{padding:1.1rem}
+.tiers .plan:first-child{grid-column:1/-1}
+.tiers .price{font-size:2rem}
+.tiers .note{margin-top:.3rem}
+@media (min-width:720px){.plans.tiers{grid-template-columns:repeat(3,1fr)}.tiers .plan:first-child{grid-column:auto}}
+@media (min-width:1000px){.plans.tiers{grid-template-columns:repeat(5,1fr)}}
